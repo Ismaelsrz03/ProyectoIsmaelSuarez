@@ -18,8 +18,36 @@ public class MainController {
 
 	@GetMapping("/")
 	String home() {
-
+//		crearTablas();
 		return "index";
+		
+	}
+	
+	@GetMapping("/alumnos")
+	String homealumnos() {
+		
+		return "alumnos";
+		
+	}
+	
+	@GetMapping("/entrenadores")
+	String homeentrenadores() {
+		
+		return "entrenadores";
+		
+	}
+	
+	@GetMapping("/ejercicios")
+	String homeejercicios() {
+		
+		return "ejercicios";
+		
+	}
+	
+	@GetMapping("/rutinas")
+	String homerutinas() {
+		
+		return "rutinas";
 		
 	}
 	
