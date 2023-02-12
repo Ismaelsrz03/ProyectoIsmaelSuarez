@@ -18,7 +18,7 @@ public class MainController {
 
 	@GetMapping("/")
 	String home() {
-//		crearTablas();
+		crearTablas();
 		return "index";
 		
 	}
@@ -131,13 +131,14 @@ public class MainController {
 		ej3.getEntrenadores().add(en1);
 		ej1.getEntrenadores().add(en2);
 		
+		entrenadorService.insertarEntrenador(en1);
+		entrenadorService.insertarEntrenador(en2);
 		
 		alumnoService.insertarAlumno(a1);
 		alumnoService.insertarAlumno(a2);
 		alumnoService.insertarAlumno(a3);
 		
-		entrenadorService.insertarEntrenador(en1);
-		entrenadorService.insertarEntrenador(en2);
+		
 		
 		rutinaService.insertarRutina(r1);
 		rutinaService.insertarRutina(r2);
