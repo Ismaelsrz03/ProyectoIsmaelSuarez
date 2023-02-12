@@ -4,12 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import principal.Main;
+import principal.controller.MainController;
 
 @SpringBootApplication
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+//		MainController m = new MainController();
+//        m.crearTablas();
 		SpringApplication.run(Main.class, args);
 	}
 

@@ -1,5 +1,6 @@
 package principal.modelo;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -56,6 +57,17 @@ public class Ejercicio {
 			
 			)
 	private Set<Rutina> rutinas;
+	
+public Ejercicio() {
+		
+	}
+	
+	public Ejercicio(String n) {
+		nombre = n;
+		entrenadores = new HashSet<Entrenador>();
+		alumnos = new HashSet<Alumno>();
+		rutinas = new HashSet<Rutina>();
+	}
 
 	public Integer getId() {
 		return id;

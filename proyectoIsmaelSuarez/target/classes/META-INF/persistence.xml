@@ -7,6 +7,10 @@
         </description>
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
  		
+ 		<class>principal.modelo.Alumno</class>
+ 		<class>principal.modelo.Entrenador</class>
+ 		<class>principal.modelo.Ejercicio</class>
+ 		<class>principal.modelo.Rutina</class>
                        
         <properties>
              
