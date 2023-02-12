@@ -3,6 +3,7 @@ package principal.modelo;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -36,7 +38,13 @@ public class Alumno {
 	@ManyToMany(mappedBy = "alumnos", fetch = FetchType.EAGER)
 	private Set<Ejercicio> ejercicios;
 	
-	@ManyToMany(mappedBy = "alumnos", fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "recibe",
+			joinColumns = {@JoinColumn(name = "id_Rutina")},
+			inverseJoinColumns = {@JoinColumn(name = "id_Alumno")}
+			
+			)
 	private Set<Rutina> rutinas;
 	
 	public Alumno() {

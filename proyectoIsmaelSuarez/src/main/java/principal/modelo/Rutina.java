@@ -31,22 +31,10 @@ public class Rutina {
 	@ManyToMany(mappedBy="rutinas", fetch = FetchType.EAGER)
 	private Set<Ejercicio> ejercicios;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "asigna",
-			joinColumns = {@JoinColumn(name = "id_Rutina")},
-			inverseJoinColumns = {@JoinColumn(name = "id_Entrenador")}
-			
-			)
+	@ManyToMany(mappedBy = "rutinas", fetch = FetchType.EAGER)
 	private Set<Entrenador> entrenadores;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "recibe",
-			joinColumns = {@JoinColumn(name = "id_Rutina")},
-			inverseJoinColumns = {@JoinColumn(name = "id_Alumno")}
-			
-			)
+	@ManyToMany(mappedBy = "rutinas", fetch = FetchType.EAGER)
 	private Set<Alumno> alumnos;
 	
 	public Rutina() {

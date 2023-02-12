@@ -3,12 +3,15 @@ package principal.modelo;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,7 +37,13 @@ public class Entrenador {
 	@ManyToMany(mappedBy = "entrenadores", fetch = FetchType.EAGER)
 	private Set<Ejercicio> ejercicios;
 	
-	@ManyToMany(mappedBy = "entrenadores", fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "asigna",
+			joinColumns = {@JoinColumn(name = "id_Rutina")},
+			inverseJoinColumns = {@JoinColumn(name = "id_Entrenador")}
+			
+			)
 	private Set<Rutina> rutinas;
 	
 	public Entrenador() {
