@@ -3,6 +3,7 @@ package principal.modelo;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import principal.modelo.Ejercicio;
 
@@ -31,10 +34,24 @@ public class Rutina {
 	@ManyToMany(mappedBy="rutinas", fetch = FetchType.EAGER)
 	private Set<Ejercicio> ejercicios;
 	
-	@ManyToMany(mappedBy = "rutinas", fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "entrenadores_rutinas",
+			joinColumns = {@JoinColumn(name = "id_Rutina")},
+			inverseJoinColumns = {@JoinColumn(name = "id_Entrenador")}
+			
+			)
+	@JsonIgnore
 	private Set<Entrenador> entrenadores;
 	
-	@ManyToMany(mappedBy = "rutinas", fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "alumnos_rutinas",
+			joinColumns = {@JoinColumn(name = "id_Rutina")},
+			inverseJoinColumns = {@JoinColumn(name = "id_Alumno")}
+			
+			)
+	@JsonIgnore
 	private Set<Alumno> alumnos;
 	
 	public Rutina() {

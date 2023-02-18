@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import principal.modelo.Alumno;
 import principal.modelo.Entrenador;
 import principal.modelo.Rutina;
@@ -33,29 +35,32 @@ public class Ejercicio {
 	
 	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
 	@JoinTable(
-			name = "Manda",
+			name = "entrenadores_ejercicios",
 			joinColumns = {@JoinColumn(name = "id_Entrenador")},
 			inverseJoinColumns = {@JoinColumn(name = "id_Ejercicio")}
 			
 			)
+	@JsonIgnore
 	private Set<Entrenador> entrenadores;
 	
 	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
 	@JoinTable(
-			name = "Realiza",
+			name = "alumnos_ejercicios",
 			joinColumns = {@JoinColumn(name = "id_Ejercicio")},
 			inverseJoinColumns = {@JoinColumn(name = "id_Alumno")}
 			
 			)
+	@JsonIgnore
 	private Set<Alumno> alumnos;
 	
 	@ManyToMany
 	@JoinTable(
-			name = "Tiene",
+			name = "rutinas_ejercicios",
 			joinColumns = {@JoinColumn(name = "id_Rutina")},
 			inverseJoinColumns = {@JoinColumn(name = "id_Ejercicio")}
 			
 			)
+	@JsonIgnore
 	private Set<Rutina> rutinas;
 	
 public Ejercicio() {

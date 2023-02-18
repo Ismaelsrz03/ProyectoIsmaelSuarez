@@ -18,7 +18,7 @@ public class MainController {
 
 	@GetMapping("/")
 	String home() {
-		crearTablas();
+//		crearTablas();
 		return "index";
 		
 	}
@@ -87,13 +87,6 @@ public class MainController {
 		a2.setEntrenadores(en1);
 		a3.setEntrenadores(en2);
 		
-		a1.getEjercicios().add(ej1);
-		a1.getEjercicios().add(ej2);
-		a1.getEjercicios().add(ej3);
-		a2.getEjercicios().add(ej2);
-		a2.getEjercicios().add(ej3);
-		a3.getEjercicios().add(ej1);
-		
 		ej1.getAlumnos().add(a1);
 		ej1.getAlumnos().add(a3);
 		ej2.getAlumnos().add(a1);
@@ -101,17 +94,24 @@ public class MainController {
 		ej3.getAlumnos().add(a1);
 		ej3.getAlumnos().add(a2);
 		
-		r1.getEjercicios().add(ej1);
-		r1.getEjercicios().add(ej2);
-		r1.getEjercicios().add(ej3);
-		r2.getEjercicios().add(ej1);
-		r2.getEjercicios().add(ej3);
+		a1.getEjercicios().add(ej1);
+		a1.getEjercicios().add(ej2);
+		a1.getEjercicios().add(ej3);
+		a2.getEjercicios().add(ej2);
+		a2.getEjercicios().add(ej3);
+		a3.getEjercicios().add(ej1);
 		
 		ej1.getRutinas().add(r1);
 		ej2.getRutinas().add(r1);
 		ej3.getRutinas().add(r1);
 		ej1.getRutinas().add(r2);
 		ej3.getRutinas().add(r2);
+		
+		r1.getEjercicios().add(ej1);
+		r1.getEjercicios().add(ej2);
+		r1.getEjercicios().add(ej3);
+		r2.getEjercicios().add(ej1);
+		r2.getEjercicios().add(ej3);
 		
 		r1.getAlumnos().add(a1);
 		
@@ -131,15 +131,15 @@ public class MainController {
 		ej3.getEntrenadores().add(en1);
 		ej1.getEntrenadores().add(en2);
 		
-		rutinaService.insertarRutina(r1);
-		rutinaService.insertarRutina(r2);
-		
 		entrenadorService.insertarEntrenador(en1);
 		entrenadorService.insertarEntrenador(en2);
 		
 		alumnoService.insertarAlumno(a1);
 		alumnoService.insertarAlumno(a2);
 		alumnoService.insertarAlumno(a3);
+		
+		rutinaService.insertarRutina(r1);
+		rutinaService.insertarRutina(r2);
 		
 		ejercicioService.insertarEjercicio(ej1);
 		ejercicioService.insertarEjercicio(ej2);

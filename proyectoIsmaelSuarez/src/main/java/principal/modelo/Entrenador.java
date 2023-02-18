@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
 
@@ -31,19 +33,13 @@ public class Entrenador {
 	@Column(name="nombre")
 	private String nombre;
 	
-	@OneToMany(mappedBy="entrenadores", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="entrenadores",cascade = CascadeType.ALL,orphanRemoval = true)
 	private Set<Alumno> alumnos;
 	
 	@ManyToMany(mappedBy = "entrenadores", fetch = FetchType.EAGER)
 	private Set<Ejercicio> ejercicios;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "asigna",
-			joinColumns = {@JoinColumn(name = "id_Rutina")},
-			inverseJoinColumns = {@JoinColumn(name = "id_Entrenador")}
-			
-			)
+	@ManyToMany(mappedBy = "entrenadores", fetch = FetchType.EAGER)
 	private Set<Rutina> rutinas;
 	
 	public Entrenador() {
