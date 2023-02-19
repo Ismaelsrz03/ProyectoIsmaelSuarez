@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<head th:insert="librerias::librerias">
+
+</head>
+<body style="background-color: lightblue;">
+<div class="container">
+
+<header>
+
+<div th:insert="top::top"></div>
+
+</header>
+
+<h1 class="mt-5">Ejercicios en Spring </h1>
+
+<!-- Imprimir tabla ejercicios -->
+
+<table class="table table-dark">
+<thead class = "table-dark bg-info text-white">
+<tr>
+<th>Id </th>
+<th>Nombre</th>
+<th>Editar</th>
+<th>Borrar</th>
+</tr>
+</thead>
+<tbody>
+<!-- El meolo -->
+	<tr th:if="${listaEjercicios.empty}">
+		<td colspan="2"> No hay ejercicios</td>
+	</tr>
+	<tr th:each="ejercicio:${listaEjercicios}">
+	<td>
+		<a th:href="@{/ejercicios/{id}(id=${ejercicio.id})}" class="btn btn-primary btn-sm">
+			<span th:text="${ejercicio.id}"> </span>
+		</a>
+	</td>
+	<td>
+		<span th:text="${ejercicio.nombre}"> </span>
+	</td>
+	
+	<td>
+		<a th:attr="data-target='#modal-edit'+${ejercicio.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
+	</td>
+	
+	<td>
+		<a th:attr="data-target='#modal-delete'+${ejercicio.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+	</td>
+	
+	<!-- edit modal -->
+	
+	<div class="modal fade" th:id="modal-edit+${ejercicio.id}">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Editar</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Introduce el nuevo ejercicio:
+	<strong><span th:text="${ejercicio.nombre}"> </span></strong></p>
+	
+	<!-- formulario nombre a editar-->
+	<form action="#" th:action="@{/ejercicios/edit/{id}(id=${ejercicio.id})}" th:object="${ejercicioaEditar}" method="post">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Nombre</label>
+	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" th:attr="placeholder=${ejercicio.nombre}"/>
+	 
+	 </div>
+	 
+	 </div>
+	 
+	 </div>
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Editar" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin modal -->
+	
+	
+	<!-- delete modal -->
+	
+	<div class="modal fade" th:id="modal-delete+${ejercicio.id}">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Eliminar</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	
+	<div class="modal-body">
+	<p class="error-text"> ¿Está seguro de eliminar al ejercicio:
+	<strong><span th:text="${ejercicio.nombre}"> </span></strong>?</p>
+	
+	 </div>
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <a th:href="@{/ejercicios/delete/{id}(id=${ejercicio.id})}">
+	 <span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+	 </a>
+	 </div>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin delete modal -->
+	</tr>
+</tbody>
+</table>
+
+<div class="col-2 float right">
+
+<div class="p-5">
+<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#crearMensaje">
+Añadir ejercicio</button>
+</div>
+
+<!-- create modal -->
+	
+	<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Crear ejercicio</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Introduce el nuevo ejercicio:</p>
+	
+	<!-- formulario nombre a editar-->
+	<form action="#" th:action="@{/ejercicios/add/}" th:object="${ejercicioNuevo}" method="post">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Nombre</label>
+	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre"/>
+	 
+	 </div>
+	 
+	 </div>
+
+	 </div>
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Crear Ejercicio" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin create modal -->
+
+</div>
+
+</div>
+</body>

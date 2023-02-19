@@ -30,13 +30,6 @@ public class MainController {
 		
 	}
 	
-	@GetMapping("/ejercicios")
-	String homeejercicios() {
-		
-		return "ejercicios";
-		
-	}
-	
 	@GetMapping("/rutinas")
 	String homerutinas() {
 		
