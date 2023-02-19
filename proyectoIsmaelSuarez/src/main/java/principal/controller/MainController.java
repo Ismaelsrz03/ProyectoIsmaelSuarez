@@ -23,12 +23,6 @@ public class MainController {
 		
 	}
 
-	@GetMapping("/rutinas")
-	String homerutinas() {
-		
-		return "rutinas";
-		
-	}
 	
 	@Autowired
 	private AlumnoServiceImpl alumnoService;
