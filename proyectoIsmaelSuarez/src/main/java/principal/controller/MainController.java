@@ -22,14 +22,7 @@ public class MainController {
 		return "index";
 		
 	}
-	
-	@GetMapping("/entrenadores")
-	String homeentrenadores() {
-		
-		return "entrenadores";
-		
-	}
-	
+
 	@GetMapping("/rutinas")
 	String homerutinas() {
 		

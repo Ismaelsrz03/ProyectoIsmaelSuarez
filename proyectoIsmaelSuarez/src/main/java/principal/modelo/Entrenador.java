@@ -33,7 +33,7 @@ public class Entrenador {
 	@Column(name="nombre")
 	private String nombre;
 	
-	@OneToMany(mappedBy="entrenadores",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy="entrenadores",fetch = FetchType.EAGER)
 	private Set<Alumno> alumnos;
 	
 	@ManyToMany(mappedBy = "entrenadores", fetch = FetchType.EAGER)
