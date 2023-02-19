@@ -23,13 +23,6 @@ public class MainController {
 		
 	}
 	
-	@GetMapping("/alumnos")
-	String homealumnos() {
-		
-		return "alumnos";
-		
-	}
-	
 	@GetMapping("/entrenadores")
 	String homeentrenadores() {
 		
