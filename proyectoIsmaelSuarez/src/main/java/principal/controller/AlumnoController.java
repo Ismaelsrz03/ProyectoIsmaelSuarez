@@ -65,9 +65,12 @@ public class AlumnoController {
 		
 		alumnoaEditar.setNombre(alumnoEditado.getNombre());
 		
-		Entrenador e = entrenadorService.obtenerEntrenadorPorID(alumnoEditado.getEntrenadores().getId());
-		
-		alumnoEditado.setEntrenadores(e);
+		if (alumnoEditado.getEntrenadores() != null) {
+			Entrenador e = entrenadorService.obtenerEntrenadorPorID(alumnoEditado.getEntrenadores().getId());
+			alumnoEditado.setEntrenadores(e);
+		} else {
+			alumnoEditado.setEntrenadores(null);
+		}
 		
 		for(Ejercicio ej:alumnoaEditar.getEjercicios()) {
 			if(!alumnoEditado.getEjercicios().contains(ej)) {
@@ -101,9 +104,11 @@ public class AlumnoController {
 	@PostMapping("/add")
 	public String addAlumno(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bindingresult,Integer id) {
 		
-		Entrenador entrenadorNuevo = entrenadorService.obtenerEntrenadorPorID(alumnoNew.getEntrenadores().getId());
-		entrenadorNuevo.getAlumnos().add(alumnoNew);
-		alumnoNew.setEntrenadores(entrenadorNuevo);
+		  if (alumnoNew.getEntrenadores() != null) { 
+		        Entrenador entrenadorNuevo = entrenadorService.obtenerEntrenadorPorID(alumnoNew.getEntrenadores().getId());
+		        entrenadorNuevo.getAlumnos().add(alumnoNew);
+		        alumnoNew.setEntrenadores(entrenadorNuevo);
+		    }
 		
 		for(Ejercicio e: alumnoNew.getEjercicios()) {
 			Ejercicio e2 = e;
