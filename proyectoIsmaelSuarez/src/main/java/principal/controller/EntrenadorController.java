@@ -66,7 +66,19 @@ public class EntrenadorController {
 			Entrenador entrenadoraEditar = entrenadorService.obtenerEntrenadorPorID(id);
 			
 			entrenadoraEditar.setNombre(entrenadorEditado.getNombre());
-			entrenadoraEditar.setAlumnos(entrenadorEditado.getAlumnos());
+			
+			for(Alumno a:entrenadoraEditar.getAlumnos()) {
+				if(!entrenadorEditado.getAlumnos().contains(a)) {
+					a.setEntrenadores(null);
+				}
+			}
+			for(Alumno a:entrenadorEditado.getAlumnos()) {
+				if(!entrenadoraEditar.getAlumnos().contains(a)) {
+					if(a.getEntrenadores()==null) {
+					a.setEntrenadores(entrenadorEditado);
+					}
+				}
+			}
 			
 			for(Ejercicio ej:entrenadoraEditar.getEjercicios()) {
 				if(!entrenadorEditado.getEjercicios().contains(ej)) {
@@ -102,7 +114,9 @@ public class EntrenadorController {
 			
 			for(Alumno a: entrenadorNew.getAlumnos()) {
 				Alumno a2 = a;
+				if(a2.getEntrenadores()==null) {
 				a2.setEntrenadores(entrenadorNew);
+				}
 			}
 			
 			for(Ejercicio e: entrenadorNew.getEjercicios()) {
