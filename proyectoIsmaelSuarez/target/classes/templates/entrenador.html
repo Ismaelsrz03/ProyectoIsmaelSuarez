@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<head th:insert="librerias::librerias">
+
+</head>
+
+<body style="background-color: lightblue;">
+
+	<div class="container">
+
+		<header>
+
+			<div th:insert="top::top"></div>
+
+		</header>
+
+		<div class="row pl-5 pr-5">
+			<div class="col-9">
+
+				<h5 class="m-5"> Ficha de entrenador</h5>
+
+				<div style="background-color: lightblue;" class="card border border primary" th:object="${entrenadorMostrar}">
+					<div class="card-body row pt-4 pb-4">
+						<div class="col-7">
+							<div class="card text-white bg-dark">
+								<div class="card-header">Ficha del entrenador
+								</div>
+								<div class="card-body">
+									<div class="mb-2">
+										<h5 th:text="*{nombre}" class="mb-2 card-text">Nombre del entrenador</h5>
+									</div>
+
+									<p> <a th:href="@{/entrenadores}" class="btn btn-primary mt-3">Cerrar</a></p>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-5">
+							<div class="card text-white bg-dark">
+								<div class="card-header">Alumno al que entrena:
+								</div>
+								<div class="card-body">
+									<span th:if="${entrenadorMostrar.alumnos.empty}">
+										<p>No tiene alumnos</p>
+									</span>
+								<span th:each="alumno: ${entrenadorMostrar.alumnos}">
+								<p><a style="text-decoration: none;" th:text="${alumno.nombre}" th:href="@{/alumnos/{id}(id=${alumno.id})}" class="card-text">ID</a>
+								</p>
+								</span>
+								
+							</div>
+							<div class="card text-white bg-dark">
+								<div class="card-header">Ejercicios del entrenador:
+								</div>
+								<div class="card-body">
+									<span th:if="${entrenadorMostrar.ejercicios.empty}">
+										<p>No tiene ejercicios</p>
+									</span>
+								<span th:each="ejercicio: ${entrenadorMostrar.ejercicios}">
+								<p><a style="text-decoration: none;" th:text="${ejercicio.nombre}" th:href="@{/ejercicios/{id}(id=${ejercicio.id})}" class="card-text">ID</a></p>
+								</span>
+								
+							</div>
+							<div class="card-header">Rutinas del entrenador:
+								</div>
+								<div class="card-body">
+									<span th:if="${entrenadorMostrar.rutinas.empty}">
+										<p>No tiene rutinas</p>
+									</span>
+								<span th:each="rutina: ${entrenadorMostrar.rutinas}">
+								<p><a style="text-decoration: none;" th:text="${rutina.nombre}" th:href="@{/rutinas/{id}(id=${rutina.id})}" class="card-text">ID</a></p>
+								</span>
+								
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
