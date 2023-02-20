@@ -11,6 +11,8 @@
  		<class>principal.modelo.Entrenador</class>
  		<class>principal.modelo.Ejercicio</class>
  		<class>principal.modelo.Rutina</class>
+ 		<class>principal.modelo.Usuario</class>
+ 		<class>principal.modelo.Rol</class>
                        
         <properties>
              

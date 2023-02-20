@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<head th:insert="librerias">
+</head>
+
+<body>
+
+	<div class="container">
+		<header>
+
+			<div th:insert="top::top"></div>
+
+		</header>
+
+		<div class="row">
+
+			<div class="col-4 mt-5 m-auto">
+				<h1 class="h3 text-grey-900"> Acceso al sistema</h1>
+
+				<div th:if="${param.error}">
+					<p class="alert alert-danger btn-sm m-2">Usuario o contraseña incorrectos</p>
+				</div>
+
+				<div th:if="${param.exito}">
+					<p class="alert alert-info">Registrado correctamente, introduce usuario y contraseña</p>
+				</div>
+
+				<div th:if="${param.logout}">
+					<p class="alert alert-info">Sesión cerrada correctamente</p>
+				</div>
+
+				<form method="post" action="/login">
+
+					<div class="form-row">
+
+						<div class="form-group col-8">
+
+							<label for="inputnombre">Usuario/a</label>
+							<input placeholder="Usuario" type="text" id="username" name="username" required="true"
+								class="form-control text-grey-900" />
+
+
+
+						</div>
+
+					</div>
+
+					<div class="form-row">
+
+						<div class="form-group col-8">
+
+							<label for="inputPass">Contraseña</label>
+
+							<div class="input-group" id="show_hide_password">
+								<input placeholder="Password" type="password" name="password" id="password"
+									required="true" class="form-control text-grey-900" />
+
+								<div class="input-group-text">
+									<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+								</div>
+
+							</div>
+
+
+
+						</div>
+
+					</div>
+
+					<div class="form-row m-auto">
+						<input type="submit" value="Acceder" class="btn btn-primary float-right mt-3">
+					</div>
+
+					<div class="form-row m-auto">
+						<br><a href="/forgot" class="float-left mt-5 mr-3">
+							¿Has olvidado tu contraseña?</a>
+					</div>
+
+					<div th:unless="${param.exito}">
+						<div class="row">
+							<div class="col-8 mt-5">
+								<div class="col-8">
+									<label for="inputSinRegistro">¿Aún no tienes cuenta?</label>
+									<a class="btn btn-primary float-right mt-3 mr-3"
+										th:href="@{/usuarios/registro}">Regístrate</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+</body>
