@@ -9,8 +9,8 @@
 <div th:insert="menu::menu"></div>
 
 </header>
-<h1>Index en Spring </h1>
- <nav class="menuAdmin" sec:authorize="hasAuthority('ROLE_ADMIN')">
+<div class="admin" sec:authorize="hasAuthority('ROLE_ADMIN')">
+ <nav class="menuAdmin">
         <ul>
           <li><a href="/alumnos">Alumnos</a></li>
           <li><a href="/entrenadores">Entrenadores</a></li>
@@ -18,6 +18,19 @@
           <li><a href="/rutinas">Rutinas</a></li>
         </ul>
       </nav>
+
+<h1 sec:authorize="isAuthenticated()">Bienvenido <span sec:authentication = "principal.username" />, esta es tu cuenta de administrador</h1>
+
+<p>En esta página podrás gestionar todos los aspectos de tu cuenta y de la empresa. Utiliza el menú de navegación para acceder a las diferentes secciones:</p>
+<li class="gestiones">En la sección "Alumnos" podrás ver toda la información de cada alumno. También podrás crear, editar y borrar cualquier dato de esta sección.</li>
+<li class="gestiones">En la sección "Entrenadores" podrás ver toda la información de cada alumno. También podrás crear, editar y borrar cualquier dato de esta sección.</li>
+<li class="gestiones">En la sección "Ejercicios" podrás ver toda la información de cada alumno. También podrás crear, editar y borrar cualquier dato de esta sección.</li>
+<li class="gestiones">En la sección "Rutinas" podrás ver toda la información de cada alumno. También podrás crear, editar y borrar cualquier dato de esta sección.</li>
+<li class="gestiones importante">Debes tener en cuenta que culquier dato cambiado en una sección puede afectar en las demás secciones.</li>
+<br><br>
+<p>¡¡¡Utiliza esta cuenta con responsabilidad!!!</p>
+
+</div>
 
 
 </body>
