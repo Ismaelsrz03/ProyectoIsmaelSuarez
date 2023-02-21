@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<head th:insert="librerias">
+<head>
+	<link rel="stylesheet" href="static/css/style.css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 
 <header>
 
-<div th:insert="top::top"></div>
+<div th:insert="menu::menu"></div>
 
 </header>
-
 <h1>Index en Spring </h1>
+ <nav class="menuAdmin" sec:authorize="hasAuthority('ROLE_ADMIN')">
+        <ul>
+          <li><a href="/alumnos">Alumnos</a></li>
+          <li><a href="/entrenadores">Entrenadores</a></li>
+          <li><a href="/ejercicios">Ejercicios</a></li>
+          <li><a href="/rutinas">Rutinas</a></li>
+        </ul>
+      </nav>
+
 
 </body>
