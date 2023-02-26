@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
 import principal.modelo.Entrenador;
+import principal.modelo.Rol;
 import principal.modelo.Rutina;
 import principal.servicio.impl.AlumnoServiceImpl;
 import principal.servicio.impl.EjercicioServiceImpl;
 import principal.servicio.impl.EntrenadorServiceImpl;
+import principal.servicio.impl.RolServiceImpl;
 import principal.servicio.impl.RutinaServiceImpl;
 
 @Controller
@@ -35,6 +37,9 @@ public class MainController {
 	
 	@Autowired
 	private RutinaServiceImpl rutinaService;
+	
+	@Autowired
+	private RolServiceImpl rolService;
 
 	public void crearTablas() {
 		
@@ -118,6 +123,13 @@ public class MainController {
 		ejercicioService.insertarEjercicio(ej2);
 		ejercicioService.insertarEjercicio(ej3);
 		
+		Rol rol1 = new Rol("ROLE_ADMIN");
+		Rol rol2 = new Rol("ROLE_USER");
+		Rol rol3 = new Rol("ROLE_ENTRENADOR");
+
+		rolService.insertarRol(rol1);
+		rolService.insertarRol(rol2);
+		rolService.insertarRol(rol3);
 		
 	}
 	

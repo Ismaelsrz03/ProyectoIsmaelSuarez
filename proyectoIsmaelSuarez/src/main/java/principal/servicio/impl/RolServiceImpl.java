@@ -32,7 +32,13 @@ public class RolServiceImpl implements RolService {
 		return null;
 	
 	}
-
+	
+	@Override
+	public Usuario insertarRol(Rol rol) {
+		rolrepo.save(rol);
+		return null;
+	}
+	
 	@Override
 	public Rol obtenerRolPorNombre(String nombre) {
 		// TODO Auto-generated method stub
