@@ -15,7 +15,7 @@
 			<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Salir"></input>
 			</form></div>
-			<a th:href="@{/usuarios/registro}">Registrarse</a>
+			<a sec:authorize="isAnonymous()" th:href="@{/usuarios/registro}">Registrarse</a>
 			</div>
 			<div></div>
 		</nav>
