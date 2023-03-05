@@ -1,6 +1,7 @@
 package principal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,11 +10,14 @@ import principal.modelo.Ejercicio;
 import principal.modelo.Entrenador;
 import principal.modelo.Rol;
 import principal.modelo.Rutina;
+import principal.modelo.Usuario;
+import principal.modelo.dto.UsuarioDTO;
 import principal.servicio.impl.AlumnoServiceImpl;
 import principal.servicio.impl.EjercicioServiceImpl;
 import principal.servicio.impl.EntrenadorServiceImpl;
 import principal.servicio.impl.RolServiceImpl;
 import principal.servicio.impl.RutinaServiceImpl;
+import principal.servicio.impl.UsuarioServiceImpl;
 
 @Controller
 public class MainController {
@@ -40,6 +44,11 @@ public class MainController {
 	
 	@Autowired
 	private RolServiceImpl rolService;
+	
+	@Autowired
+	private UsuarioServiceImpl usuarioService;
+	
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	public void crearTablas() {
 		
@@ -126,10 +135,21 @@ public class MainController {
 		Rol rol1 = new Rol("ROLE_ADMIN");
 		Rol rol2 = new Rol("ROLE_USER");
 		Rol rol3 = new Rol("ROLE_ENTRENADOR");
-
+		
+		UsuarioDTO userDTO = new UsuarioDTO("admin","admin","admin123");
+		
+		Usuario admin = new Usuario(userDTO.getUsername(),userDTO.getNombre(),passwordEncoder.encode(userDTO.getPassword()));
+		
+		rol1.getUsuarios().add(admin);
+		admin.getRoles().add(rol1);
+		
+		usuarioService.insertarUsuario(admin);
+		
 		rolService.insertarRol(rol1);
 		rolService.insertarRol(rol2);
 		rolService.insertarRol(rol3);
+		
+		
 		
 	}
 	

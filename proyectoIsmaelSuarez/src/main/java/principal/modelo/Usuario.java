@@ -51,7 +51,7 @@ public class Usuario implements UserDetails {
 	private Set<Rol> roles;
 	
 	public Usuario() {
-		roles = new HashSet<Rol>();
+		roles = new HashSet<>();
 	}
 	
 	public Usuario(String nombre, String usuario, String pass) {
