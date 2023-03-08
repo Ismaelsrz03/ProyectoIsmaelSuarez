@@ -118,6 +118,62 @@ public class MainController {
 		ej3.getEntrenadores().add(en1);
 		ej1.getEntrenadores().add(en2);
 		
+		Rol rol1 = new Rol("ROLE_ADMIN");
+		Rol rol2 = new Rol("ROLE_USER");
+		Rol rol3 = new Rol("ROLE_ENTRENADOR");
+		
+		UsuarioDTO user1DTO = new UsuarioDTO("admin","admin","admin123");
+		
+		Usuario admin = new Usuario(user1DTO.getUsername(),user1DTO.getNombre(),passwordEncoder.encode(user1DTO.getPassword()));
+		
+		UsuarioDTO u1DTO = new UsuarioDTO("Ismael","Ismael","12345");
+		UsuarioDTO u2DTO = new UsuarioDTO("Juan","Juan","12345");
+		UsuarioDTO u3DTO = new UsuarioDTO("Ana","Ana","12345");
+		UsuarioDTO u4DTO = new UsuarioDTO("Mario","Mario","12345");		
+		UsuarioDTO u5DTO = new UsuarioDTO("Luis","Luis","12345");
+		
+		Usuario u1 = new Usuario(u1DTO.getUsername(),u1DTO.getNombre(),passwordEncoder.encode(u1DTO.getPassword()));
+		Usuario u2 = new Usuario(u2DTO.getUsername(),u2DTO.getNombre(),passwordEncoder.encode(u2DTO.getPassword()));
+		Usuario u3 = new Usuario(u3DTO.getUsername(),u3DTO.getNombre(),passwordEncoder.encode(u3DTO.getPassword()));
+		Usuario u4 = new Usuario(u4DTO.getUsername(),u4DTO.getNombre(),passwordEncoder.encode(u4DTO.getPassword()));
+		Usuario u5 = new Usuario(u5DTO.getUsername(),u5DTO.getNombre(),passwordEncoder.encode(u5DTO.getPassword()));
+		
+		u1.getAlumnos().add(a1);
+		a1.setUsuarios(u1);
+		u2.getAlumnos().add(a2);
+		a2.setUsuarios(u2);
+		u3.getAlumnos().add(a3);
+		a3.setUsuarios(u3);
+		
+		u4.getEntrenadores().add(en1);
+		en1.setUsuarios(u4);
+		u5.getEntrenadores().add(en2);
+		en2.setUsuarios(u5);
+		
+		rol1.getUsuarios().add(admin);
+		admin.getRoles().add(rol1);
+		
+		rol2.getUsuarios().add(u1);
+		u1.getRoles().add(rol2);
+		
+		rol2.getUsuarios().add(u2);
+		u2.getRoles().add(rol2);
+		
+		rol2.getUsuarios().add(u3);
+		u3.getRoles().add(rol2);
+		
+		rol3.getUsuarios().add(u4);
+		u4.getRoles().add(rol3);
+		
+		rol3.getUsuarios().add(u5);
+		u5.getRoles().add(rol3);
+		
+		usuarioService.insertarUsuario(admin);
+		usuarioService.insertarUsuario(u1);
+		usuarioService.insertarUsuario(u2);
+		usuarioService.insertarUsuario(u3);
+		usuarioService.insertarUsuario(u4);
+		usuarioService.insertarUsuario(u5);
 		entrenadorService.insertarEntrenador(en1);
 		entrenadorService.insertarEntrenador(en2);
 		
@@ -132,18 +188,7 @@ public class MainController {
 		ejercicioService.insertarEjercicio(ej2);
 		ejercicioService.insertarEjercicio(ej3);
 		
-		Rol rol1 = new Rol("ROLE_ADMIN");
-		Rol rol2 = new Rol("ROLE_USER");
-		Rol rol3 = new Rol("ROLE_ENTRENADOR");
 		
-		UsuarioDTO userDTO = new UsuarioDTO("admin","admin","admin123");
-		
-		Usuario admin = new Usuario(userDTO.getUsername(),userDTO.getNombre(),passwordEncoder.encode(userDTO.getPassword()));
-		
-		rol1.getUsuarios().add(admin);
-		admin.getRoles().add(rol1);
-		
-		usuarioService.insertarUsuario(admin);
 		
 		rolService.insertarRol(rol1);
 		rolService.insertarRol(rol2);

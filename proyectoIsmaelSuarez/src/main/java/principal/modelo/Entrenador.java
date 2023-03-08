@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -42,6 +43,10 @@ public class Entrenador {
 	@ManyToMany(mappedBy = "entrenadores", fetch = FetchType.EAGER)
 	private Set<Rutina> rutinas;
 	
+	@ManyToOne
+	@JoinColumn(name= "id_usuario", nullable = true)
+	private Usuario usuarios;
+	
 	public Entrenador() {
 		
 	}
@@ -51,6 +56,7 @@ public class Entrenador {
 		alumnos = new HashSet<Alumno>();
 		ejercicios = new HashSet<Ejercicio>();
 		rutinas = new HashSet<Rutina>();
+		usuarios = new Usuario();
 	}
 
 	public Integer getId() {
@@ -92,6 +98,15 @@ public class Entrenador {
 	public void setRutinas(Set<Rutina> rutinas) {
 		this.rutinas = rutinas;
 	}
+
+	public Usuario getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Usuario usuarios) {
+		this.usuarios = usuarios;
+	}
+	
 	
 	
 }

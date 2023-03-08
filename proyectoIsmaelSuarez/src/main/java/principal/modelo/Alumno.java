@@ -43,6 +43,10 @@ public class Alumno {
 	@ManyToMany(mappedBy = "alumnos", fetch = FetchType.EAGER)
 	private Set<Rutina> rutinas;
 	
+	@ManyToOne
+	@JoinColumn(name= "id_usuario", nullable = true)
+	private Usuario usuarios;
+	
 	public Alumno() {
 		
 	}
@@ -52,6 +56,7 @@ public class Alumno {
 		ejercicios = new HashSet<Ejercicio>();
 		entrenadores = new Entrenador();
 		rutinas = new HashSet<Rutina>();
+		usuarios = new Usuario();
 	}
 
 	public Integer getId() {
@@ -92,6 +97,14 @@ public class Alumno {
 
 	public void setRutinas(Set<Rutina> rutinas) {
 		this.rutinas = rutinas;
+	}
+
+	public Usuario getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Usuario usuarios) {
+		this.usuarios = usuarios;
 	}
 	
 	

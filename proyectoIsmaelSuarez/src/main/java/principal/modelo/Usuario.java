@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -50,8 +51,16 @@ public class Usuario implements UserDetails {
 	@JsonIgnore
 	private Set<Rol> roles;
 	
+	@OneToMany(mappedBy="usuarios",fetch = FetchType.EAGER)
+	private Set<Alumno> alumnos = new HashSet<>();
+	
+	@OneToMany(mappedBy="usuarios",fetch = FetchType.EAGER)
+	private Set<Entrenador> entrenadores = new HashSet<>();
+	
 	public Usuario() {
 		roles = new HashSet<>();
+		alumnos = new HashSet<Alumno>();
+		entrenadores = new HashSet<Entrenador>();
 	}
 	
 	public Usuario(String nombre, String usuario, String pass) {
@@ -103,6 +112,24 @@ public class Usuario implements UserDetails {
 
 	public void setRoles(Set<Rol> roles) {
 		this.roles = roles;
+	}
+	
+	
+
+	public Set<Alumno> getAlumnos() {
+		return alumnos;
+	}
+
+	public void setAlumnos(Set<Alumno> alumnos) {
+		this.alumnos = alumnos;
+	}
+
+	public Set<Entrenador> getEntrenadores() {
+		return entrenadores;
+	}
+
+	public void setEntrenadores(Set<Entrenador> entrenadores) {
+		this.entrenadores = entrenadores;
 	}
 
 	@Override
