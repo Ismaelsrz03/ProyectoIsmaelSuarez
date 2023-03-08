@@ -11,7 +11,6 @@ public interface RolService extends UserDetailsService {
 	
 	public Rol obtenerRolPorNombre (String nombre);
 
-	Usuario insertarRol(Rol rol);
+	Rol insertarRol(Rol rol);
 
-	
 }

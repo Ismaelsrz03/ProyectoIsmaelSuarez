@@ -34,7 +34,7 @@ public class RolServiceImpl implements RolService {
 	}
 	
 	@Override
-	public Usuario insertarRol(Rol rol) {
+	public Rol insertarRol(Rol rol) {
 		rolrepo.save(rol);
 		return null;
 	}
