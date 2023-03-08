@@ -5,6 +5,7 @@ public class UsuarioDTO {
 	private String username;
 	private String nombre;
 	private String password;
+	private String rol;
 	
 	public UsuarioDTO() {
 		
@@ -40,9 +41,13 @@ public class UsuarioDTO {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
-	
-	
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
 	
 }
