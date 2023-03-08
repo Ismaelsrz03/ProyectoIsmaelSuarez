@@ -22,14 +22,6 @@ import principal.servicio.impl.UsuarioServiceImpl;
 @Controller
 public class MainController {
 
-	@GetMapping("/")
-	String home() {
-//		crearTablas();
-		return "index";
-		
-	}
-
-	
 	@Autowired
 	private AlumnoServiceImpl alumnoService;
 	
@@ -49,6 +41,19 @@ public class MainController {
 	private UsuarioServiceImpl usuarioService;
 	
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
+	private boolean tablasCreadas = false;
+	
+	@GetMapping("/")
+	String home() {
+		if (tablasCreadas==false && usuarioService.listarUsuarios().isEmpty()) {
+            crearTablas();
+            tablasCreadas = true;
+        }
+
+		return "index";
+		
+	}
 
 	public void crearTablas() {
 		
