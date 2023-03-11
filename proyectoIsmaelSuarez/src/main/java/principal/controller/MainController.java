@@ -179,22 +179,21 @@ public class MainController {
 		usuarioService.insertarUsuario(u3);
 		usuarioService.insertarUsuario(u4);
 		usuarioService.insertarUsuario(u5);
+		
+		ejercicioService.insertarEjercicio(ej1);
+		ejercicioService.insertarEjercicio(ej2);
+		ejercicioService.insertarEjercicio(ej3);
+		
+		rutinaService.insertarRutina(r1);
+		rutinaService.insertarRutina(r2);
+		
 		entrenadorService.insertarEntrenador(en1);
 		entrenadorService.insertarEntrenador(en2);
 		
 		alumnoService.insertarAlumno(a1);
 		alumnoService.insertarAlumno(a2);
 		alumnoService.insertarAlumno(a3);
-		
-		rutinaService.insertarRutina(r1);
-		rutinaService.insertarRutina(r2);
-		
-		ejercicioService.insertarEjercicio(ej1);
-		ejercicioService.insertarEjercicio(ej2);
-		ejercicioService.insertarEjercicio(ej3);
-		
-		
-		
+
 		rolService.insertarRol(rol1);
 		rolService.insertarRol(rol2);
 		rolService.insertarRol(rol3);

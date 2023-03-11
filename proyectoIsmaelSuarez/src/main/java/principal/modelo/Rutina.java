@@ -31,27 +31,20 @@ public class Rutina {
 	@Column(name="Nombre")
 	private String nombre;
 	
-	@ManyToMany(mappedBy="rutinas", fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "rutinas_ejercicios",
+			joinColumns = {@JoinColumn(name = "id_Rutina")},
+			inverseJoinColumns = {@JoinColumn(name = "id_Ejercicio")}
+			
+			)
+	@JsonIgnore
 	private Set<Ejercicio> ejercicios;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "entrenadores_rutinas",
-			joinColumns = {@JoinColumn(name = "id_Rutina")},
-			inverseJoinColumns = {@JoinColumn(name = "id_Entrenador")}
-			
-			)
-	@JsonIgnore
+	@ManyToMany(mappedBy = "rutinas", fetch = FetchType.EAGER)
 	private Set<Entrenador> entrenadores;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "alumnos_rutinas",
-			joinColumns = {@JoinColumn(name = "id_Rutina")},
-			inverseJoinColumns = {@JoinColumn(name = "id_Alumno")}
-			
-			)
-	@JsonIgnore
+	@ManyToMany(mappedBy = "rutinas", fetch = FetchType.EAGER)
 	private Set<Alumno> alumnos;
 	
 	public Rutina() {
