@@ -104,7 +104,7 @@ public class EntrenadorController {
 				}
 			}
 			
-			entrenadorService.insertarEntrenador(entrenadoraEditar);
+			entrenadorService.insertarEntrenador(entrenadorEditado);
 			
 			return "redirect:/entrenadores";
 		}

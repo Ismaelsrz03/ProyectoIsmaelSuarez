@@ -78,7 +78,7 @@ public class RutinaController {
 				}
 			}
 			
-			rutinaService.insertarRutina(rutinaaEditar);
+			rutinaService.insertarRutina(rutinaEditado);
 			
 			return "redirect:/rutinas";
 		}
