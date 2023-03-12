@@ -1,3 +1,15 @@
+@keyframes corre{
+    to{
+        margin-left: 500px;
+        opacity: 0;
+    }
+}
+
+.correr{
+    position: absolute;
+    animation: corre 5s infinite ease-in-out;
+    margin-left: 1%;
+}
 .menuTop {
     background-color: black;
     color: #fff;
