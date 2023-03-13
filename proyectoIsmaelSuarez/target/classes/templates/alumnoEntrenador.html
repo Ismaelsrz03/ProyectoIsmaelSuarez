@@ -33,7 +33,7 @@
         </a>
       </li>
       <li>
-        <a href="/ejercicios" class="nav-link text-black">
+        <a href="/alumnoEjercicio" class="nav-link text-black">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
           Ejercicios
         </a>
@@ -54,27 +54,19 @@
     <hr>
   </div>
 	</div>
-	<div class="col-6 p-3" th:object="${alumnoMostrar}">
-		<div th:if="${alumnoMostrar.entrenadores==null}">
+	<div class="col-6 p-3" th:object="${miEntrenador}">
+		<div th:if="${miEntrenador==null}">
 			<h1>Todavía no tienes entrenador</h1>
 		</div>
-		<div th:each="entrenador: ${alumnoMostrar.entrenadores}">
-		<h1>Entrenador <span th:text="${entrenador.nombre}"> </h1>
-		<hr>
-		<p>Bienvenido a tu cuenta de alumno. Aquí podrás gestionar tus entrenamientos de manera
-			efectiva.
-		<p>Tienes la posibilidad de crear tus propios ejercicios o buscar un entrenador.
-			Además, tu entrenador y tú podeis realizar un seguimiento de tu entrenamiento.
-		</p>
-		<p>También tienes una opción dónde guardar tus propias rutinas.</p>
-		<p>¡¡¡COMIENZA AHORA!!!</p>
 		
-		<div class="container">
-		<img class="correr" src="../Imagenes/correr.png" width="50" height="50">
-		</div>
+		<h1>Entrenador <span th:text="${miEntrenador.nombre}"> </h1>
+		<hr>
+		<p>¡Hola! Soy tu entrenador online. Te ayudaré con tus objetivos compartiendo ejercicios y rutinas.</p>
+		<p>Tambié haré un seguimiento de tu entrenamiento para ver tus progresos.</p>
+		 
 	</div>
 	<div class="col-3 p-3">
-		<h1>Novedades</h1>
+	</div>
 	</div>
 </main>
 

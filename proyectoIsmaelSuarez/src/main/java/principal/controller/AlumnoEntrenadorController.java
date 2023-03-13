@@ -1,8 +1,11 @@
 package principal.controller;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,17 +45,22 @@ public class AlumnoEntrenadorController {
 	@Autowired
 	private UsuarioServiceImpl usuarioService;
 	
+	private Usuario usuarioLog;
+	
+	private Alumno alumnoUsuario;
+	
 	@GetMapping(value= {"","/"})
-	String homealumnos(Model model) {
+	String homealumnosEntrenador(Model model) {
 		
 		// Salir a buscar a la BBDD
-		
+		usuarioLog= obtenerLog();
+		alumnoUsuario = obtenerAlumnoDeUsuario();
 		ArrayList<Alumno> misalumnos = (ArrayList<Alumno>) alumnoService.listarAlumnos();
 		ArrayList<Entrenador> misentrenadores = (ArrayList<Entrenador>) entrenadorService.listarEntrenadors();
 		ArrayList<Ejercicio> misejercicios = (ArrayList<Ejercicio>) ejercicioService.listarEjercicios();
 		ArrayList<Rutina> misrutinas = (ArrayList<Rutina>) rutinaService.listarRutinas();
 		ArrayList<Usuario> misusuarios = (ArrayList<Usuario>) usuarioService.listarUsuarios();
-		
+	
 		model.addAttribute("listaalumnos", misalumnos);
 		model.addAttribute("listaEntrenadores",misentrenadores);
 		model.addAttribute("listaEjercicios",misejercicios);
@@ -60,10 +68,35 @@ public class AlumnoEntrenadorController {
 		model.addAttribute("listaUsuarios",misusuarios);
 		model.addAttribute("alumnoaEditar", new Alumno());
 		model.addAttribute("alumnoNuevo", new Alumno());
+		model.addAttribute("miEntrenador",alumnoUsuario.getEntrenadores());
 		
 		return "alumnoEntrenador";
 	}
 	
+	private Alumno obtenerAlumnoDeUsuario() {
+		Alumno res = null;
+		Set<Alumno> alumnos = usuarioLog.getAlumnos();
+		for (Alumno alumno : alumnos) {
+			if(alumno!=null)
+				return alumno;
+		} 	
+		return res;
+	}
+
+	private Usuario obtenerLog() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Usuario u2 = null;
+		UserDetails userDetails = null;
+		
+		if(principal instanceof UserDetails) {
+			
+			userDetails = (UserDetails) principal;
+			
+		 u2 = usuarioService.obtenerUsuarioPorNombre(userDetails.getUsername());
+		}
+		return u2;
+	}
+
 	@PostMapping("/edit/{id}")
 	public String editarAlumno(@PathVariable Integer id, @ModelAttribute("alumnoaEditar") Alumno alumnoEditado, BindingResult bindingresult) {
 		
@@ -149,5 +182,4 @@ public class AlumnoEntrenadorController {
 		
 		return "redirect:/alumnos";
 	}
-	
 }
