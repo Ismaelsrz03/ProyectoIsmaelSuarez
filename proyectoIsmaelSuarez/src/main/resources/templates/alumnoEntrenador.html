@@ -54,12 +54,12 @@
 		<div th:if="${miEntrenador==null}">
 			<h1>Todavía no tienes entrenador</h1>
 		</div>
-		
+		<div th:if="${miEntrenador!=null}">
 		<h1>Entrenador <span th:text="${miEntrenador.nombre}"> </h1>
 		<hr>
 		<p>¡Hola! Soy tu entrenador online. Te ayudaré con tus objetivos compartiendo ejercicios y rutinas.</p>
 		<p>Tambié haré un seguimiento de tu entrenamiento para ver tus progresos.</p>
-		 
+		 </div>
 	</div>
 	<div class="col-3 p-3">
 	</div>

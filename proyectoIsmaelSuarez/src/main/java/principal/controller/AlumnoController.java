@@ -16,10 +16,12 @@ import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
 import principal.modelo.Entrenador;
 import principal.modelo.Rutina;
+import principal.modelo.Usuario;
 import principal.servicio.impl.AlumnoServiceImpl;
 import principal.servicio.impl.EjercicioServiceImpl;
 import principal.servicio.impl.EntrenadorServiceImpl;
 import principal.servicio.impl.RutinaServiceImpl;
+import principal.servicio.impl.UsuarioServiceImpl;
 
 @RequestMapping("/alumnos")
 @Controller
@@ -36,6 +38,9 @@ public class AlumnoController {
 
 	@Autowired
 	private RutinaServiceImpl rutinaService;
+	
+	@Autowired
+	private UsuarioServiceImpl usuarioService;
 	
 	@GetMapping(value= {"","/"})
 	String homealumnos(Model model) {
@@ -70,6 +75,11 @@ public class AlumnoController {
 			alumnoEditado.setEntrenadores(e);
 		} else {
 			alumnoEditado.setEntrenadores(null);
+		}
+		
+		if (alumnoaEditar.getUsuarios() != null) {
+			Usuario u = usuarioService.obtenerUsuarioPorID(alumnoaEditar.getUsuarios().getId());
+			alumnoEditado.setUsuarios(u);
 		}
 		
 		for(Ejercicio ej:alumnoaEditar.getEjercicios()) {
