@@ -94,4 +94,63 @@
 	
 </div>
 
+<div class="row" sec:authorize="hasAuthority('ROLE_ENTRENADOR')">
+	<div class="col-3">
+		<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white" style="width: 300px;">
+    <h1>
+       Bienvenido  <span sec:authentication = "principal.username" />
+    </h1>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="/" class="nav-link bg-success text-white" aria-current="page" role="button">
+          <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+         Alummos
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+          Ejercicios
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+          Rutinas
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+          Progreso
+        </a>
+      </li>
+    </ul>
+    <hr>
+  </div>
+	</div>
+	<div class="col-6 p-3">
+		<h1>Invincible body</h1>
+		<hr>
+		<p>Bienvenido a tu cuenta de entrenador. Aquí podrás gestionar los entrenamientos de tus alumnos de manera
+			efectiva.
+		<p>Tienes la posibilidad de crear tus propios ejercicios y rutinas y asignarlos a tus alumnos.
+			Además, tu alumno y tú podeis realizar un seguimiento del entrenamiento.
+		</p>
+		<p>¡¡¡COMIENZA AHORA!!!</p>
+		
+		<div class="container">
+		<img class="correr" src="../Imagenes/correr.png" width="50" height="50">
+		</div>
+	</div>
+	
+</div>
+
 </body>
