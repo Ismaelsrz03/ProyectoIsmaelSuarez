@@ -50,10 +50,10 @@
     <hr>
   </div>
 	</div>
-	<div class="col-6 p-3" th:object="${misAlumnos}">
-		<h1>Alumnos</h1>
+	<div class="col-6 p-3" th:object="${misRutinas}">
+		<h1>Ejercicios</h1>
 		<hr>
-		<p>Aquí puedes ver los alumnos que tienes</p>
+		<p>Aquí puedes ver tus ejercicios</p>
 		
 		<table class="table table-dark">
 <thead class = "table-dark bg-info text-white">
@@ -65,20 +65,20 @@
 </thead>
 <tbody>
 <!-- El meolo -->
-	<tr th:if="${misAlumnos.empty}">
-		<td colspan="2">Todavía no tienes alumnos</td>
+	<tr th:if="${misRutinas.empty}">
+		<td colspan="2">Todavía no tienes rutinas</td>
 	</tr>
-	<tr th:each="alumno:${miEntrenador.alumnos}">
+	<tr th:each="rutina:${miEntrenador.rutinas}">
 	<td>
-		<span th:text="${alumno.nombre}"> </span>
+		<span th:text="${rutina.nombre}"> </span>
 	</td>
 	
 	<td>
-		<a th:attr="data-target='#modal-edit'+${alumno.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
+		<a th:attr="data-target='#modal-edit'+${rutina.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
 	</td>
 	
 	<td>
-		<a th:attr="data-target='#modal-delete'+${alumno.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+		<a th:attr="data-target='#modal-delete'+${rutina.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
 	</td>
 	
 	<!-- edit modal 
