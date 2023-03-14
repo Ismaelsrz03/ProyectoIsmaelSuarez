@@ -26,9 +26,9 @@ import principal.servicio.impl.EntrenadorServiceImpl;
 import principal.servicio.impl.RutinaServiceImpl;
 import principal.servicio.impl.UsuarioServiceImpl;
 
-@RequestMapping("/alumnoEjercicio")
+@RequestMapping("/alumnoRutina")
 @Controller
-public class AlumnoEjercicioController {
+public class AlumnoRutinaController {
 
 	@Autowired
 	private AlumnoServiceImpl alumnoService;
@@ -49,7 +49,7 @@ public class AlumnoEjercicioController {
 	
 	private Alumno alumnoUsuario;
 	
-	private Ejercicio ejerciciosAlumno;
+	private Rutina rutinasAlumno;
 	
 	@GetMapping(value= {"","/"})
 	String homealumnosEjercicios(Model model) {
@@ -57,7 +57,7 @@ public class AlumnoEjercicioController {
 		// Salir a buscar a la BBDD
 		usuarioLog= obtenerLog();
 		alumnoUsuario = obtenerAlumnoDeUsuario();
-		ejerciciosAlumno = obtenerEjerciciosDeAlumno();
+		rutinasAlumno = obtenerRutinasDeAlumno();
 		ArrayList<Alumno> misalumnos = (ArrayList<Alumno>) alumnoService.listarAlumnos();
 		ArrayList<Entrenador> misentrenadores = (ArrayList<Entrenador>) entrenadorService.listarEntrenadors();
 		ArrayList<Ejercicio> misejercicios = (ArrayList<Ejercicio>) ejercicioService.listarEjercicios();
@@ -74,8 +74,9 @@ public class AlumnoEjercicioController {
 		model.addAttribute("miAlumno",alumnoUsuario);
 		model.addAttribute("miEntrenador",alumnoUsuario.getEntrenadores());
 		model.addAttribute("misEjercicios",alumnoUsuario.getEjercicios());
+		model.addAttribute("misRutinas",alumnoUsuario.getRutinas());
 		
-		return "alumnoEjercicio";
+		return "alumnoRutina";
 	}
 	
 	private Alumno obtenerAlumnoDeUsuario() {
@@ -88,12 +89,12 @@ public class AlumnoEjercicioController {
 		return res;
 	}
 	
-	private Ejercicio obtenerEjerciciosDeAlumno() {
-		Ejercicio res = null;
-		Set<Ejercicio> ejercicios = alumnoUsuario.getEjercicios();
-		for (Ejercicio ejercicio : ejercicios) {
-			if(ejercicio!=null)
-				return ejercicio;
+	private Rutina obtenerRutinasDeAlumno() {
+		Rutina res = null;
+		Set<Rutina> rutinas = alumnoUsuario.getRutinas();
+		for (Rutina rutina : rutinas) {
+			if(rutina!=null)
+				return rutina;
 		}
 		return res;
 	}
@@ -111,7 +112,7 @@ public class AlumnoEjercicioController {
 		}
 		return u2;
 	}
-/*
+
 	@PostMapping("/edit/{id}")
 	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado, BindingResult bindingresult) {
 		
@@ -129,7 +130,7 @@ public class AlumnoEjercicioController {
 //		ejercicioService.insertarEjercicio(ejercicioEditado);
 		alumnoService.insertarAlumno(alumnoUsuario);
 		return "redirect:/alumnoEjercicio";
-	}*/
+	}
 	
 	@PostMapping("/add")
 	public String addEjercicio(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bindingresult,Integer id) {

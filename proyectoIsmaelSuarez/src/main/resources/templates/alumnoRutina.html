@@ -59,31 +59,37 @@
 <thead class = "table-dark bg-info text-white">
 <tr>
 <th>Nombre</th>
+<th>Ejercicios</th>
 <th>Editar</th>
 <th>Borrar</th>
 </tr>
 </thead>
 <tbody>
 <!-- El meolo -->
-	<tr th:if="${misEjercicios.empty}">
-		<td colspan="2"> No hay ejercicios</td>
+	<tr th:if="${misRutinas.empty}">
+		<td colspan="2"> No hay rutinas</td>
 	</tr>
-	<tr th:each="ejercicio:${miAlumno.ejercicios}">
+	<tr th:each="rutina:${miAlumno.rutinas}">
 	<td>
-		<span th:text="${ejercicio.nombre}"> </span>
+		<span th:text="${rutina.nombre}"> </span>
+	</td>
+	<td>
+		<span th:each="ejercicio:${rutina.ejercicios}">
+		<span th:text="${ejercicio.getNombre()}">Nombre del ejercicio</span>
+		<span>,</span>
+		</span>
+	</td>
+	<td>
+		<a th:attr="data-target='#modal-edit'+${rutina.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
 	</td>
 	
 	<td>
-		<a th:attr="data-target='#modal-edit'+${ejercicio.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
+		<a th:attr="data-target='#modal-delete'+${rutina.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
 	</td>
 	
-	<td>
-		<a th:attr="data-target='#modal-delete'+${ejercicio.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
-	</td>
+	<!-- edit modal 
 	
-	<!-- edit modal -->
-	
-	<div class="modal fade" th:id="modal-edit+${ejercicio.id}">
+	<div class="modal fade" th:id="modal-edit+${rutina.id}">
 	<div class="modal-dialog" role="document">
 	<div class="modal-content">
 	<div class="modal-header">
@@ -94,16 +100,16 @@
 	</div>
 	<div class="modal-body">
 	<p class="error-text"> Introduce el nuevo ejercicio:
-	<strong><span th:text="${ejercicio.nombre}"> </span></strong></p>
+	<strong><span th:text="${rutina.nombre}"> </span></strong></p>
 	
-	<!-- formulario nombre a editar-->
-	<form action="#" th:action="@{/alumnoEjercicio/edit/{id}(id=${ejercicio.id})}" th:object="${ejercicioaEditar}" method="post">
+	formulario nombre a editar
+	<form action="#" th:action="@{/alumnoRutina/edit/{id}(id=${rutina.id})}" th:object="${rutinaaEditar}" method="post">
 	 
 	 <div class="form-row">
 	 
 	 <div class="form-group mt-1">
 	 <label for="texto">Nombre</label>
-	 <input type="text" th:field=${ejercicioaEditar.nombre} class="form-control" id="exampleInputEmail1" th:attr="placeholder=${ejercicio.nombre}"/>
+	 <input type="text" th:field=${rutinaaEditar.nombre} class="form-control" id="exampleInputEmail1" th:attr="placeholder=${rutina.nombre}"/>
 	 
 	 </div>
 	 
@@ -120,7 +126,7 @@
 	
 	</div>
 	</div>
-	</div>
+	</div>-->
 	
 	<!-- fin modal -->
 	
