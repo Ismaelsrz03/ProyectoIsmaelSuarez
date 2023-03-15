@@ -4,52 +4,40 @@
 </head>
 
 <body>
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
 
-	<div class="container">
-		<header>
+                <div class="text-center">
+                  <img src="../Imagenes/logo2.png"
+                    style="width: 200px; height: 200px;" alt="logo">
+                </div>
 
-			<div th:insert="top::top"></div>
+                <form method="post" th:action="@{/usuarios/addRegistro}" th:object="${newUserDTO}">
+                  <h1>Crea tu cuenta Invincible Body</h1>
 
-		</header>
-
-		<div class="row">
-
-			<div class="col-4 mt-5 m-auto">
-				<h1 class="h3 text-grey-900"> Nuevo Registro</h1>
-
-				<form method="post" th:action="@{/usuarios/addRegistro}" th:object="${newUserDTO}">
-
-					<div class="form-row">
-
-						<div class="form-group col-8">
-
-							<label for="inputnombre">Nickname</label>
+                  <div class="form-outline mb-4">
+					  	<label for="inputnombre">Nickname</label>
 							<input placeholder="Nombre" th:field="*{nombre}" type="text" id="nombre" name="nombre"
 								required="true" class="form-control text-grey-900" />
 
-
-
-						</div>
-
-						<div class="form-row">
-
-							<div class="form-group col-8">
-
-								<label for="inputnombre">Usuario</label>
+                    
+                  </div>
+                  
+                  <div class="form-outline mb-4">
+					 <label for="inputnombre">Usuario</label>
 								<input th:field="*{username}" placeholder="Nombre" type="text" id="username"
 									name="username" required="true" class="form-control text-grey-900" />
+                    
+                  </div>
 
-
-
-							</div>
-
-						</div>
-
-						<div class="form-row">
-
-							<div class="form-group col-8">
-
-								<label for="inputPass">Contraseña</label>
+                  <div class="form-outline mb-4">
+                   <label for="inputPass">Contraseña</label>
 
 								<div class="input-group" id="show_hide_password">
 									<input th:field="*{password}" placeholder="Password" type="password" name="password"
@@ -58,16 +46,10 @@
 									<div class="input-group-text">
 										<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
 									</div>
-
 								</div>
-
-
-
-							</div>
-
-						</div>
-						<br>
-						<div class="form-row">
+                  </div>
+                  
+                  <div class="form-row">
 
 							<div class="form-group col-10">
 							<label>Tipo de cuenta</label>
@@ -90,14 +72,23 @@
 
 						</div>
 
-						<div class="form-row m-auto">
-							<input type="submit" value="Acceder" class="btn btn-primary float-right mt-3">
-						</div>
+                  <div class="text-center pt-1 mb-5 pb-1">
+						<input type="submit" value="Acceder" class="btn btn-primary float-right mt-3">
+                  </div>
 
-				</form>
-			</div>
+                </form>
 
-		</div>
-	</div>
-
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2" style="background-image: url('../Imagenes/registroGif.gif');
+              background-repeat: no-repeat;background-size: cover;background-position: center;">
+              <div class="text-black px-3 py-4 p-md-5 mx-md-4" >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </body>

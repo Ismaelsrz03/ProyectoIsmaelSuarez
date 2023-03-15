@@ -5,19 +5,8 @@
 
 <body>
 
-	<div class="container">
-		<header>
-
-			<div th:insert="top::top"></div>
-
-		</header>
-
-		<div class="row">
-
-			<div class="col-4 mt-5 m-auto">
-				<h1 class="h3 text-grey-900"> Acceso al sistema</h1>
-
-				<div th:if="${param.error}">
+	<section class="h-100 gradient-form" style="background-color: #eee;">
+		<div th:if="${param.error}">
 					<p class="alert alert-danger btn-sm m-2">Usuario o contraseña incorrectos</p>
 				</div>
 
@@ -28,28 +17,31 @@
 				<div th:if="${param.logout}">
 					<p class="alert alert-info">Sesión cerrada correctamente</p>
 				</div>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
 
-				<form method="post" action="/login">
+                <div class="text-center">
+                  <img src="../Imagenes/logo2.png"
+                    style="width: 200px; height: 200px;" alt="logo">
+                </div>
 
-					<div class="form-row">
+                <form method="post" action="/login">
+                  <h1>Inicia sesión con tu cuenta</h1>
 
-						<div class="form-group col-8">
-
-							<label for="inputnombre">Usuario/a</label>
-							<input placeholder="Usuario" type="text" id="username" name="username" required="true"
+                  <div class="form-outline mb-4">
+					  <label class="form-label" for="form2Example11">Username</label>
+                    <input placeholder="Usuario" type="text" id="username" name="username" required="true"
 								class="form-control text-grey-900" />
+                    
+                  </div>
 
-
-
-						</div>
-
-					</div>
-
-					<div class="form-row">
-
-						<div class="form-group col-8">
-
-							<label for="inputPass">Contraseña</label>
+                  <div class="form-outline mb-4">
+                   <label for="inputPass">Contraseña</label>
 
 							<div class="input-group" id="show_hide_password">
 								<input placeholder="Password" type="password" name="password" id="password"
@@ -58,40 +50,33 @@
 								<div class="input-group-text">
 									<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
 								</div>
-
 							</div>
+                  </div>
 
-
-
-						</div>
-
-					</div>
-
-					<div class="form-row m-auto">
+                  <div class="text-center pt-1 mb-5 pb-1">
 						<input type="submit" value="Acceder" class="btn btn-primary float-right mt-3">
-					</div>
+                    <a class="text-muted" href="#!">Forgot password?</a>
+                  </div>
 
-					<div class="form-row m-auto">
-						<br><a href="/forgot" class="float-left mt-5 mr-3">
-							¿Has olvidado tu contraseña?</a>
-					</div>
-
-					<div th:unless="${param.exito}">
-						<div class="row">
-							<div class="col-8 mt-5">
-								<div class="col-8">
-									<label for="inputSinRegistro">¿Aún no tienes cuenta?</label>
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <label class="b-0 me-2" for="inputSinRegistro">¿Aún no tienes cuenta?</label>
 									<a class="btn btn-primary float-right mt-3 mr-3"
 										th:href="@{/usuarios/registro}">Regístrate</a>
-								</div>
-							</div>
-						</div>
-					</div>
+                  </div>
 
-				</form>
-			</div>
+                </form>
 
-		</div>
-	</div>
-
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2" style="background-image: url('../Imagenes/loginGif.gif');
+              background-repeat: no-repeat;background-size: cover;background-position: center;">
+              <div class="text-black px-3 py-4 p-md-5 mx-md-4" >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </body>
