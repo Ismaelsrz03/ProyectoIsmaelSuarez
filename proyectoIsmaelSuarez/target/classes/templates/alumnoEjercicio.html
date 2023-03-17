@@ -125,9 +125,9 @@
 	<!-- fin modal -->
 	
 	
-	<!-- delete modal 
+	<!-- delete modal -->
 	
-	<div class="modal fade" th:id="modal-delete+${alumno.id}">
+	<div class="modal fade" th:id="modal-delete+${ejercicio.id}">
 	<div class="modal-dialog" role="document">
 	<div class="modal-content">
 	<div class="modal-header">
@@ -139,19 +139,19 @@
 	
 	<div class="modal-body">
 	<p class="error-text"> ¿Está seguro de eliminar al alumno:
-	<strong><span th:text="${alumno.nombre}"> </span></strong>?</p>
+	<strong><span th:text="${ejercicio.nombre}"> </span></strong>?</p>
 	
 	 </div>
 	 <div class="modal-footer">
 	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-	 <a th:href="@{/alumnos/delete/{id}(id=${alumno.id})}">
+	 <a th:href="@{/alumnoEjercicio/delete/{id}(id=${ejercicio.id})}">
 	 <span class="btn btn-danger btn-sm" value="delete">Borrar</span>
 	 </a>
 	 </div>
 	
 	</div>
 	</div>
-	</div>-->
+	</div>
 	
 	<!-- fin delete modal -->
 	</tr>
@@ -162,10 +162,10 @@
 
 <div class="p-5">
 <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
-Añadir alumno</button>
+Añadir ejercicio</button>
 </div>
 
-<!-- create modal 
+<!-- create modal -->
 	
 	<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
 	<div class="modal-dialog" role="document">
@@ -177,61 +177,25 @@ Añadir alumno</button>
 		</button>
 	</div>
 	<div class="modal-body">
-	<p class="error-text"> Introduce el nombre nuevo para el nuevo alumno:</p>
+	<p class="error-text"> Introduce el nombre nuevo para el nuevo ejercicio:</p>
 	
 	
-	<form action="#" th:action="@{/alumnos/add/}" th:object="${alumnoNuevo}" method="post">
-	 
-	 <div class="form-row">
-	 
-	 <div class="form-group mt-1">
-	 <label for="texto">Nombre</label>
-	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre"/>
-	 
-	 </div>
-	 
-	 </div>
-	 <div class="form-row">
-	 
-	 <div class="form-group mt-1">
-	 <label for="texto">Seleccionar entrenador</label>
-	 <select th:Field="*{entrenadores}" multiple = "multiple" class="form-control selectpicker" name="entrenadores" id="entrenadores">
-	 <option th:each="e:${listaEntrenadores}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Entrenadores</option>
-	 </select>
-	 
-	 </div>
-	 
-	 </div>
-	  <div class="form-row">
-	 
-	 <div class="form-group mt-4">
-	 
-	 <label for="texto">Seleccionar ejercicios</label>
-	 <select th:Field="*{ejercicios}" multiple = "multiple" class="form-control selectpicker" name="ejercicios" id="ejercicios">
-	 <option th:each="e:${listaEjercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
-	 </select>
-	 </div>
-	 </div>
-	  <div class="form-row">
-	 
-	 <div class="form-group mt-7">
-	 
-	 <label for="texto">Seleccionar rutinas</label>
-	 <select th:Field="*{rutinas}" multiple = "multiple" class="form-control selectpicker" name="rutinas" id="rutinas">
-	 <option th:each="r:${listaRutinas}" th:value="${r.id}" th:text="${r.nombre}" value=""> Seleccionar rutinas</option>
-	 </select>
-	 </div>
-	 </div>
-	 <div class="modal-footer">
-	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-	 <input type="submit" value="Crear Alumno" class="btn btn-primary float-right"/>
-	 </div>
-	
-	</form>
+	<form action="#" th:action="@{/alumnoEjercicio/add/}" th:object="${ejercicioNuevo}" method="post">
+  <div class="form-row">
+    <div class="form-group mt-1">
+      <label for="nombre">Nombre</label>
+      <input type="text" th:field="${ejercicioNuevo.nombre}" class="form-control" id="nombre" name="nombre" th:attr="placeholder=${ejercicioNuevo.nombre}"/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <input type="submit" value="Crear Ejercicio" class="btn btn-primary float-right"/>
+  </div>
+</form>
 	
 	</div>
 	</div>
-	</div>-->
+	</div>
 	
 	<!-- fin create modal -->
 

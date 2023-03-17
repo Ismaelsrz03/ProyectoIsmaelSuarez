@@ -9,5 +9,6 @@ import principal.modelo.Alumno;
 public interface AlumnoRepo extends JpaRepository<Alumno,Integer> {
 
 	public Optional<Alumno> findByNombre(String nombre);
+
 	
 }

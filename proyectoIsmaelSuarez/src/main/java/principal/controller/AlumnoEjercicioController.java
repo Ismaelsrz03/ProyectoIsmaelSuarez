@@ -1,6 +1,7 @@
 package principal.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,7 @@ public class AlumnoEjercicioController {
 		model.addAttribute("listaRutinas",misrutinas);
 		model.addAttribute("listaUsuarios",misusuarios);
 		model.addAttribute("ejercicioaEditar", new Ejercicio());
-		model.addAttribute("alumnoNuevo", new Alumno());
+		model.addAttribute("ejercicioNuevo", new Ejercicio());
 		model.addAttribute("miAlumno",alumnoUsuario);
 		model.addAttribute("miEntrenador",alumnoUsuario.getEntrenadores());
 		model.addAttribute("misEjercicios",alumnoUsuario.getEjercicios());
@@ -111,39 +112,43 @@ public class AlumnoEjercicioController {
 		}
 		return u2;
 	}
-/*
+
 	@PostMapping("/edit/{id}")
 	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado, BindingResult bindingresult) {
 		
 		Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
 		Ejercicio e = new Ejercicio();
-		e =ejercicioEditado;
-		
+		e.setNombre(ejercicioEditado.getNombre());
+		Ejercicio aBorrar = new Ejercicio();
 		for(Ejercicio ej: alumnoUsuario.getEjercicios()) {
 			if(ej.getId()==id) {
-				alumnoUsuario.getEjercicios().remove(ej);
+				aBorrar = ej;
 				alumnoUsuario.getEjercicios().add(e);
 			}
 		}
+		alumnoUsuario.getEjercicios().remove(aBorrar);
 		
 //		ejercicioService.insertarEjercicio(ejercicioEditado);
 		alumnoService.insertarAlumno(alumnoUsuario);
 		return "redirect:/alumnoEjercicio";
-	}*/
+	}
 	
 	@PostMapping("/add")
-	public String addEjercicio(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bindingresult,Integer id) {
-		
-		for(Ejercicio e: alumnoNew.getEjercicios()) {
-			Ejercicio e2 = e;
-			e2.getAlumnos().add(alumnoNew);
-		}
-		
-
-		alumnoService.insertarAlumno(alumnoNew);
-		
-		return "redirect:/alumnoEjercicio";
+	public String addEjercicio(@ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew, BindingResult bindingresult, Integer id) {
+	    Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
+	    
+	    // Set the current user as the only associated student for the new exercise
+	    ejercicioNew.setAlumnos(Collections.singleton(alumnoUsuario));
+	    
+	    // Add the new exercise to the student's list of exercises
+	    alumnoUsuario.getEjercicios().add(ejercicioNew);
+	    
+	    alumnoService.insertarAlumno(alumnoUsuario);
+	    
+	    return "redirect:/alumnoEjercicio";
 	}
+
+
 	
 	@GetMapping({"/{id}"})
 	String idEjercicio(Model model, @PathVariable Integer id) {
@@ -157,11 +162,15 @@ public class AlumnoEjercicioController {
 	
 	@GetMapping("/delete/{id}")
 	String deleteEjercicio(Model model, @PathVariable Integer id) {
-		
-		alumnoService.eliminarAlumnoPorId(id);
-
-		
-		return "redirect:/alumnoEjercicio";
+	    Ejercicio ejercicio = ejercicioService.obtenerEjercicioPorID(id);
+	    
+	    for (Alumno alumno : ejercicio.getAlumnos()) {
+	        alumno.getEjercicios().remove(ejercicio);
+	    }
+	    ejercicioService.eliminarEjercicioPorId(id);
+	    return "redirect:/alumnoEjercicio";
 	}
+
+
 	
 }
