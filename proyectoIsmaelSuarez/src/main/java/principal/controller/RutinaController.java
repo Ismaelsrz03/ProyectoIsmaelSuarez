@@ -108,25 +108,17 @@ public class RutinaController {
 		
 		@GetMapping("/delete/{id}")
 		String deleteRutina(Model model, @PathVariable Integer id) {
-			   Ejercicio ejercicio = ejercicioService.obtenerEjercicioPorID(id);
-			   Alumno alumno = alumnoService.obtenerAlumnoPorID(id);
-			   Entrenador entrenador = entrenadorService.obtenerEntrenadorPorID(id);
-			   Rutina rutina = rutinaService.obtenerRutinaPorID(id);
-			   
-			   for(Alumno a: rutina.getAlumnos()){
-				   a.getRutinas().remove(rutina);
-				   rutina.getAlumnos().remove(alumno);
-			   }
-			   
-			   for(Entrenador e: rutina.getEntrenadores()){
-				   e.getRutinas().remove(rutina);
-				   rutina.getEntrenadores().remove(entrenador);
-			   }
-			   
-			   for(Ejercicio ej: rutina.getEjercicios()){
-				   ej.getRutinas().remove(rutina);
-				   rutina.getEjercicios().remove(ejercicio);
-			   }
+			Rutina rutina = rutinaService.obtenerRutinaPorID(id);
+			
+			for(Alumno a: rutina.getAlumnos()) {
+				a.getRutinas().remove(rutina);
+				a.getRutinas().add(null);
+			}
+			
+			for(Entrenador e: rutina.getEntrenadores()) {
+				e.getRutinas().remove(rutina);
+				e.getRutinas().add(null);
+			}
 			   
 			rutinaService.eliminarRutinaPorId(id);
 

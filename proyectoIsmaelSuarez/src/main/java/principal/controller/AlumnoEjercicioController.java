@@ -162,12 +162,24 @@ public class AlumnoEjercicioController {
 	
 	@GetMapping("/delete/{id}")
 	String deleteEjercicio(Model model, @PathVariable Integer id) {
-	    Ejercicio ejercicio = ejercicioService.obtenerEjercicioPorID(id);
-	    
-	    for (Alumno alumno : ejercicio.getAlumnos()) {
-	        alumno.getEjercicios().remove(ejercicio);
-	    }
-	    ejercicioService.eliminarEjercicioPorId(id);
+		Ejercicio ejer = ejercicioService.obtenerEjercicioPorID(id);
+		
+		for(Alumno a: ejer.getAlumnos()) {
+			a.getEjercicios().remove(ejer);
+			a.getEjercicios().add(null);
+		}
+		
+		for(Entrenador e: ejer.getEntrenadores()) {
+			e.getEjercicios().remove(ejer);
+			e.getEjercicios().add(null);
+		}
+		
+		for(Rutina r: ejer.getRutinas()) {
+			r.getEjercicios().remove(ejer);
+			r.getEjercicios().add(null);
+		}
+		
+		ejercicioService.eliminarEjercicioPorId(id);
 	    return "redirect:/alumnoEjercicio";
 	}
 

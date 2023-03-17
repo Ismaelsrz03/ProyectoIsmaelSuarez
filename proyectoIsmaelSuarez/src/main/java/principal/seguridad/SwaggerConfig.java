@@ -32,8 +32,8 @@ public class SwaggerConfig {
                 "Ismael Suárez Limachi",
                 "Alumno Service API Description",
                 "1.0",
-                "http://localhost:8097",
-                new Contact("Alumno", "https://localhost:8097", "alumno@localhost.com"),
+                "http://localhost:8098",
+                new Contact("Alumno", "https://localhost:8098", "alumno@localhost.com"),
                 "LICENSE",
                 "LICENSE URL",
                 Collections.emptyList()
