@@ -140,28 +140,21 @@ public class AlumnoEntrenadorController {
 		return "redirect:/alumnos";
 	}
 	
+	
+	
 	@PostMapping("/add")
-	public String addAlumno(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bindingresult,Integer id) {
+	public String buscarEntrenador(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bindingResult, Integer id) {
+		Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
 		
-		  if (alumnoNew.getEntrenadores() != null) { 
-		        Entrenador entrenadorNuevo = entrenadorService.obtenerEntrenadorPorID(alumnoNew.getEntrenadores().getId());
-		        entrenadorNuevo.getAlumnos().add(alumnoNew);
-		        alumnoNew.setEntrenadores(entrenadorNuevo);
-		    }
-		
-		for(Ejercicio e: alumnoNew.getEjercicios()) {
-			Ejercicio e2 = e;
-			e2.getAlumnos().add(alumnoNew);
+		if (alumnoUsuario.getEntrenadores() == null) { 
+		Entrenador en = entrenadorService.obtenerEntrenadorPorID(alumnoNew.getEntrenadores().getId());
+		en.getAlumnos().add(alumnoUsuario);
+		alumnoUsuario.setEntrenadores(en);
 		}
 		
-		for(Rutina r: alumnoNew.getRutinas()) {
-			Rutina r2 = r;
-			r2.getAlumnos().add(alumnoNew);
-		}
-
-		alumnoService.insertarAlumno(alumnoNew);
+		alumnoService.insertarAlumno(alumnoUsuario);
+		return "redirect:/alumnoEntrenador";
 		
-		return "redirect:/alumnos";
 	}
 	
 	@GetMapping({"/{id}"})

@@ -60,6 +60,51 @@
 		<p>¡Hola! Soy tu entrenador online. Te ayudaré con tus objetivos compartiendo ejercicios y rutinas.</p>
 		<p>Tambié haré un seguimiento de tu entrenamiento para ver tus progresos.</p>
 		 </div>
+		 
+		 <div class="p-5" th:if="${miEntrenador==null}">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
+Buscar entrenador</button>
+</div>
+
+<!-- create modal -->
+	
+	<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Buscar entrenador</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Escoge a tu entrenador:</p>
+	
+	<!-- formulario nombre a editar-->
+	<form action="#" th:action="@{/alumnoEntrenador/add/}" th:object="${alumnoNuevo}" method="post">
+
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Seleccionar entrenador</label>
+	 <select th:Field="*{entrenadores}" multiple = "multiple" class="form-control selectpicker" name="entrenadores" id="entrenadores">
+	 <option th:each="e:${listaEntrenadores}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Entrenadores</option>
+	 </select>
+	 
+	 </div>
+	 
+	 </div>
+
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Buscar entrenador" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
 	</div>
 	<div class="col-3 p-3">
 	</div>
