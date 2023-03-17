@@ -137,10 +137,8 @@ public class AlumnoEjercicioController {
 	public String addEjercicio(@ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew, BindingResult bindingresult, Integer id) {
 	    Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
 	    
-	    // Set the current user as the only associated student for the new exercise
 	    ejercicioNew.setAlumnos(Collections.singleton(alumnoUsuario));
 	    
-	    // Add the new exercise to the student's list of exercises
 	    alumnoUsuario.getEjercicios().add(ejercicioNew);
 	    
 	    alumnoService.insertarAlumno(alumnoUsuario);

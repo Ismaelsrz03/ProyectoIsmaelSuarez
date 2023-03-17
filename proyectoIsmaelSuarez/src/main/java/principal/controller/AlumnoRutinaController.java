@@ -1,6 +1,7 @@
 package principal.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +70,8 @@ public class AlumnoRutinaController {
 		model.addAttribute("listaEjercicios",misejercicios);
 		model.addAttribute("listaRutinas",misrutinas);
 		model.addAttribute("listaUsuarios",misusuarios);
-		model.addAttribute("ejercicioaEditar", new Ejercicio());
-		model.addAttribute("alumnoNuevo", new Alumno());
+		model.addAttribute("rutinaaEditar", new Rutina());
+		model.addAttribute("rutinaNuevo", new Rutina());
 		model.addAttribute("miAlumno",alumnoUsuario);
 		model.addAttribute("miEntrenador",alumnoUsuario.getEntrenadores());
 		model.addAttribute("misEjercicios",alumnoUsuario.getEjercicios());
@@ -112,41 +113,57 @@ public class AlumnoRutinaController {
 		}
 		return u2;
 	}
+	
+	private Ejercicio obtenerEjerciciosDeAlumno() {
+		Ejercicio res = null;
+		Set<Ejercicio> ejercicios = alumnoUsuario.getEjercicios();
+		for (Ejercicio ejercicio : ejercicios) {
+			if(ejercicio!=null)
+				return ejercicio;
+		}
+		return res;
+	}
 
 	@PostMapping("/edit/{id}")
-	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado, BindingResult bindingresult) {
+	public String editarRutina(@PathVariable Integer id, @ModelAttribute("rutinaaEditar") Rutina rutinaEditado, BindingResult bindingresult) {
 		
 		Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
-		Ejercicio e = new Ejercicio();
-		e =ejercicioEditado;
-		
-		for(Ejercicio ej: alumnoUsuario.getEjercicios()) {
-			if(ej.getId()==id) {
-				alumnoUsuario.getEjercicios().remove(ej);
-				alumnoUsuario.getEjercicios().add(e);
+		Rutina r = new Rutina();
+		r.setNombre(rutinaEditado.getNombre());
+		Rutina aBorrar = new Rutina();
+		for(Rutina ru: alumnoUsuario.getRutinas()) {
+			if(ru.getId()==id) {
+				aBorrar = ru;
+				alumnoUsuario.getRutinas().add(r);
 			}
 		}
+		alumnoUsuario.getRutinas().remove(aBorrar);
 		
-//		ejercicioService.insertarEjercicio(ejercicioEditado);
 		alumnoService.insertarAlumno(alumnoUsuario);
-		return "redirect:/alumnoEjercicio";
+		return "redirect:/alumnoRutina";
 	}
 	
 	@PostMapping("/add")
-	public String addEjercicio(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bindingresult,Integer id) {
-		
-		for(Ejercicio e: alumnoNew.getEjercicios()) {
-			Ejercicio e2 = e;
-			e2.getAlumnos().add(alumnoNew);
+	public String addRutina(@ModelAttribute("rutinaNuevo") Rutina rutinaNew, BindingResult bindingresult, Integer id) {
+	    Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
+	    Rutina r = new Rutina();
+		r.setNombre(rutinaNew.getNombre());
+	    for(Ejercicio e: alumnoUsuario.getEjercicios()) {
+			e.getRutinas().add(r);
 		}
-		
-
-		alumnoService.insertarAlumno(alumnoNew);
-		
-		return "redirect:/alumnoEjercicio";
+	  
+	    r.setAlumnos(Collections.singleton(alumnoUsuario));
+	     alumnoUsuario.getRutinas().add(r);
+	    
+	    
+	    alumnoService.insertarAlumno(alumnoUsuario);
+	    
+	    return "redirect:/alumnoRutina";
 	}
+
+
 	
-	@GetMapping({"/{id}"})
+	/*@GetMapping({"/{id}"})
 	String idEjercicio(Model model, @PathVariable Integer id) {
 		
 		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id);
@@ -154,15 +171,26 @@ public class AlumnoRutinaController {
 		
 		
 		return "ejercicio";
-	}
+	}*/
 	
 	@GetMapping("/delete/{id}")
-	String deleteEjercicio(Model model, @PathVariable Integer id) {
+	String deleteRutina(Model model, @PathVariable Integer id) {
+		Rutina rut = rutinaService.obtenerRutinaPorID(id);
 		
-		alumnoService.eliminarAlumnoPorId(id);
-
+		for(Alumno a: rut.getAlumnos()) {
+			a.getRutinas().remove(rut);
+			a.getRutinas().add(null);
+		}
 		
-		return "redirect:/alumnoEjercicio";
+		for(Entrenador e: rut.getEntrenadores()) {
+			e.getRutinas().remove(rut);
+			e.getRutinas().add(null);
+		}
+		
+		rutinaService.eliminarRutinaPorId(id);
+	    return "redirect:/alumnoRutina";
 	}
+
+
 	
 }
