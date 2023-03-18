@@ -1,6 +1,7 @@
 package principal.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class EntrenadorEjercicioController {
 		model.addAttribute("listaRutinas",misrutinas);
 		model.addAttribute("listaUsuarios",misusuarios);
 		model.addAttribute("ejercicioaEditar", new Ejercicio());
-		model.addAttribute("alumnoNuevo", new Alumno());
+		model.addAttribute("ejercicioNuevo", new Ejercicio());
 		model.addAttribute("miEntrenador",entrenadorUsuario);
 		model.addAttribute("misAlumnos", entrenadorUsuario.getAlumnos());
 		model.addAttribute("misEjercicios",entrenadorUsuario.getEjercicios());
@@ -100,38 +101,38 @@ public class EntrenadorEjercicioController {
 		}
 		return u2;
 	}
-/*
 	@PostMapping("/edit/{id}")
 	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado, BindingResult bindingresult) {
 		
-		Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
+		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
 		Ejercicio e = new Ejercicio();
-		e =ejercicioEditado;
-		
-		for(Ejercicio ej: alumnoUsuario.getEjercicios()) {
+		e.setNombre(ejercicioEditado.getNombre());
+		Ejercicio aBorrar = new Ejercicio();
+		for(Ejercicio ej: entrenadorUsuario.getEjercicios()) {
 			if(ej.getId()==id) {
-				alumnoUsuario.getEjercicios().remove(ej);
-				alumnoUsuario.getEjercicios().add(e);
+				aBorrar = ej;
+				entrenadorUsuario.getEjercicios().add(e);
 			}
 		}
+		entrenadorUsuario.getEjercicios().remove(aBorrar);
 		
 //		ejercicioService.insertarEjercicio(ejercicioEditado);
-		alumnoService.insertarAlumno(alumnoUsuario);
-		return "redirect:/alumnoEjercicio";
-	}*/
+		entrenadorService.insertarEntrenador(entrenadorUsuario);
+		return "redirect:/entrenadorEjercicio";
+	}
 	
 	@PostMapping("/add")
-	public String addEjercicio(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bindingresult,Integer id) {
+	public String addEjercicio(@ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew, BindingResult bindingresult,Integer id) {
 		
-		for(Ejercicio e: alumnoNew.getEjercicios()) {
-			Ejercicio e2 = e;
-			e2.getAlumnos().add(alumnoNew);
-		}
+		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
+	    
+	    ejercicioNew.setEntrenadores(Collections.singleton(entrenadorUsuario));
+	    
+	    entrenadorUsuario.getEjercicios().add(ejercicioNew);
+	    
+	    entrenadorService.insertarEntrenador(entrenadorUsuario);
 		
-
-		alumnoService.insertarAlumno(alumnoNew);
-		
-		return "redirect:/alumnoEjercicio";
+		return "redirect:/entrenadorEjercicio";
 	}
 	
 	@GetMapping({"/{id}"})
@@ -147,10 +148,27 @@ public class EntrenadorEjercicioController {
 	@GetMapping("/delete/{id}")
 	String deleteEjercicio(Model model, @PathVariable Integer id) {
 		
-		alumnoService.eliminarAlumnoPorId(id);
+Ejercicio ejer = ejercicioService.obtenerEjercicioPorID(id);
+		
+		for(Alumno a: ejer.getAlumnos()) {
+			a.getEjercicios().remove(ejer);
+			a.getEjercicios().add(null);
+		}
+		
+		for(Entrenador e: ejer.getEntrenadores()) {
+			e.getEjercicios().remove(ejer);
+			e.getEjercicios().add(null);
+		}
+		
+		for(Rutina r: ejer.getRutinas()) {
+			r.getEjercicios().remove(ejer);
+			r.getEjercicios().add(null);
+		}
+		
+		ejercicioService.eliminarEjercicioPorId(id);
 
 		
-		return "redirect:/alumnoEjercicio";
+		return "redirect:/entrenadorEjercicio";
 	}
 	
 }

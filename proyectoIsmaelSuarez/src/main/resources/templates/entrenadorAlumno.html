@@ -59,7 +59,6 @@
 <thead class = "table-dark bg-info text-white">
 <tr>
 <th>Nombre</th>
-<th>Editar</th>
 <th>Borrar</th>
 </tr>
 </thead>
@@ -74,58 +73,12 @@
 	</td>
 	
 	<td>
-		<a th:attr="data-target='#modal-edit'+${alumno.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
-	</td>
-	
-	<td>
 		<a th:attr="data-target='#modal-delete'+${alumno.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
 	</td>
 	
-	<!-- edit modal 
-	
-	<div class="modal fade" th:id="modal-edit+${ejercicio.id}">
-	<div class="modal-dialog" role="document">
-	<div class="modal-content">
-	<div class="modal-header">
-		<h4 class="modal-title" id="exampleModelLabel">Editar</h4>
-		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
-		<span aria-hidden="true">x</span>
-		</button>
-	</div>
-	<div class="modal-body">
-	<p class="error-text"> Introduce el nuevo ejercicio:
-	<strong><span th:text="${ejercicio.nombre}"> </span></strong></p>
-	
-	formulario nombre a editar
-	<form action="#" th:action="@{/alumnoEjercicio/edit/{id}(id=${ejercicio.id})}" th:object="${ejercicioaEditar}" method="post">
-	 
-	 <div class="form-row">
-	 
-	 <div class="form-group mt-1">
-	 <label for="texto">Nombre</label>
-	 <input type="text" th:field=${ejercicioaEditar.nombre} class="form-control" id="exampleInputEmail1" th:attr="placeholder=${ejercicio.nombre}"/>
-	 
-	 </div>
-	 
-	 </div>
-	 
-	 </div>
-	 <div class="modal-footer">
-	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-	 <input type="submit" value="Editar" class="btn btn-primary float-right"/>
-	 </div>
 	
 	
-	</form>
-	
-	</div>
-	</div>
-	</div>-->
-	
-	<!-- fin modal -->
-	
-	
-	<!-- delete modal 
+	<!-- delete modal -->
 	
 	<div class="modal fade" th:id="modal-delete+${alumno.id}">
 	<div class="modal-dialog" role="document">
@@ -144,14 +97,14 @@
 	 </div>
 	 <div class="modal-footer">
 	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-	 <a th:href="@{/alumnos/delete/{id}(id=${alumno.id})}">
+	 <a th:href="@{/entrenadorAlumno/delete/{id}(id=${alumno.id})}">
 	 <span class="btn btn-danger btn-sm" value="delete">Borrar</span>
 	 </a>
 	 </div>
 	
 	</div>
 	</div>
-	</div>-->
+	</div>
 	
 	<!-- fin delete modal -->
 	</tr>
@@ -165,7 +118,7 @@
 Añadir alumno</button>
 </div>
 
-<!-- create modal 
+<!-- create modal -->
 	
 	<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
 	<div class="modal-dialog" role="document">
@@ -176,52 +129,23 @@ Añadir alumno</button>
 		<span aria-hidden="true">x</span>
 		</button>
 	</div>
-	<div class="modal-body">
-	<p class="error-text"> Introduce el nombre nuevo para el nuevo alumno:</p>
-	
-	
-	<form action="#" th:action="@{/alumnos/add/}" th:object="${alumnoNuevo}" method="post">
+	<div class="modal-body">	
+	<form action="#" th:action="@{/entrenadorAlumno/add/}" th:object="${entrenadorNuevo}" method="post">
 	 
 	 <div class="form-row">
 	 
-	 <div class="form-group mt-1">
-	 <label for="texto">Nombre</label>
-	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre"/>
-	 
-	 </div>
-	 
-	 </div>
-	 <div class="form-row">
-	 
-	 <div class="form-group mt-1">
-	 <label for="texto">Seleccionar entrenador</label>
-	 <select th:Field="*{entrenadores}" multiple = "multiple" class="form-control selectpicker" name="entrenadores" id="entrenadores">
-	 <option th:each="e:${listaEntrenadores}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Entrenadores</option>
-	 </select>
-	 
-	 </div>
-	 
-	 </div>
-	  <div class="form-row">
-	 
-	 <div class="form-group mt-4">
-	 
-	 <label for="texto">Seleccionar ejercicios</label>
-	 <select th:Field="*{ejercicios}" multiple = "multiple" class="form-control selectpicker" name="ejercicios" id="ejercicios">
-	 <option th:each="e:${listaEjercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
+	 <div class="form-group mt-1" id="select-alumnos">
+	 <label for="texto">Seleccionar alumnos</label>
+	 <p>Si la elección está vacía es porque no hay alumnos libres</p>
+	 <select th:Field="*{alumnos}" multiple = "multiple" class="form-control selectpicker" name="alumnos" id="alumnos">
+	 <option th:each="a:${listaalumnos}" th:if="${a.entrenadores == null}" th:value="${a.id}" th:text="${a.nombre}" value=""> Seleccionar Alumnos</option>
 	 </select>
 	 </div>
-	 </div>
-	  <div class="form-row">
 	 
-	 <div class="form-group mt-7">
+	 </div>
 	 
-	 <label for="texto">Seleccionar rutinas</label>
-	 <select th:Field="*{rutinas}" multiple = "multiple" class="form-control selectpicker" name="rutinas" id="rutinas">
-	 <option th:each="r:${listaRutinas}" th:value="${r.id}" th:text="${r.nombre}" value=""> Seleccionar rutinas</option>
-	 </select>
 	 </div>
-	 </div>
+	 
 	 <div class="modal-footer">
 	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
 	 <input type="submit" value="Crear Alumno" class="btn btn-primary float-right"/>
@@ -231,7 +155,7 @@ Añadir alumno</button>
 	
 	</div>
 	</div>
-	</div>-->
+	</div>
 	
 	<!-- fin create modal -->
 

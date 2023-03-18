@@ -4,13 +4,50 @@
 </head>
 <body style="background-color: lightblue;">
 
-<div class="container">
+
 
 <header>
-
-<div th:insert="top::top"></div>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-black" th:fragment="menu">
+  <a class="navbar-brand" href="/">
+    <img src="../Imagenes/logo.png" width="200" height="70" alt="">
+  </a>
+  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="font-size: 24px;">
+      <li class="nav-item active">
+        <a class="nav-link text-white" href="/">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">Servicios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">Blogs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">Opiniones</a>
+      </li>
+    </ul>
+    <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0 m-3">
+      <a class="btn bg-success my-2 my-sm-0 text-white" href="/login">Iniciar</a>
+      <a class="btn bg-success my-2 my-sm-0 text-white" th:href="@{/usuarios/registro}">Registrar</a>
+      </form>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0 m-3"> 
+      <button class="btn bg-success my-2 my-sm-0 text-white" type="submit">Salir</button>
+    </form>
+   
+  </div>
+</nav>
 </header>
+<div class="container">
+<div class="admin" sec:authorize="hasAuthority('ROLE_ADMIN')">
+ <nav class="menuAdmin">
+        <ul>
+          <li><a href="/alumnos">Alumnos</a></li>
+          <li><a href="/entrenadores">Entrenadores</a></li>
+          <li><a href="/ejercicios">Ejercicios</a></li>
+          <li><a href="/rutinas">Rutinas</a></li>
+        </ul>
+      </nav>
+</div>
 
 <h1 class="mt-5">Entrenadores en Spring </h1>
 

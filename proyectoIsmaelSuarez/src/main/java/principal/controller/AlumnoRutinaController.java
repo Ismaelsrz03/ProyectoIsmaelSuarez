@@ -147,11 +147,14 @@ public class AlumnoRutinaController {
 	public String addRutina(@ModelAttribute("rutinaNuevo") Rutina rutinaNew, BindingResult bindingresult, Integer id) {
 	    Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
 	    Rutina r = new Rutina();
-		r.setNombre(rutinaNew.getNombre());
-	    for(Ejercicio e: alumnoUsuario.getEjercicios()) {
-			e.getRutinas().add(r);
+	    for(Ejercicio e: rutinaNew.getEjercicios()) {
+			rutinaNew.getEjercicios().add(e);
+			e.getRutinas().add(rutinaNew);
+			rutinaService.insertarRutina(rutinaNew);
 		}
-	  
+	    
+	    r.setNombre(rutinaNew.getNombre());
+
 	    r.setAlumnos(Collections.singleton(alumnoUsuario));
 	     alumnoUsuario.getRutinas().add(r);
 	    
