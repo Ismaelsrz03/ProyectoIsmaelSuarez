@@ -121,12 +121,33 @@ public class EntrenadorRutinaController {
 		Rutina r = new Rutina();
 		r.setNombre(rutinaEditado.getNombre());
 		Rutina aBorrar = new Rutina();
-		for(Rutina ru: entrenadorUsuario.getRutinas()) {
+		
+ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
+		
+		for(Ejercicio ee: rutinaEditado.getEjercicios()) {
+			lista.add(ee);
+		}
+		
+		ArrayList<Rutina> lista2 = new ArrayList<Rutina>();
+		
+		for(Rutina rut: entrenadorUsuario.getRutinas()) {
+			lista2.add(rut);
+		}
+		
+		
+		
+		for(Rutina ru: lista2) {
 			if(ru.getId()==id) {
 				aBorrar = ru;
-				entrenadorUsuario.getRutinas().add(r);
+				entrenadorUsuario.getRutinas().add(r);		
+				
 			}
 		}
+		
+		for(Ejercicio e: lista) {
+					r.getEjercicios().add(e);
+				}
+		
 		entrenadorUsuario.getRutinas().remove(aBorrar);
 		
 		entrenadorService.insertarEntrenador(entrenadorUsuario);
@@ -136,17 +157,13 @@ public class EntrenadorRutinaController {
 	@PostMapping("/add")
 	public String addRutina(@ModelAttribute("rutinaNuevo") Rutina rutinaNew, BindingResult bindingresult, Integer id) {
 	    Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
-	    Rutina r = new Rutina();
-	    for(Ejercicio e: rutinaNew.getEjercicios()) {
-			rutinaNew.getEjercicios().add(e);
-			e.getRutinas().add(rutinaNew);
-			rutinaService.insertarRutina(rutinaNew);
-		}
 	    
-	    r.setNombre(rutinaNew.getNombre());
+	    
+	    for(Ejercicio e: entrenadorUsuario.getEjercicios()) {
+			e.getRutinas().add(rutinaNew);
+		}
 
-	    r.setEntrenadores(Collections.singleton(entrenadorUsuario));
-	     entrenadorUsuario.getRutinas().add(r);
+	     entrenadorUsuario.getRutinas().add(rutinaNew);
 	    
 	    
 	    entrenadorService.insertarEntrenador(entrenadorUsuario);

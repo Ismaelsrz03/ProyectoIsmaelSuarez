@@ -43,7 +43,9 @@ public class Ejercicio {
 	private Set<Rutina> rutinas;
 	
 public Ejercicio() {
-		
+	entrenadores = new HashSet<Entrenador>();
+	alumnos = new HashSet<Alumno>();
+	rutinas = new HashSet<Rutina>();
 	}
 	
 	public Ejercicio(String n) {

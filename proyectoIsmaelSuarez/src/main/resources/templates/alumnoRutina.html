@@ -17,7 +17,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="/" class="nav-link bg-success text-white" aria-current="page" role="button">
+        <a href="/" class="nav-link text-white bg-success" aria-current="page" role="button">
           <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
           Home
         </a>
@@ -35,7 +35,7 @@
         </a>
       </li>
       <li>
-        <a href="/alumnoRutina" class="nav-link text-black">
+        <a href="/alumnoRutina" class="nav-link text-white bg-black">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
           Rutinas
         </a>
@@ -64,8 +64,8 @@
             <div class="card-body text-center">
 				<img src="../Imagenes/logo.png" alt="Descripción de la imagen">
                 <h5 class="card-title" th:text="${rutina.nombre}"></h5>
-                <ul class="list-group list-group-flush">
-                            <li class="list-group-item" th:each="ejercicio:${rutina.getEjercicios()}" th:text="${ejercicio.nombre}"></li>
+                <ul class="list-group list-group-flush" th:each="ejercicio:${rutina.ejercicios}">
+                            <li class="list-group-item" th:text="${ejercicio.nombre}"></li>
                         </ul>
                 <a th:attr="data-target='#modal-edit'+${rutina.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
                 <a th:attr="data-target='#modal-delete'+${rutina.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
@@ -97,6 +97,17 @@
 	 
 	 </div>
 	 
+	 </div>
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 
+	 <label for="texto">Seleccionar ejercicios</label>
+	 <select th:Field="${rutinaaEditar.ejercicios}" multiple = "multiple" class="form-control selectpicker" name="ejercicios" id="ejercicios">
+	 <option th:each="e:${miAlumno.ejercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
+	 </select>
+	 </div>
 	 </div>
 	 
 	 </div>

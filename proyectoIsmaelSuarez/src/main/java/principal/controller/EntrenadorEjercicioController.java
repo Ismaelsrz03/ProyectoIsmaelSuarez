@@ -108,10 +108,22 @@ public class EntrenadorEjercicioController {
 		Ejercicio e = new Ejercicio();
 		e.setNombre(ejercicioEditado.getNombre());
 		Ejercicio aBorrar = new Ejercicio();
-		for(Ejercicio ej: entrenadorUsuario.getEjercicios()) {
+		
+		ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
+		
+		for(Ejercicio ee: entrenadorUsuario.getEjercicios()) {
+			lista.add(ee);
+		}
+		
+		for(Ejercicio ej: lista) {
 			if(ej.getId()==id) {
 				aBorrar = ej;
 				entrenadorUsuario.getEjercicios().add(e);
+				
+				for(Rutina r: entrenadorUsuario.getRutinas()) {
+					r.getEjercicios().remove(aBorrar);
+					r.getEjercicios().add(e);
+				}
 			}
 		}
 		entrenadorUsuario.getEjercicios().remove(aBorrar);

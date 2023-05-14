@@ -98,6 +98,16 @@ public class AlumnoEjercicioController {
 		}
 		return res;
 	}
+	
+	private Rutina obtenerRutinasDeAlumno() {
+		Rutina res = null;
+		Set<Rutina> rutinas = alumnoUsuario.getRutinas();
+		for (Rutina rutina : rutinas) {
+			if(rutina!=null)
+				return rutina;
+		}
+		return res;
+	}
 
 	private Usuario obtenerLog() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -115,19 +125,35 @@ public class AlumnoEjercicioController {
 
 	@PostMapping("/edit/{id}")
 	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado, BindingResult bindingresult) {
-		
+
 		Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
+		
 		Ejercicio e = new Ejercicio();
+		
 		e.setNombre(ejercicioEditado.getNombre());
+		ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
+		
+		for(Ejercicio ee: alumnoUsuario.getEjercicios()) {
+			lista.add(ee);
+		}
 		Ejercicio aBorrar = new Ejercicio();
-		for(Ejercicio ej: alumnoUsuario.getEjercicios()) {
-			if(ej.getId()==id) {
+		
+		for(Ejercicio ej: lista) {
+			if(ej.getId()==ejercicioEditado.getId()) {
 				aBorrar = ej;
 				alumnoUsuario.getEjercicios().add(e);
+				
+				
+				for(Rutina r: alumnoUsuario.getRutinas()) {
+					r.getEjercicios().remove(aBorrar);
+					r.getEjercicios().add(e);
+				}
+				
 			}
 		}
-		alumnoUsuario.getEjercicios().remove(aBorrar);
 		
+		alumnoUsuario.getEjercicios().remove(aBorrar);
+	
 //		ejercicioService.insertarEjercicio(ejercicioEditado);
 		alumnoService.insertarAlumno(alumnoUsuario);
 		return "redirect:/alumnoEjercicio";

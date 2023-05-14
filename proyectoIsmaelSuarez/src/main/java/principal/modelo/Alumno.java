@@ -24,7 +24,7 @@ import principal.modelo.Entrenador;
 @Entity
 @Table(name="Alumnos")
 public class Alumno {
-	
+	 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -37,7 +37,7 @@ public class Alumno {
 	@JoinColumn(name = "id_Entrenador", nullable = true)
 	private Entrenador entrenadores;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "alumnos_ejercicios",
 			joinColumns = {@JoinColumn(name = "id_Alumno")},
@@ -47,11 +47,11 @@ public class Alumno {
 	@JsonIgnore
 	private Set<Ejercicio> ejercicios;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "alumnos_rutinas",
 			joinColumns = {@JoinColumn(name = "id_Alumno")},
-			inverseJoinColumns = {@JoinColumn(name = "id_Ejercicio")}
+			inverseJoinColumns = {@JoinColumn(name = "id_Rutina")}
 			
 			)
 	@JsonIgnore
@@ -62,7 +62,10 @@ public class Alumno {
 	private Usuario usuarios;
 	
 	public Alumno() {
-		
+		ejercicios = new HashSet<Ejercicio>();
+		entrenadores = new Entrenador();
+		rutinas = new HashSet<Rutina>();
+		usuarios = new Usuario();
 	}
 	
 	public Alumno(String n) {

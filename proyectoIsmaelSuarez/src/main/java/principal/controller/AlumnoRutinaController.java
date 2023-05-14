@@ -131,12 +131,33 @@ public class AlumnoRutinaController {
 		Rutina r = new Rutina();
 		r.setNombre(rutinaEditado.getNombre());
 		Rutina aBorrar = new Rutina();
-		for(Rutina ru: alumnoUsuario.getRutinas()) {
+		
+		ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
+		
+		for(Ejercicio ee: rutinaEditado.getEjercicios()) {
+			lista.add(ee);
+		}
+		
+		ArrayList<Rutina> lista2 = new ArrayList<Rutina>();
+		
+		for(Rutina rut: alumnoUsuario.getRutinas()) {
+			lista2.add(rut);
+		}
+		
+		
+		
+		for(Rutina ru: lista2) {
 			if(ru.getId()==id) {
 				aBorrar = ru;
-				alumnoUsuario.getRutinas().add(r);
+				alumnoUsuario.getRutinas().add(r);		
+				
 			}
 		}
+		
+		for(Ejercicio e: lista) {
+					r.getEjercicios().add(e);
+				}
+		
 		alumnoUsuario.getRutinas().remove(aBorrar);
 		
 		alumnoService.insertarAlumno(alumnoUsuario);
@@ -146,20 +167,15 @@ public class AlumnoRutinaController {
 	@PostMapping("/add")
 	public String addRutina(@ModelAttribute("rutinaNuevo") Rutina rutinaNew, BindingResult bindingresult, Integer id) {
 	    Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
-	    Rutina r = new Rutina();
-	    for(Ejercicio e: rutinaNew.getEjercicios()) {
-			rutinaNew.getEjercicios().add(e);
-			e.getRutinas().add(rutinaNew);
-			rutinaService.insertarRutina(rutinaNew);
-		}
-	    
-	    r.setNombre(rutinaNew.getNombre());
-
-	    r.setAlumnos(Collections.singleton(alumnoUsuario));
-	     alumnoUsuario.getRutinas().add(r);
 	    
 	    
+	    for(Ejercicio e: alumnoUsuario.getEjercicios()) {
+	    		e.getRutinas().add(rutinaNew);
+	    }
+	
+	    alumnoUsuario.getRutinas().add(rutinaNew);
 	    alumnoService.insertarAlumno(alumnoUsuario);
+	
 	    
 	    return "redirect:/alumnoRutina";
 	}

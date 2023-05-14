@@ -37,7 +37,7 @@ public class Entrenador {
 	@OneToMany(mappedBy="entrenadores",fetch = FetchType.EAGER)
 	private Set<Alumno> alumnos;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "entrenadores_ejercicios",
 			joinColumns = {@JoinColumn(name = "id_Entrenador")},
@@ -47,7 +47,7 @@ public class Entrenador {
 	@JsonIgnore
 	private Set<Ejercicio> ejercicios;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "entrenadores_rutinas",
 			joinColumns = {@JoinColumn(name = "id_Entrenador")},
