@@ -67,7 +67,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Usuario insertarusuarioDTO(UsuarioDTO userDTO) {
 		String rolSeleccionado = userDTO.getRol();
-		Usuario nuevoUsuario = new Usuario(userDTO.getUsername(),userDTO.getNombre(),passwordEncoder.encode(userDTO.getPassword()));
+		Usuario nuevoUsuario = new Usuario(userDTO.getUsername(),userDTO.getNombre(),passwordEncoder.encode(userDTO.getPassword()),
+				userDTO.getImagen(),userDTO.getMimeType());
 		Alumno nuevoAlumno = new Alumno(nuevoUsuario.getNombre());
 		Entrenador nuevoEntrenador = new Entrenador(nuevoUsuario.getNombre());
 		if (rolSeleccionado.equals("Alumno")) {

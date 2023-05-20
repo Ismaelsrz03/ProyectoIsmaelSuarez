@@ -57,6 +57,8 @@
 <tr>
 <th>Id </th>
 <th>Nombre</th>
+<th>Series</th>
+<th>Repeticiones</th>
 <th>Editar</th>
 <th>Borrar</th>
 </tr>
@@ -74,6 +76,14 @@
 	</td>
 	<td>
 		<span th:text="${ejercicio.nombre}"> </span>
+	</td>
+	
+	<td>
+		<span th:text="${ejercicio.series}"></span>
+	</td>
+	
+	<td>
+		 <span th:text="${ejercicio.reps}"></span>
 	</td>
 	
 	<td>
@@ -100,7 +110,7 @@
 	<strong><span th:text="${ejercicio.nombre}"> </span></strong></p>
 	
 	<!-- formulario nombre a editar-->
-	<form action="#" th:action="@{/ejercicios/edit/{id}(id=${ejercicio.id})}" th:object="${ejercicioaEditar}" method="post">
+	<form action="#" th:action="@{/ejercicios/edit/{id}(id=${ejercicio.id})}" th:object="${ejercicioaEditar}" method="post" enctype="multipart/form-data">
 	 
 	 <div class="form-row">
 	 
@@ -111,6 +121,39 @@
 	 </div>
 	 
 	 </div>
+	 
+	 	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="file">Imagen</label>
+	  <input id="input-file" type="file" name="file" accept="image/png, image/jpeg" />
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Series</label>
+	 <input type="number" th:field="*{series}" class="form-control" placeholder"1"/>
+	 <label for="texto">Repeticiones</label>
+	  <input type="number" th:field="*{reps}" class="form-control" placeholder"1"/> 
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+		<div class="form-floating">
+  			<textarea th:field="*{descripcion}" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+ 			 <label for="floatingTextarea">Descripcion</label>
+		</div>
+	 </div>
+	 
+	 </div>
+	 
+	 
 	 
 	 </div>
 	 <div class="modal-footer">
@@ -181,8 +224,8 @@ Añadir ejercicio</button>
 	<div class="modal-body">
 	<p class="error-text"> Introduce el nuevo ejercicio:</p>
 	
-	<!-- formulario nombre a editar-->
-	<form action="#" th:action="@{/ejercicios/add/}" th:object="${ejercicioNuevo}" method="post">
+	<!-- formulario nombre a crear-->
+	<form action="#" th:action="@{/ejercicios/add/}" th:object="${ejercicioNuevo}" method="post" enctype="multipart/form-data">
 	 
 	 <div class="form-row">
 	 
@@ -190,6 +233,37 @@ Añadir ejercicio</button>
 	 <label for="texto">Nombre</label>
 	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre"/>
 	 
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="file">Imagen</label>
+	  <input id="input-file" type="file" name="file" accept="image/png, image/jpeg" />
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Series</label>
+	 <input type="number" th:field="*{series}" class="form-control" placeholder"1"/>
+	 <label for="texto">Repeticiones</label>
+	  <input type="number" th:field="*{reps}" class="form-control" placeholder"1"/> 
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+		<div class="form-floating">
+  			<textarea th:field="*{descripcion}" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+ 			 <label for="floatingTextarea">Descripcion</label>
+		</div>
 	 </div>
 	 
 	 </div>

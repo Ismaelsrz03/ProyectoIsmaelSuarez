@@ -14,31 +14,29 @@
 
 		</header>
 
-		<div class="row pl-5 pr-5">
-			<div class="col-9">
 
 				<h5 class="m-5"> Ficha de ejercicio</h5>
 
-				<div style="background-color: lightblue;" class="card border border primary" th:object="${ejercicioMostrar}">
-					<div class="card-body row pt-4 pb-4">
-						<div class="col-7">
-							<div class="card text-white bg-dark">
-								<div class="card-header">Ficha del ejercicio
-								</div>
-								<div class="card-body">
-									<div class="mb-2">
-										<h5 th:text="*{nombre}" class="mb-2 card-text">Nombre del ejercicio</h5>
-									</div>
-
-									<p> <a th:href="@{/ejercicios}" class="btn btn-primary mt-3">Cerrar</a></p>
-
-								</div>
+				<div class="card mb-3 bg-black" style="max-width: 1000px; min-height: 300px;" th:object="${ejercicioMostrar}">
+					<div class="row g-0" style="min-height: 290px;">
+						<div class="col-md-6">
+							<img th:if="${ejercicioMostrar.imagen == null}" src="../Imagenes/defecto.png" class="img-fluid rounded-start">
+							<img th:if="${ejercicioMostrar.imagen != null}" th:src="@{'data:'+${ejercicioMostrar.getMimeType()}+';base64,'+${ejercicioMostrar.getImagen()}}" alt="Imagen" class="img-fluid rounded-start" />
+						</div>
+						<div class="col-md-6">
+							<div class="card-body text-white" style="min-height: 290px;">
+								<h5 th:text="*{nombre}" class="mb-2 card-text">Nombre del ejercicio</h5>
+								<p class="card-text" th:text="*{descripcion}"></p>
+							
+								</p>
+								
+								
 							</div>
+							<p> <a th:href="@{/ejercicios}" class="btn btn-primary mt-3">Cerrar</a></p>
 						</div>
 					</div>
 				</div>
 
-			</div>
-		</div>
+
 	</div>
 </body>

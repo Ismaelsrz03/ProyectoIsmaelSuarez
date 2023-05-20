@@ -69,6 +69,7 @@ public class AlumnoEntrenadorController {
 		model.addAttribute("alumnoaEditar", new Alumno());
 		model.addAttribute("alumnoNuevo", new Alumno());
 		model.addAttribute("miEntrenador",alumnoUsuario.getEntrenadores());
+		model.addAttribute("miUsuario",usuarioLog);
 		
 		return "alumnoEntrenador";
 	}

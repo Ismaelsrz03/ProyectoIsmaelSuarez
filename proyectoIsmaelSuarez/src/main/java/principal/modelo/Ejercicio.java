@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -33,6 +34,22 @@ public class Ejercicio {
 	@Column(name="nombre")
 	private String nombre;
 	
+	@Lob
+	@Column(name="imagen")
+	private String imagen;
+	
+	@Column(name="mimeType")
+	private String mimeType;
+	
+	@Column(name="series")
+	private int series;
+	
+	@Column(name="repeticiones")
+	private int reps;
+	
+	@Column(name="descripcion")
+	private String descripcion;
+	
 	@ManyToMany(mappedBy = "ejercicios", fetch = FetchType.EAGER)
 	private Set<Entrenador> entrenadores;
 	
@@ -42,17 +59,27 @@ public class Ejercicio {
 	@ManyToMany(mappedBy="ejercicios", fetch = FetchType.EAGER)
 	private Set<Rutina> rutinas;
 	
+	
 public Ejercicio() {
 	entrenadores = new HashSet<Entrenador>();
 	alumnos = new HashSet<Alumno>();
 	rutinas = new HashSet<Rutina>();
 	}
 	
-	public Ejercicio(String n) {
+	public Ejercicio(String n, int s, int r, String des, String img, String mime) {
 		nombre = n;
+		series = s;
+		reps = r;
+		descripcion = des;
+		imagen = img;
+		mimeType = mime;
 		entrenadores = new HashSet<Entrenador>();
 		alumnos = new HashSet<Alumno>();
 		rutinas = new HashSet<Rutina>();
+	}
+	
+	public Ejercicio(String img) {
+		imagen = img;
 	}
 
 	public Integer getId() {
@@ -67,8 +94,48 @@ public Ejercicio() {
 		return nombre;
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public int getSeries() {
+		return series;
+	}
+
+	public void setSeries(int series) {
+		this.series = series;
+	}
+
+	public int getReps() {
+		return reps;
+	}
+
+	public void setReps(int reps) {
+		this.reps = reps;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Set<Entrenador> getEntrenadores() {

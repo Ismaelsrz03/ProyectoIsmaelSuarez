@@ -62,6 +62,18 @@ public class EntrenadorAlumnoController {
 		ArrayList<Ejercicio> misejercicios = (ArrayList<Ejercicio>) ejercicioService.listarEjercicios();
 		ArrayList<Rutina> misrutinas = (ArrayList<Rutina>) rutinaService.listarRutinas();
 		ArrayList<Usuario> misusuarios = (ArrayList<Usuario>) usuarioService.listarUsuarios();
+		
+				ArrayList<Alumno> libres = new ArrayList<Alumno>();
+				
+				for(Alumno al : misalumnos) {
+					if(al.getEntrenadores()==null) {
+					libres.add(al);
+					}
+				
+				
+				model.addAttribute("libre",libres);
+			
+		}
 	
 		model.addAttribute("listaalumnos", misalumnos);
 		model.addAttribute("listaEntrenadores",misentrenadores);
@@ -72,7 +84,7 @@ public class EntrenadorAlumnoController {
 		model.addAttribute("entrenadorNuevo", new Entrenador());
 		model.addAttribute("miEntrenador",entrenadorUsuario);
 		model.addAttribute("misAlumnos", entrenadorUsuario.getAlumnos());
-		
+		model.addAttribute("miUsuario",usuarioLog);
 		return "entrenadorAlumno";
 	}
 	

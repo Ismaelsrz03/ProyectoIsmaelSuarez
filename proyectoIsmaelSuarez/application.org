@@ -1,0 +1,546 @@
+2023-05-20 22:30:13.948  INFO 3124 --- [main] principal.Main                           : Starting Main using Java 17.0.5 on LAPTOP-C1027IQE with PID 3124 (C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez\target\classes started by ismaj in C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez)
+2023-05-20 22:30:13.952  INFO 3124 --- [main] principal.Main                           : No active profile set, falling back to 1 default profile: "default"
+2023-05-20 22:30:14.881  INFO 3124 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-20 22:30:14.970  INFO 3124 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 79 ms. Found 6 JPA repository interfaces.
+2023-05-20 22:30:15.652  INFO 3124 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8098 (http)
+2023-05-20 22:30:15.663  INFO 3124 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-20 22:30:15.663  INFO 3124 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2023-05-20 22:30:15.807  INFO 3124 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-20 22:30:15.809  INFO 3124 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1806 ms
+2023-05-20 22:30:16.060  INFO 3124 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-20 22:30:16.121  INFO 3124 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.10.Final
+2023-05-20 22:30:16.269  INFO 3124 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-20 22:30:16.370  INFO 3124 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-20 22:30:16.528  INFO 3124 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-20 22:30:16.557  INFO 3124 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2023-05-20 22:30:17.700  INFO 3124 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-20 22:30:17.707  INFO 3124 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-20 22:30:18.190  WARN 3124 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-20 22:30:18.558  WARN 3124 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore1']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:30:18.559  INFO 3124 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore1']
+2023-05-20 22:30:18.560  WARN 3124 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore2']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:30:18.560  INFO 3124 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore2']
+2023-05-20 22:30:18.602  INFO 3124 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6c502018, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@58c93be3, org.springframework.security.web.context.SecurityContextPersistenceFilter@52c2d1e8, org.springframework.security.web.header.HeaderWriterFilter@3816efab, org.springframework.security.web.authentication.logout.LogoutFilter@771ede0d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@19a544cd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4f4b7a2e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@21f421b8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5dd62f07, org.springframework.security.web.session.SessionManagementFilter@257da215, org.springframework.security.web.access.ExceptionTranslationFilter@af04d6d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@76cad511]
+2023-05-20 22:30:18.622  INFO 3124 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-20 22:30:18.767  INFO 3124 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-05-20 22:30:19.278  INFO 3124 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8098 (http) with context path ''
+2023-05-20 22:30:19.279  INFO 3124 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-20 22:30:19.301  INFO 3124 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-20 22:30:19.329  INFO 3124 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-20 22:30:19.566  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosUsingGET_1
+2023-05-20 22:30:19.646  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_1
+2023-05-20 22:30:19.687  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteAlumnoUsingGET_1
+2023-05-20 22:30:19.725  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarAlumnoUsingPOST_1
+2023-05-20 22:30:19.727  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEntrenadorUsingGET_1
+2023-05-20 22:30:19.728  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_1
+2023-05-20 22:30:19.785  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_2
+2023-05-20 22:30:19.786  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_3
+2023-05-20 22:30:19.843  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeejerciciosUsingGET_1
+2023-05-20 22:30:19.846  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_2
+2023-05-20 22:30:19.903  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_1
+2023-05-20 22:30:19.905  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_1
+2023-05-20 22:30:19.906  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_1
+2023-05-20 22:30:19.983  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeentrenadoresUsingGET_1
+2023-05-20 22:30:20.026  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addEjercicioUsingPOST_1
+2023-05-20 22:30:20.029  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_2
+2023-05-20 22:30:20.078  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarEjercicioUsingPOST_1
+2023-05-20 22:30:20.080  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_2
+2023-05-20 22:30:20.081  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_3
+2023-05-20 22:30:20.083  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_2
+2023-05-20 22:30:20.120  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_1
+2023-05-20 22:30:20.122  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_3
+2023-05-20 22:30:20.154  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_1
+2023-05-20 22:30:20.156  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_4
+2023-05-20 22:30:20.156  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_5
+2023-05-20 22:30:20.157  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_3
+2023-05-20 22:30:20.159  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeloginUsingGET_1
+2023-05-20 22:30:20.193  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_2
+2023-05-20 22:30:20.194  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteRutinaUsingGET_1
+2023-05-20 22:30:20.225  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_2
+2023-05-20 22:30:20.228  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homerutinasUsingGET_1
+2023-05-20 22:30:20.295  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeusuariosUsingGET_1
+2023-05-20 22:30:20.296  INFO 3124 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idUsuarioUsingGET_1
+2023-05-20 22:30:20.345  INFO 3124 --- [main] principal.Main                           : Started Main in 6.853 seconds (JVM running for 7.629)
+2023-05-20 22:30:26.587  INFO 3124 --- [http-nio-8098-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-20 22:30:26.587  INFO 3124 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-20 22:30:26.591  INFO 3124 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2023-05-20 22:30:51.530 ERROR 3124 --- [http-nio-8098-exec-6] org.thymeleaf.TemplateEngine             : [THYMELEAF][http-nio-8098-exec-6] Exception processing template "ejercicioVer": Error resolving template [ejercicioVer], template might not exist or might not be accessible by any of the configured Template Resolvers
+
+org.thymeleaf.exceptions.TemplateInputException: Error resolving template [ejercicioVer], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.thymeleaf.engine.TemplateManager.resolveTemplate(TemplateManager.java:869) ~[thymeleaf-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:607) ~[thymeleaf-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098) ~[thymeleaf-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072) ~[thymeleaf-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366) ~[thymeleaf-spring5-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190) ~[thymeleaf-spring5-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1404) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1148) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1087) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:67) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:223) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2023-05-20 22:30:51.535 ERROR 3124 --- [http-nio-8098-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: Error resolving template [ejercicioVer], template might not exist or might not be accessible by any of the configured Template Resolvers] with root cause
+
+org.thymeleaf.exceptions.TemplateInputException: Error resolving template [ejercicioVer], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.thymeleaf.engine.TemplateManager.resolveTemplate(TemplateManager.java:869) ~[thymeleaf-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:607) ~[thymeleaf-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098) ~[thymeleaf-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072) ~[thymeleaf-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366) ~[thymeleaf-spring5-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190) ~[thymeleaf-spring5-3.0.15.RELEASE.jar:3.0.15.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1404) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1148) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1087) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:67) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:223) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186) ~[spring-security-web-5.7.3.jar:5.7.3]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2023-05-20 22:32:29.972  INFO 3124 --- [RMI TCP Connection(6)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2023-05-20 22:32:29.988  INFO 3124 --- [RMI TCP Connection(6)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-05-20 22:32:29.990  INFO 3124 --- [RMI TCP Connection(6)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-05-20 22:32:30.000  INFO 3124 --- [RMI TCP Connection(6)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-20 22:32:30.002  INFO 3124 --- [RMI TCP Connection(6)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-20 22:32:30.011  INFO 3124 --- [RMI TCP Connection(6)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-20 22:32:32.856  INFO 18764 --- [main] principal.Main                           : Starting Main using Java 17.0.5 on LAPTOP-C1027IQE with PID 18764 (C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez\target\classes started by ismaj in C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez)
+2023-05-20 22:32:32.862  INFO 18764 --- [main] principal.Main                           : No active profile set, falling back to 1 default profile: "default"
+2023-05-20 22:32:33.667  INFO 18764 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-20 22:32:33.744  INFO 18764 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 66 ms. Found 6 JPA repository interfaces.
+2023-05-20 22:32:34.311  INFO 18764 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8098 (http)
+2023-05-20 22:32:34.322  INFO 18764 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-20 22:32:34.323  INFO 18764 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2023-05-20 22:32:34.483  INFO 18764 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-20 22:32:34.483  INFO 18764 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1567 ms
+2023-05-20 22:32:34.701  INFO 18764 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-20 22:32:34.794  INFO 18764 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.10.Final
+2023-05-20 22:32:34.969  INFO 18764 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-20 22:32:35.077  INFO 18764 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-20 22:32:35.221  INFO 18764 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-20 22:32:35.252  INFO 18764 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2023-05-20 22:32:36.088  INFO 18764 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-20 22:32:36.097  INFO 18764 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-20 22:32:36.577  WARN 18764 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-20 22:32:36.960  WARN 18764 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore1']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:32:36.961  INFO 18764 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore1']
+2023-05-20 22:32:36.961  WARN 18764 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore2']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:32:36.961  INFO 18764 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore2']
+2023-05-20 22:32:37.003  INFO 18764 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@489989eb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6d97a357, org.springframework.security.web.context.SecurityContextPersistenceFilter@4c5e123d, org.springframework.security.web.header.HeaderWriterFilter@219ec4b6, org.springframework.security.web.authentication.logout.LogoutFilter@110f66e3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@8929865, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35a81281, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1503f434, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1e6cd1c, org.springframework.security.web.session.SessionManagementFilter@31c29db1, org.springframework.security.web.access.ExceptionTranslationFilter@37a0c3c6, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@153c69bc]
+2023-05-20 22:32:37.024  INFO 18764 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-20 22:32:37.170  INFO 18764 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-05-20 22:32:37.639  INFO 18764 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8098 (http) with context path ''
+2023-05-20 22:32:37.640  INFO 18764 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-20 22:32:37.660  INFO 18764 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-20 22:32:37.689  INFO 18764 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-20 22:32:37.894  INFO 18764 --- [http-nio-8098-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-20 22:32:37.894  INFO 18764 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-20 22:32:37.895  INFO 18764 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-05-20 22:32:37.924  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosUsingGET_1
+2023-05-20 22:32:38.028  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_1
+2023-05-20 22:32:38.072  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteAlumnoUsingGET_1
+2023-05-20 22:32:38.119  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarAlumnoUsingPOST_1
+2023-05-20 22:32:38.122  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEntrenadorUsingGET_1
+2023-05-20 22:32:38.124  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_1
+2023-05-20 22:32:38.213  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_2
+2023-05-20 22:32:38.214  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_3
+2023-05-20 22:32:38.284  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeejerciciosUsingGET_1
+2023-05-20 22:32:38.286  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_2
+2023-05-20 22:32:38.360  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_1
+2023-05-20 22:32:38.361  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_1
+2023-05-20 22:32:38.363  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_1
+2023-05-20 22:32:38.453  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeentrenadoresUsingGET_1
+2023-05-20 22:32:38.499  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addEjercicioUsingPOST_1
+2023-05-20 22:32:38.508  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_2
+2023-05-20 22:32:38.565  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarEjercicioUsingPOST_1
+2023-05-20 22:32:38.568  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_2
+2023-05-20 22:32:38.569  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_3
+2023-05-20 22:32:38.571  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_2
+2023-05-20 22:32:38.640  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_1
+2023-05-20 22:32:38.642  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_3
+2023-05-20 22:32:38.669  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_1
+2023-05-20 22:32:38.671  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_4
+2023-05-20 22:32:38.672  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_5
+2023-05-20 22:32:38.672  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_3
+2023-05-20 22:32:38.674  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeloginUsingGET_1
+2023-05-20 22:32:38.701  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_2
+2023-05-20 22:32:38.702  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteRutinaUsingGET_1
+2023-05-20 22:32:38.726  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_2
+2023-05-20 22:32:38.728  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homerutinasUsingGET_1
+2023-05-20 22:32:38.784  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeusuariosUsingGET_1
+2023-05-20 22:32:38.786  INFO 18764 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idUsuarioUsingGET_1
+2023-05-20 22:32:38.838  INFO 18764 --- [main] principal.Main                           : Started Main in 6.506 seconds (JVM running for 7.291)
+2023-05-20 22:35:16.410  INFO 18764 --- [RMI TCP Connection(6)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2023-05-20 22:35:16.424  INFO 18764 --- [RMI TCP Connection(6)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-05-20 22:35:16.426  INFO 18764 --- [RMI TCP Connection(6)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-05-20 22:35:16.433  INFO 18764 --- [RMI TCP Connection(6)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-20 22:35:16.435  INFO 18764 --- [RMI TCP Connection(6)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-20 22:35:16.444  INFO 18764 --- [RMI TCP Connection(6)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-20 22:35:18.837  INFO 7532 --- [main] principal.Main                           : Starting Main using Java 17.0.5 on LAPTOP-C1027IQE with PID 7532 (C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez\target\classes started by ismaj in C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez)
+2023-05-20 22:35:18.840  INFO 7532 --- [main] principal.Main                           : No active profile set, falling back to 1 default profile: "default"
+2023-05-20 22:35:19.612  INFO 7532 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-20 22:35:19.686  INFO 7532 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 6 JPA repository interfaces.
+2023-05-20 22:35:20.189  INFO 7532 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8098 (http)
+2023-05-20 22:35:20.198  INFO 7532 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-20 22:35:20.198  INFO 7532 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2023-05-20 22:35:20.347  INFO 7532 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-20 22:35:20.348  INFO 7532 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1459 ms
+2023-05-20 22:35:20.547  INFO 7532 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-20 22:35:20.591  INFO 7532 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.10.Final
+2023-05-20 22:35:20.739  INFO 7532 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-20 22:35:20.832  INFO 7532 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-20 22:35:20.978  INFO 7532 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-20 22:35:21.010  INFO 7532 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2023-05-20 22:35:21.795  INFO 7532 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-20 22:35:21.803  INFO 7532 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-20 22:35:22.259  WARN 7532 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-20 22:35:22.600  WARN 7532 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore1']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:35:22.601  INFO 7532 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore1']
+2023-05-20 22:35:22.602  WARN 7532 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore2']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:35:22.602  INFO 7532 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore2']
+2023-05-20 22:35:22.648  INFO 7532 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@8929865, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@489989eb, org.springframework.security.web.context.SecurityContextPersistenceFilter@2279e7c7, org.springframework.security.web.header.HeaderWriterFilter@5de32e00, org.springframework.security.web.authentication.logout.LogoutFilter@65a01901, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@62d5617, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@69542112, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@59ac60d1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6d97a357, org.springframework.security.web.session.SessionManagementFilter@cdc09d, org.springframework.security.web.access.ExceptionTranslationFilter@ce5a2ea, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3f908a10]
+2023-05-20 22:35:22.668  INFO 7532 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-20 22:35:22.808  INFO 7532 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-05-20 22:35:23.257  INFO 7532 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8098 (http) with context path ''
+2023-05-20 22:35:23.257  INFO 7532 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-20 22:35:23.275  INFO 7532 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-20 22:35:23.303  INFO 7532 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-20 22:35:23.495  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosUsingGET_1
+2023-05-20 22:35:23.569  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_1
+2023-05-20 22:35:23.621  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteAlumnoUsingGET_1
+2023-05-20 22:35:23.650  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarAlumnoUsingPOST_1
+2023-05-20 22:35:23.653  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEntrenadorUsingGET_1
+2023-05-20 22:35:23.654  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_1
+2023-05-20 22:35:23.700  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_2
+2023-05-20 22:35:23.701  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_3
+2023-05-20 22:35:23.771  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeejerciciosUsingGET_1
+2023-05-20 22:35:23.772  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_2
+2023-05-20 22:35:23.823  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_1
+2023-05-20 22:35:23.825  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_1
+2023-05-20 22:35:23.826  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_1
+2023-05-20 22:35:23.909  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeentrenadoresUsingGET_1
+2023-05-20 22:35:23.933  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addEjercicioUsingPOST_1
+2023-05-20 22:35:23.935  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_2
+2023-05-20 22:35:23.975  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarEjercicioUsingPOST_1
+2023-05-20 22:35:23.976  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_2
+2023-05-20 22:35:23.977  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_3
+2023-05-20 22:35:23.978  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_2
+2023-05-20 22:35:24.009  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_1
+2023-05-20 22:35:24.011  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_3
+2023-05-20 22:35:24.035  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_1
+2023-05-20 22:35:24.036  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_4
+2023-05-20 22:35:24.037  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_5
+2023-05-20 22:35:24.038  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_3
+2023-05-20 22:35:24.039  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeloginUsingGET_1
+2023-05-20 22:35:24.063  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_2
+2023-05-20 22:35:24.064  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteRutinaUsingGET_1
+2023-05-20 22:35:24.089  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_2
+2023-05-20 22:35:24.091  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homerutinasUsingGET_1
+2023-05-20 22:35:24.141  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeusuariosUsingGET_1
+2023-05-20 22:35:24.142  INFO 7532 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idUsuarioUsingGET_1
+2023-05-20 22:35:24.191  INFO 7532 --- [main] principal.Main                           : Started Main in 5.746 seconds (JVM running for 6.508)
+2023-05-20 22:35:27.115  INFO 7532 --- [http-nio-8098-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-20 22:35:27.115  INFO 7532 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-20 22:35:27.116  INFO 7532 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-20 22:39:35.025  INFO 7532 --- [RMI TCP Connection(9)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2023-05-20 22:39:35.049  INFO 7532 --- [RMI TCP Connection(9)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-05-20 22:39:35.051  INFO 7532 --- [RMI TCP Connection(9)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-05-20 22:39:35.072  INFO 7532 --- [RMI TCP Connection(9)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-20 22:39:35.090  INFO 7532 --- [RMI TCP Connection(9)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-20 22:39:35.103  INFO 7532 --- [RMI TCP Connection(9)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-20 22:39:39.231  INFO 12396 --- [main] principal.Main                           : Starting Main using Java 17.0.5 on LAPTOP-C1027IQE with PID 12396 (C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez\target\classes started by ismaj in C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez)
+2023-05-20 22:39:39.234  INFO 12396 --- [main] principal.Main                           : No active profile set, falling back to 1 default profile: "default"
+2023-05-20 22:39:40.618  INFO 12396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-20 22:39:40.746  INFO 12396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 109 ms. Found 6 JPA repository interfaces.
+2023-05-20 22:39:41.449  INFO 12396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8098 (http)
+2023-05-20 22:39:41.461  INFO 12396 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-20 22:39:41.461  INFO 12396 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2023-05-20 22:39:41.657  INFO 12396 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-20 22:39:41.658  INFO 12396 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2344 ms
+2023-05-20 22:39:41.993  INFO 12396 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-20 22:39:42.066  INFO 12396 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.10.Final
+2023-05-20 22:39:42.277  INFO 12396 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-20 22:39:42.395  INFO 12396 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-20 22:39:42.587  INFO 12396 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-20 22:39:42.618  INFO 12396 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2023-05-20 22:39:43.547  INFO 12396 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-20 22:39:43.559  INFO 12396 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-20 22:39:44.082  WARN 12396 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-20 22:39:44.477  WARN 12396 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore1']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:39:44.478  INFO 12396 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore1']
+2023-05-20 22:39:44.479  WARN 12396 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore2']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:39:44.479  INFO 12396 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore2']
+2023-05-20 22:39:44.524  INFO 12396 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@489989eb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6d97a357, org.springframework.security.web.context.SecurityContextPersistenceFilter@4c5e123d, org.springframework.security.web.header.HeaderWriterFilter@219ec4b6, org.springframework.security.web.authentication.logout.LogoutFilter@110f66e3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@8929865, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35a81281, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1503f434, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1e6cd1c, org.springframework.security.web.session.SessionManagementFilter@31c29db1, org.springframework.security.web.access.ExceptionTranslationFilter@37a0c3c6, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@153c69bc]
+2023-05-20 22:39:44.545  INFO 12396 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-20 22:39:44.698  INFO 12396 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-05-20 22:39:45.210  INFO 12396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8098 (http) with context path ''
+2023-05-20 22:39:45.211  INFO 12396 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-20 22:39:45.243  INFO 12396 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-20 22:39:45.282  INFO 12396 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-20 22:39:45.511  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosUsingGET_1
+2023-05-20 22:39:45.591  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_1
+2023-05-20 22:39:45.635  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteAlumnoUsingGET_1
+2023-05-20 22:39:45.674  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarAlumnoUsingPOST_1
+2023-05-20 22:39:45.677  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEntrenadorUsingGET_1
+2023-05-20 22:39:45.678  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_1
+2023-05-20 22:39:45.735  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_2
+2023-05-20 22:39:45.737  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_3
+2023-05-20 22:39:45.803  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeejerciciosUsingGET_1
+2023-05-20 22:39:45.804  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_2
+2023-05-20 22:39:45.851  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_1
+2023-05-20 22:39:45.853  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_1
+2023-05-20 22:39:45.855  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_1
+2023-05-20 22:39:45.956  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeentrenadoresUsingGET_1
+2023-05-20 22:39:45.988  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addEjercicioUsingPOST_1
+2023-05-20 22:39:45.990  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_2
+2023-05-20 22:39:46.020  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarEjercicioUsingPOST_1
+2023-05-20 22:39:46.022  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_2
+2023-05-20 22:39:46.023  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_3
+2023-05-20 22:39:46.024  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_2
+2023-05-20 22:39:46.057  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_1
+2023-05-20 22:39:46.059  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_3
+2023-05-20 22:39:46.090  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_1
+2023-05-20 22:39:46.092  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_4
+2023-05-20 22:39:46.093  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_5
+2023-05-20 22:39:46.093  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_3
+2023-05-20 22:39:46.095  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeloginUsingGET_1
+2023-05-20 22:39:46.128  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_2
+2023-05-20 22:39:46.130  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteRutinaUsingGET_1
+2023-05-20 22:39:46.167  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_2
+2023-05-20 22:39:46.170  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homerutinasUsingGET_1
+2023-05-20 22:39:46.239  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeusuariosUsingGET_1
+2023-05-20 22:39:46.241  INFO 12396 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idUsuarioUsingGET_1
+2023-05-20 22:39:46.309  INFO 12396 --- [main] principal.Main                           : Started Main in 7.712 seconds (JVM running for 9.067)
+2023-05-20 22:39:48.857  INFO 12396 --- [http-nio-8098-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-20 22:39:48.857  INFO 12396 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-20 22:39:48.859  INFO 12396 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-05-20 22:41:57.023  INFO 12396 --- [RMI TCP Connection(5)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2023-05-20 22:41:57.039  INFO 12396 --- [RMI TCP Connection(5)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-05-20 22:41:57.041  INFO 12396 --- [RMI TCP Connection(5)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-05-20 22:41:57.049  INFO 12396 --- [RMI TCP Connection(5)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-20 22:41:57.050  INFO 12396 --- [RMI TCP Connection(5)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-20 22:41:57.059  INFO 12396 --- [RMI TCP Connection(5)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-20 22:42:02.277  INFO 7524 --- [main] principal.Main                           : Starting Main using Java 17.0.5 on LAPTOP-C1027IQE with PID 7524 (C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez\target\classes started by ismaj in C:\Users\ismaj\Documents\git\proyectoIsmaelSuarez\proyectoIsmaelSuarez)
+2023-05-20 22:42:02.280  INFO 7524 --- [main] principal.Main                           : No active profile set, falling back to 1 default profile: "default"
+2023-05-20 22:42:03.056  INFO 7524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-20 22:42:03.129  INFO 7524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 6 JPA repository interfaces.
+2023-05-20 22:42:03.684  INFO 7524 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8098 (http)
+2023-05-20 22:42:03.696  INFO 7524 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-20 22:42:03.696  INFO 7524 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2023-05-20 22:42:03.830  INFO 7524 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-20 22:42:03.830  INFO 7524 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1482 ms
+2023-05-20 22:42:04.030  INFO 7524 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-20 22:42:04.076  INFO 7524 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.10.Final
+2023-05-20 22:42:04.222  INFO 7524 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-20 22:42:04.323  INFO 7524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-20 22:42:04.472  INFO 7524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-20 22:42:04.497  INFO 7524 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2023-05-20 22:42:05.271  INFO 7524 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-20 22:42:05.282  INFO 7524 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-20 22:42:05.818  WARN 7524 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-20 22:42:06.218  WARN 7524 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore1']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:42:06.220  INFO 7524 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore1']
+2023-05-20 22:42:06.220  WARN 7524 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/ignore2']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-20 22:42:06.220  INFO 7524 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/ignore2']
+2023-05-20 22:42:06.268  INFO 7524 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4b517357, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@702ab027, org.springframework.security.web.context.SecurityContextPersistenceFilter@cdc09d, org.springframework.security.web.header.HeaderWriterFilter@4986b0ea, org.springframework.security.web.authentication.logout.LogoutFilter@3618486e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@73cfafd8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@751526a7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58829c2c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62d5617, org.springframework.security.web.session.SessionManagementFilter@37a0c3c6, org.springframework.security.web.access.ExceptionTranslationFilter@648bfebe, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@321302bc]
+2023-05-20 22:42:06.291  INFO 7524 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-20 22:42:06.424  INFO 7524 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-05-20 22:42:06.829  INFO 7524 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8098 (http) with context path ''
+2023-05-20 22:42:06.829  INFO 7524 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-20 22:42:06.866  INFO 7524 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-20 22:42:06.890  INFO 7524 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-20 22:42:07.078  INFO 7524 --- [http-nio-8098-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-20 22:42:07.078  INFO 7524 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-20 22:42:07.079  INFO 7524 --- [http-nio-8098-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-20 22:42:07.116  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosUsingGET_1
+2023-05-20 22:42:07.197  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_1
+2023-05-20 22:42:07.249  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteAlumnoUsingGET_1
+2023-05-20 22:42:07.293  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarAlumnoUsingPOST_1
+2023-05-20 22:42:07.296  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEntrenadorUsingGET_1
+2023-05-20 22:42:07.298  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_1
+2023-05-20 22:42:07.371  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_2
+2023-05-20 22:42:07.372  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homealumnosEjerciciosUsingGET_3
+2023-05-20 22:42:07.456  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeejerciciosUsingGET_1
+2023-05-20 22:42:07.458  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idAlumnoUsingGET_2
+2023-05-20 22:42:07.493  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_1
+2023-05-20 22:42:07.494  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_1
+2023-05-20 22:42:07.495  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_1
+2023-05-20 22:42:07.572  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeentrenadoresUsingGET_1
+2023-05-20 22:42:07.608  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addEjercicioUsingPOST_1
+2023-05-20 22:42:07.609  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_2
+2023-05-20 22:42:07.654  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarEjercicioUsingPOST_1
+2023-05-20 22:42:07.656  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_2
+2023-05-20 22:42:07.656  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_3
+2023-05-20 22:42:07.657  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_2
+2023-05-20 22:42:07.687  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_1
+2023-05-20 22:42:07.689  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteEjercicioUsingGET_3
+2023-05-20 22:42:07.766  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_1
+2023-05-20 22:42:07.776  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_4
+2023-05-20 22:42:07.777  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeEntrenadorAlumnosUsingGET_5
+2023-05-20 22:42:07.778  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idEjercicioUsingGET_3
+2023-05-20 22:42:07.779  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeloginUsingGET_1
+2023-05-20 22:42:07.813  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addRutinaUsingPOST_2
+2023-05-20 22:42:07.814  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteRutinaUsingGET_1
+2023-05-20 22:42:07.850  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: editarRutinaUsingPOST_2
+2023-05-20 22:42:07.853  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homerutinasUsingGET_1
+2023-05-20 22:42:07.910  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: homeusuariosUsingGET_1
+2023-05-20 22:42:07.912  INFO 7524 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: idUsuarioUsingGET_1
+2023-05-20 22:42:07.960  INFO 7524 --- [main] principal.Main                           : Started Main in 6.136 seconds (JVM running for 6.894)

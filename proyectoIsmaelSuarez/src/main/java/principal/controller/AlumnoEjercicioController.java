@@ -1,6 +1,8 @@
 package principal.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Set;
 
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
@@ -52,6 +56,7 @@ public class AlumnoEjercicioController {
 	
 	private Ejercicio ejerciciosAlumno;
 	
+	
 	@GetMapping(value= {"","/"})
 	String homealumnosEjercicios(Model model) {
 		
@@ -75,6 +80,7 @@ public class AlumnoEjercicioController {
 		model.addAttribute("miAlumno",alumnoUsuario);
 		model.addAttribute("miEntrenador",alumnoUsuario.getEntrenadores());
 		model.addAttribute("misEjercicios",alumnoUsuario.getEjercicios());
+		model.addAttribute("miUsuario",usuarioLog);
 		
 		return "alumnoEjercicio";
 	}
@@ -124,13 +130,17 @@ public class AlumnoEjercicioController {
 	}
 
 	@PostMapping("/edit/{id}")
-	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado, BindingResult bindingresult) {
+	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado, 
+			BindingResult bindingresult, @RequestParam("file") MultipartFile file) {
 
 		Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
 		
 		Ejercicio e = new Ejercicio();
 		
 		e.setNombre(ejercicioEditado.getNombre());
+		e.setReps(ejercicioEditado.getReps());
+		e.setSeries(ejercicioEditado.getSeries());
+		e.setDescripcion(ejercicioEditado.getDescripcion());
 		ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
 		
 		for(Ejercicio ee: alumnoUsuario.getEjercicios()) {
@@ -152,16 +162,45 @@ public class AlumnoEjercicioController {
 			}
 		}
 		
+		if(!file.isEmpty()) {
+
+			 try {
+				 byte[] imageBytes =file.getBytes();
+				 String encodedString = Base64.getEncoder().encodeToString(imageBytes);
+				 e.setImagen(encodedString);
+				 e.setMimeType(file.getContentType());
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+		}
+		
 		alumnoUsuario.getEjercicios().remove(aBorrar);
 	
 //		ejercicioService.insertarEjercicio(ejercicioEditado);
 		alumnoService.insertarAlumno(alumnoUsuario);
 		return "redirect:/alumnoEjercicio";
 	}
-	
+
 	@PostMapping("/add")
-	public String addEjercicio(@ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew, BindingResult bindingresult, Integer id) {
+	public String addEjercicio(Model model,@ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew, BindingResult bindingresult,
+			Integer id, @RequestParam("file") MultipartFile file) {
 	    Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
+	    
+	    if(!file.isEmpty()) {
+
+			 
+			 try {
+
+				 byte[] imageBytes =file.getBytes();
+				 String encodedString = Base64.getEncoder().encodeToString(imageBytes);
+				 ejercicioNew.setImagen(encodedString);
+				 ejercicioNew.setMimeType(file.getContentType());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	    
 	    ejercicioNew.setAlumnos(Collections.singleton(alumnoUsuario));
 	    
@@ -171,17 +210,16 @@ public class AlumnoEjercicioController {
 	    
 	    return "redirect:/alumnoEjercicio";
 	}
-
-
 	
+
 	@GetMapping({"/{id}"})
 	String idEjercicio(Model model, @PathVariable Integer id) {
+		usuarioLog= obtenerLog();
+		Ejercicio ejerMostrar = ejercicioService.obtenerEjercicioPorID(id);
+		model.addAttribute("ejerMostrar",ejerMostrar);
+		model.addAttribute("miUsuario",usuarioLog);
 		
-		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id);
-		model.addAttribute("alumnoMostrar",alumnoMostrar);
-		
-		
-		return "ejercicio";
+		return "ejercicioVer";
 	}
 	
 	@GetMapping("/delete/{id}")

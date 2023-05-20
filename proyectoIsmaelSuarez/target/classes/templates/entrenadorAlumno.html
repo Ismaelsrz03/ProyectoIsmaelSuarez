@@ -17,7 +17,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="/" class="nav-link bg-success text-white" aria-current="page" role="button">
+        <a href="/" class="nav-link text-white bg-success" aria-current="page" role="button">
           <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
           Home
         </a>
@@ -25,7 +25,7 @@
       <li>
         <a href="/entrenadorAlumno" class="nav-link text-white bg-black">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-         Alummos
+         Alumnos
         </a>
       </li>
       <li>
@@ -135,11 +135,18 @@ Añadir alumno</button>
 	 <div class="form-row">
 	 
 	 <div class="form-group mt-1" id="select-alumnos">
-	 <label for="texto">Seleccionar alumnos</label>
-	 <p>Si la elección está vacía es porque no hay alumnos libres</p>
+		 <div th:if="${!libre.empty}">
+ 
+	 <label  for="texto">Seleccionar alumnos</label>
 	 <select th:Field="*{alumnos}" multiple = "multiple" class="form-control selectpicker" name="alumnos" id="alumnos">
 	 <option th:each="a:${listaalumnos}" th:if="${a.entrenadores == null}" th:value="${a.id}" th:text="${a.nombre}" value=""> Seleccionar Alumnos</option>
+	
 	 </select>
+	 </div>
+	 <div th:if="${libre.empty}">
+		<p>No hay alumnos libres</p> 
+	 </div>
+	  
 	 </div>
 	 
 	 </div>

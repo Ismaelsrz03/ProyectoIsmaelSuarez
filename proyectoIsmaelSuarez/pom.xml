@@ -103,6 +103,16 @@
     	<version>3.0.2</version><!--$NO-MVN-MAN-VER$-->
 	</dependency>
 
+<dependency>
+	<groupId>org.webjars</groupId>
+	<artifactId>jquery</artifactId>
+	<version>3.6.1</version>
+</dependency>
+
+<dependency>
+	<groupId>org.webjars</groupId>
+	<artifactId>webjars-locator-core</artifactId>
+</dependency>
 
 
 	</dependencies>

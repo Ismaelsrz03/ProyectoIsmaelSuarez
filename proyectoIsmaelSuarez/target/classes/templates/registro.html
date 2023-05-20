@@ -18,7 +18,7 @@
                     style="width: 200px; height: 200px;" alt="logo">
                 </div>
 
-                <form method="post" th:action="@{/usuarios/addRegistro}" th:object="${newUserDTO}">
+                <form method="post" th:action="@{/usuarios/addRegistro}" th:object="${newUserDTO}" enctype="multipart/form-data">
                   <h1>Crea tu cuenta Invincible Body</h1>
 
                   <div class="form-outline mb-4">
@@ -47,6 +47,12 @@
 										<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
 									</div>
 								</div>
+                  </div>
+                  
+                  <div class="form-outline mb-4">
+	 						<label for="file">Imagen</label>
+	  						<input id="input-file" type="file" name="file" accept="image/png, image/jpeg" />
+                    
                   </div>
                   
                   <div class="form-row">

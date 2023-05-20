@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,6 +43,13 @@ public class Usuario implements UserDetails {
 	@Column (name="password")
 	private String password;
 	
+	@Lob
+	@Column(name="imagen")
+	private String imagen;
+	
+	@Column(name="mimeType")
+	private String mimeType;
+	
 	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinTable(
 			name="usuario_roles",
@@ -63,10 +71,13 @@ public class Usuario implements UserDetails {
 		entrenadores = new HashSet<Entrenador>();
 	}
 	
-	public Usuario(String nombre, String usuario, String pass) {
+	public Usuario(String username, String nombre, String password, String imagen, String mimetype) {
+		super();
+		this.username = username;
 		this.nombre = nombre;
-		this.username = usuario;
-		this.password = pass;
+		this.password = password;
+		this.imagen = imagen;
+		this.mimeType = mimetype;
 		roles = new HashSet<Rol>();
 	}
 
@@ -104,6 +115,22 @@ public class Usuario implements UserDetails {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
 	}
 
 	public Set<Rol> getRoles() {

@@ -78,6 +78,7 @@ public class EntrenadorRutinaController {
 		model.addAttribute("misAlumnos", entrenadorUsuario.getAlumnos());
 		model.addAttribute("misRutinas",entrenadorUsuario.getRutinas());
 		model.addAttribute("rutnasEjercicios",ejerciciosRutinas);
+		model.addAttribute("miUsuario",usuarioLog);
 		
 		return "entrenadorRutina";
 	}
@@ -121,7 +122,6 @@ public class EntrenadorRutinaController {
 		Rutina r = new Rutina();
 		r.setNombre(rutinaEditado.getNombre());
 		Rutina aBorrar = new Rutina();
-		
 ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
 		
 		for(Ejercicio ee: rutinaEditado.getEjercicios()) {
@@ -147,7 +147,6 @@ ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
 		for(Ejercicio e: lista) {
 					r.getEjercicios().add(e);
 				}
-		
 		entrenadorUsuario.getRutinas().remove(aBorrar);
 		
 		entrenadorService.insertarEntrenador(entrenadorUsuario);
@@ -156,13 +155,14 @@ ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
 	
 	@PostMapping("/add")
 	public String addRutina(@ModelAttribute("rutinaNuevo") Rutina rutinaNew, BindingResult bindingresult, Integer id) {
-	    Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
 	    
+		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
 	    
-	    for(Ejercicio e: entrenadorUsuario.getEjercicios()) {
+		for(Ejercicio e: entrenadorUsuario.getEjercicios()) {
+	    	
 			e.getRutinas().add(rutinaNew);
 		}
-
+	    
 	     entrenadorUsuario.getRutinas().add(rutinaNew);
 	    
 	    

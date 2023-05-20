@@ -3,6 +3,8 @@ package principal.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import principal.modelo.Ejercicio;
 import principal.modelo.Rutina;
+import principal.modelo.Usuario;
 import principal.modelo.Alumno;
 import principal.modelo.Entrenador;
 import principal.servicio.impl.EjercicioServiceImpl;
 import principal.servicio.impl.RutinaServiceImpl;
+import principal.servicio.impl.UsuarioServiceImpl;
 import principal.servicio.impl.EntrenadorServiceImpl;
 import principal.servicio.impl.AlumnoServiceImpl;
 
@@ -35,7 +39,12 @@ public class RutinaController {
 	private EntrenadorServiceImpl entrenadorService;
 	
 	@Autowired
+	private UsuarioServiceImpl usuarioService;
+	
+	@Autowired
 	private AlumnoServiceImpl alumnoService;
+	
+	private Usuario miUsuario;
 		
 		@GetMapping(value= {"","/"})
 		String homerutinas(Model model) {
@@ -53,9 +62,24 @@ public class RutinaController {
 			model.addAttribute("listaalumnos",misalumnos);
 			model.addAttribute("rutinaaEditar", new Rutina());
 			model.addAttribute("rutinaNuevo", new Rutina());
-			
+			miUsuario = obtenerLog();
+			model.addAttribute("miUsuario",miUsuario);
 			
 			return "rutinas";
+		}
+		
+		private Usuario obtenerLog() {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Usuario u2 = null;
+			UserDetails userDetails = null;
+			
+			if(principal instanceof UserDetails) {
+				
+				userDetails = (UserDetails) principal;
+				
+			 u2 = usuarioService.obtenerUsuarioPorNombre(userDetails.getUsername());
+			}
+			return u2;
 		}
 		
 		@PostMapping("/edit/{id}")

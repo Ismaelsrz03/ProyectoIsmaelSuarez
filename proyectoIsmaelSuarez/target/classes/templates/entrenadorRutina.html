@@ -17,7 +17,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="/" class="nav-link bg-success text-white" aria-current="page" role="button">
+        <a href="/" class="nav-link text-white bg-success" aria-current="page" role="button">
           <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
           Home
         </a>
@@ -64,9 +64,11 @@
             <div class="card-body text-center">
 				<img src="../Imagenes/logo.png" alt="Descripción de la imagen">
                 <h5 class="card-title" th:text="${rutina.nombre}"></h5>
-                <ul class="list-group list-group-flush" th:each="ejercicio:${rutina.ejercicios}">
+                <div th:object="${rutinasEjercicios}">
+                       <ul class="list-group list-group-flush" th:each="ejercicio:${rutina.ejercicios}">
                             <li class="list-group-item" th:text="${ejercicio.nombre}"></li>
                         </ul>
+                       </div>
                 <a th:attr="data-target='#modal-edit'+${rutina.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
                 <a th:attr="data-target='#modal-delete'+${rutina.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
             </div>
@@ -98,8 +100,7 @@
 	 </div>
 	 
 	 </div>
-	 
-	 <div class="form-row">
+	  <div class="form-row">
 	 
 	 <div class="form-group mt-1">
 	 

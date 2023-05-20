@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,12 +45,14 @@ public class EntrenadorController {
 	
 	@Autowired
 	private UsuarioServiceImpl usuarioService;
+	
+	private Usuario miUsuario;
 		
 		@GetMapping(value= {"","/"})
 		String homeentrenadores(Model model) {
 			
 			// Salir a buscar a la BBDD
-			
+			miUsuario = obtenerLog();
 			ArrayList<Alumno> misalumnos = (ArrayList<Alumno>) alumnoService.listarAlumnos();
 			ArrayList<Entrenador> misentrenadores = (ArrayList<Entrenador>) entrenadorService.listarEntrenadors();
 			ArrayList<Ejercicio> misejercicios = (ArrayList<Ejercicio>) ejercicioService.listarEjercicios();
@@ -60,9 +64,23 @@ public class EntrenadorController {
 			model.addAttribute("listaRutinas",misrutinas);
 			model.addAttribute("entrenadoraEditar", new Entrenador());
 			model.addAttribute("entrenadorNuevo", new Entrenador());
-			
+			model.addAttribute("miUsuario",miUsuario);
 			
 			return "entrenadores";
+		}
+		
+		private Usuario obtenerLog() {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Usuario u2 = null;
+			UserDetails userDetails = null;
+			
+			if(principal instanceof UserDetails) {
+				
+				userDetails = (UserDetails) principal;
+				
+			 u2 = usuarioService.obtenerUsuarioPorNombre(userDetails.getUsername());
+			}
+			return u2;
 		}
 		
 		@PostMapping("/edit/{id}")

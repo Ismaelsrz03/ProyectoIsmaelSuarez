@@ -76,7 +76,7 @@ public class AlumnoRutinaController {
 		model.addAttribute("miEntrenador",alumnoUsuario.getEntrenadores());
 		model.addAttribute("misEjercicios",alumnoUsuario.getEjercicios());
 		model.addAttribute("misRutinas",alumnoUsuario.getRutinas());
-		
+		model.addAttribute("miUsuario",usuarioLog);
 		return "alumnoRutina";
 	}
 	

@@ -1,6 +1,8 @@
 package principal.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Set;
 
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
@@ -74,7 +78,7 @@ public class EntrenadorEjercicioController {
 		model.addAttribute("miEntrenador",entrenadorUsuario);
 		model.addAttribute("misAlumnos", entrenadorUsuario.getAlumnos());
 		model.addAttribute("misEjercicios",entrenadorUsuario.getEjercicios());
-		
+		model.addAttribute("miUsuario",usuarioLog);
 		return "entrenadorEjercicio";
 	}
 	
@@ -102,20 +106,17 @@ public class EntrenadorEjercicioController {
 		return u2;
 	}
 	@PostMapping("/edit/{id}")
-	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado, BindingResult bindingresult) {
+	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado,
+			BindingResult bindingresult, @RequestParam("file") MultipartFile file) {
 		
 		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
 		Ejercicio e = new Ejercicio();
 		e.setNombre(ejercicioEditado.getNombre());
+		e.setReps(ejercicioEditado.getReps());
+		e.setSeries(ejercicioEditado.getSeries());
+		e.setDescripcion(ejercicioEditado.getDescripcion());
 		Ejercicio aBorrar = new Ejercicio();
-		
-		ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
-		
-		for(Ejercicio ee: entrenadorUsuario.getEjercicios()) {
-			lista.add(ee);
-		}
-		
-		for(Ejercicio ej: lista) {
+		for(Ejercicio ej: entrenadorUsuario.getEjercicios()) {
 			if(ej.getId()==id) {
 				aBorrar = ej;
 				entrenadorUsuario.getEjercicios().add(e);
@@ -126,6 +127,20 @@ public class EntrenadorEjercicioController {
 				}
 			}
 		}
+		
+		if(!file.isEmpty()) {
+
+			 try {
+				 byte[] imageBytes =file.getBytes();
+				 String encodedString = Base64.getEncoder().encodeToString(imageBytes);
+				 e.setImagen(encodedString);
+				 e.setMimeType(file.getContentType());
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+		}
+		
 		entrenadorUsuario.getEjercicios().remove(aBorrar);
 		
 //		ejercicioService.insertarEjercicio(ejercicioEditado);
@@ -134,9 +149,25 @@ public class EntrenadorEjercicioController {
 	}
 	
 	@PostMapping("/add")
-	public String addEjercicio(@ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew, BindingResult bindingresult,Integer id) {
+	public String addEjercicio(@ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew, BindingResult bindingresult,
+			Integer id, @RequestParam("file") MultipartFile file) {
 		
 		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
+		
+		if(!file.isEmpty()) {
+
+			 
+			 try {
+
+				 byte[] imageBytes =file.getBytes();
+				 String encodedString = Base64.getEncoder().encodeToString(imageBytes);
+				 ejercicioNew.setImagen(encodedString);
+				 ejercicioNew.setMimeType(file.getContentType());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	    
 	    ejercicioNew.setEntrenadores(Collections.singleton(entrenadorUsuario));
 	    
@@ -149,12 +180,12 @@ public class EntrenadorEjercicioController {
 	
 	@GetMapping({"/{id}"})
 	String idEjercicio(Model model, @PathVariable Integer id) {
+		usuarioLog= obtenerLog();
+		Ejercicio ejerMostrar = ejercicioService.obtenerEjercicioPorID(id);
+		model.addAttribute("ejerMostrar",ejerMostrar);
+		model.addAttribute("miUsuario",usuarioLog);
 		
-		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id);
-		model.addAttribute("alumnoMostrar",alumnoMostrar);
-		
-		
-		return "ejercicio";
+		return "ejercicioVer";
 	}
 	
 	@GetMapping("/delete/{id}")
