@@ -1,179 +1,188 @@
 <!DOCTYPE html>
+
 <head th:insert="librerias::librerias">
-	</head>
+</head>
+
 <body>
-<header>
+	<header>
 
-<div th:insert="menu::menu"></div>
+		<div th:insert="menu::menu"></div>
 
-</header>
+	</header>
 
-<main class="row">
-	<div class="col-3">
-		<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white" style="width: 300px;">
-    <h1>
-       Bienvenido  <span sec:authentication = "principal.username" />
-    </h1>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="/" class="nav-link text-white bg-success" aria-current="page" role="button">
-          <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="/entrenadorAlumno" class="nav-link text-white bg-black">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-         Alumnos
-        </a>
-      </li>
-      <li>
-        <a href="/entrenadorEjercicio" class="nav-link text-black">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-          Ejercicios
-        </a>
-      </li>
-      <li>
-        <a href="/entrenadorRutina" class="nav-link text-black">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-          Rutinas
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-black">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          Progreso
-        </a>
-      </li>
-    </ul>
-    <hr>
-  </div>
-	</div>
-	<div class="col-6 p-3" th:object="${misAlumnos}">
-		<h1>Alumnos</h1>
-		<hr>
-		<p>Aquí puedes ver los alumnos que tienes</p>
-		
-		<table class="table table-dark">
-<thead class = "table-dark bg-info text-white">
-<tr>
-<th>Nombre</th>
-<th>Borrar</th>
-</tr>
-</thead>
-<tbody>
-<!-- El meolo -->
-	<tr th:if="${misAlumnos.empty}">
-		<td colspan="2">Todavía no tienes alumnos</td>
-	</tr>
-	<tr th:each="alumno:${miEntrenador.alumnos}">
-	<td>
-		<span th:text="${alumno.nombre}"> </span>
-	</td>
-	
-	<td>
-		<a th:attr="data-target='#modal-delete'+${alumno.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
-	</td>
-	
-	
-	
-	<!-- delete modal -->
-	
-	<div class="modal fade" th:id="modal-delete+${alumno.id}">
-	<div class="modal-dialog" role="document">
-	<div class="modal-content">
-	<div class="modal-header">
-		<h4 class="modal-title" id="exampleModelLabel">Eliminar</h4>
-		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
-		<span aria-hidden="true">x</span>
-		</button>
-	</div>
-	
-	<div class="modal-body">
-	<p class="error-text"> ¿Está seguro de eliminar al alumno:
-	<strong><span th:text="${alumno.nombre}"> </span></strong>?</p>
-	
-	 </div>
-	 <div class="modal-footer">
-	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-	 <a th:href="@{/entrenadorAlumno/delete/{id}(id=${alumno.id})}">
-	 <span class="btn btn-danger btn-sm" value="delete">Borrar</span>
-	 </a>
-	 </div>
-	
-	</div>
-	</div>
-	</div>
-	
-	<!-- fin delete modal -->
-	</tr>
-</tbody>
-</table>
+	<main class="row">
+		<div class="col-3">
+			<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white" style="width: 300px;">
+				<h1>
+					Bienvenido <span sec:authentication="principal.username" />
+				</h1>
+				<hr>
+				<ul class="nav nav-pills flex-column mb-auto">
+					<li class="nav-item">
+						<a href="/" class="nav-link text-white bg-success" aria-current="page" role="button">
+							<i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/entrenadorAlumno" class="nav-link text-white bg-black">
+							<svg class="bi me-2" width="16" height="16">
+								<use xlink:href="#speedometer2"></use>
+							</svg>
+							Alumnos
+						</a>
+					</li>
+					<li>
+						<a href="/entrenadorEjercicio" class="nav-link text-black">
+							<svg class="bi me-2" width="16" height="16">
+								<use xlink:href="#table"></use>
+							</svg>
+							Ejercicios
+						</a>
+					</li>
+					<li>
+						<a href="/entrenadorRutina" class="nav-link text-black">
+							<svg class="bi me-2" width="16" height="16">
+								<use xlink:href="#grid"></use>
+							</svg>
+							Rutinas
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link text-black">
+							<svg class="bi me-2" width="16" height="16">
+								<use xlink:href="#people-circle"></use>
+							</svg>
+							Progreso
+						</a>
+					</li>
+				</ul>
+				<hr>
+			</div>
+		</div>
+		<div class="col-6 p-3" th:object="${misAlumnos}">
+			<h1>Alumnos</h1>
+			<hr>
+			<div th:if="${misAlumnos.empty}">
+				<p>Todavía no tienes alumnos</p>
+			</div>
+			<p>Aquí puedes ver los alumnos que tienes</p>
+			<div class="card" th:each="alumno, iter : ${misAlumnos}">
+				<div class="card-header d-flex flex-row">
+					<img th:if="${usu[iter.index].imagen != null}"
+						th:src="@{'data:'+${usu[iter.index].mimeType}+';base64,'+${usu[iter.index].getImagen()}}" class="rounded-circle"
+						width="50px" height="50px">
+					<img th:if="${usu[iter.index].imagen == null}" src="../Imagenes/usuario.png" class="rounded-circle"
+						width="50px" height="50px">
+					<h5 th:text="${alumno.nombre}"></h5>
+				</div>
 
-<div class="col-3 float right">
+				<div class="card-body">
+					<h5 class="card-title">Tratamiento especial del título</h5>
+					<p class="card-text">Con texto de apoyo a continuación como introducción natural a contenido
+						adicional.</p>
+					<a th:attr="data-target='#modal-delete'+${alumno.id}" data-toggle="modal"
+						data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+						<a th:href="@{/entrenadorAlumno/{id}(id=${alumno.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>
+					<div class="modal fade" th:id="modal-delete+${alumno.id}">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="exampleModelLabel">Eliminar</h4>
+									<button class="close btn btn-danger" type="button" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">x</span>
+									</button>
+								</div>
 
-<div class="p-5">
-<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
-Añadir alumno</button>
-</div>
+								<div class="modal-body">
+									<p class="error-text"> ¿Está seguro de eliminar al alumno:
+										<strong><span th:text="${alumno.nombre}"> </span></strong>?
+									</p>
 
-<!-- create modal -->
-	
-	<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
-	<div class="modal-dialog" role="document">
-	<div class="modal-content">
-	<div class="modal-header">
-		<h4 class="modal-title" id="exampleModelLabel">Crear alumno</h4>
-		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
-		<span aria-hidden="true">x</span>
-		</button>
-	</div>
-	<div class="modal-body">	
-	<form action="#" th:action="@{/entrenadorAlumno/add/}" th:object="${entrenadorNuevo}" method="post">
-	 
-	 <div class="form-row">
-	 
-	 <div class="form-group mt-1" id="select-alumnos">
-		 <div th:if="${!libre.empty}">
- 
-	 <label  for="texto">Seleccionar alumnos</label>
-	 <select th:Field="*{alumnos}" multiple = "multiple" class="form-control selectpicker" name="alumnos" id="alumnos">
-	 <option th:each="a:${listaalumnos}" th:if="${a.entrenadores == null}" th:value="${a.id}" th:text="${a.nombre}" value=""> Seleccionar Alumnos</option>
-	
-	 </select>
-	 </div>
-	 <div th:if="${libre.empty}">
-		<p>No hay alumnos libres</p> 
-	 </div>
-	  
-	 </div>
-	 
-	 </div>
-	 
-	 </div>
-	 
-	 <div class="modal-footer">
-	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-	 <input type="submit" value="Crear Alumno" class="btn btn-primary float-right"/>
-	 </div>
-	
-	</form>
-	
-	</div>
-	</div>
-	</div>
-	
-	<!-- fin create modal -->
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal"
+										aria-hidden="true">Cancelar</button>
+									<a th:href="@{/entrenadorAlumno/delete/{id}(id=${alumno.id})}">
+										<span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
-</div>
+			<div class="col-3 float right">
 
-</div>		 
-	</div>
-	<div class="col-3 p-3">
-	</div>
-	</div>
-</main>
+				<div class="p-5">
+					<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
+						Añadir alumno</button>
+				</div>
+
+				<!-- create modal -->
+
+				<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="exampleModelLabel">Crear alumno</h4>
+								<button class="close btn btn-danger" type="button" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">x</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form action="#" th:action="@{/entrenadorAlumno/add/}" th:object="${entrenadorNuevo}"
+									method="post">
+
+									<div class="form-row">
+
+										<div class="form-group mt-1" id="select-alumnos">
+											<div th:if="${!libre.empty}">
+
+												<label for="texto">Seleccionar alumnos</label>
+												<select th:Field="*{alumnos}" multiple="multiple"
+													class="form-control selectpicker" name="alumnos" id="alumnos">
+													<option th:each="a:${listaalumnos}"
+														th:if="${a.entrenadores == null}" th:value="${a.id}"
+														th:text="${a.nombre}" value=""> Seleccionar Alumnos</option>
+
+												</select>
+											</div>
+											<div th:if="${libre.empty}">
+												<p>No hay alumnos libres</p>
+											</div>
+
+										</div>
+
+									</div>
+
+							</div>
+
+							<div class="modal-footer">
+								<button class="btn btn-secondary btn-sm" data-dismiss="modal"
+									aria-hidden="true">Cancelar</button>
+								<input type="submit" value="Crear Alumno" class="btn btn-primary float-right" />
+							</div>
+
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- fin create modal -->
+
+
+			</div>
+
+		</div>
+		</div>
+		</div>
+	</main>
 
 </body>

@@ -74,8 +74,17 @@
   </div>
 	</div>
 	<div class="col-6 p-3">
-		<h1>Invincible body</h1>
-		<hr>
+
+			<div class="modal fade" id="welcomeModal" tabindex="1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="welcomeModalLabel">Invincible body</h4>
+		<button id="cerrar" class="close btn btn-danger" type="button" data-bs-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
 		<p>Bienvenido a tu cuenta de alumno. Aquí podrás gestionar tus entrenamientos de manera
 			efectiva.
 		<p>Tienes la posibilidad de crear tus propios ejercicios o buscar un entrenador.
@@ -84,15 +93,33 @@
 		<p>También tienes una opción dónde guardar tus propias rutinas.</p>
 		<p>¡¡¡COMIENZA AHORA!!!</p>
 		
-		<div class="container">
-		<img class="correr" src="../Imagenes/correr.png" width="50" height="50">
-		</div>
 	</div>
-	<div class="col-3 p-3">
+  <hr>
+	  <div class="d-flex flex-row justify-content-between align-items-center">
+		  <div style="width: 80%;margin-bottom: 50px;">
+			<img class="correr" src="../Imagenes/correr.png" width="50" height="50">  
+		  </div>
+		    
+	 	<div style="width: 20%;">
+			<button class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-hidden="true">Entendido</button>   
+		 </div>
+		    
+  </div>
+	
+	</div>
+	</div>
+	</div>
+	
+
+		
+	</div>
+	<div class="col-2 p-3">
 		<h1>Novedades</h1>
 	</div>
 	
 </div>
+
+
 
 <div class="row" sec:authorize="hasAuthority('ROLE_ENTRENADOR')">
 	<div class="col-3">
@@ -137,8 +164,16 @@
   </div>
 	</div>
 	<div class="col-6 p-3">
-		<h1>Invincible body</h1>
-		<hr>
+		<div class="modal fade" id="welcomeModal" tabindex="1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="welcomeModalLabel">Invincible body</h4>
+		<button id="cerrar" class="close btn btn-danger" type="button" data-bs-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
 		<p>Bienvenido a tu cuenta de entrenador. Aquí podrás gestionar los entrenamientos de tus alumnos de manera
 			efectiva.
 		<p>Tienes la posibilidad de crear tus propios ejercicios y rutinas y asignarlos a tus alumnos.
@@ -146,9 +181,23 @@
 		</p>
 		<p>¡¡¡COMIENZA AHORA!!!</p>
 		
-		<div class="container">
-		<img class="correr" src="../Imagenes/correr.png" width="50" height="50">
-		</div>
+
+	</div>
+  <hr>
+	  <div class="d-flex flex-row justify-content-between align-items-center">
+		  <div style="width: 80%;margin-bottom: 50px;">
+			<img class="correr" src="../Imagenes/correr.png" width="50" height="50">  
+		  </div>
+		    
+	 	<div style="width: 20%;">
+			<button class="btn btn-secondary btn-sm" type="button" data-bs-dismiss="modal" aria-hidden="true">Entendido</button>   
+		 </div>
+		    
+  </div>
+	
+	</div>
+	</div>
+	</div>
 	</div>
 	
 </div>
@@ -226,4 +275,22 @@
     </div>
   </footer>
   </div>
+  
+  <script th:inline="javascript">
+	  
+	  let bienvenida = /*[[${bienvenida}]]*/true;
+	  
+	  $(document).ready(function (){
+		  
+		if(bienvenida ==true){
+			  $('#welcomeModal').modal('show');
+				bienvenida = false;
+			  }
+		 
+		 
+	  });
+	  
+	
+	  
+  </script>
 </body>

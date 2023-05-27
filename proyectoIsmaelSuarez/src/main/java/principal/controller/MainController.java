@@ -49,8 +49,12 @@ public class MainController {
 	
 	private Usuario miUsuario;
 	
+	private boolean bienvenida = true;
+	
 	@GetMapping("/")
 	String home(Model model) {
+		
+		
 		if (tablasCreadas==false && usuarioService.listarUsuarios().isEmpty()) {
             crearTablas();
             tablasCreadas = true;
@@ -58,6 +62,18 @@ public class MainController {
 		
 		miUsuario = obtenerLog();
 		model.addAttribute("miUsuario",miUsuario);
+		
+		if(miUsuario != null) {
+		model.addAttribute("bienvenida",bienvenida);
+		
+		
+			bienvenida = false;
+		} 
+		
+		if(miUsuario==null) {
+			bienvenida=true;
+		}
+		
 		
 		return "index";
 		

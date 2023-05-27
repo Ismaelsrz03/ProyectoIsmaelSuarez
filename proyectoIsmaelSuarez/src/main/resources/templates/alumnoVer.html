@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<head th:insert="librerias::librerias">
+	</head>
+<body>
+<header>
+
+<div th:insert="menu::menu"></div>
+
+</header> 
+
+<main class="row">
+	<div class="col-3">
+		<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white" style="width: 300px;">
+    <h1>
+       Bienvenido  <span sec:authentication = "principal.username" />
+    </h1>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="/" class="nav-link text-white bg-success" aria-current="page" role="button">
+          <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="/entrenadorAlumno" class="nav-link text-white bg-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+         Alumnos
+        </a>
+      </li>
+      <li>
+        <a href="/entrenadorEjercicio" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+          Ejercicios
+        </a>
+      </li>
+      <li>
+        <a href="/entrenadorRutina" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+          Rutinas
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+          Progreso
+        </a>
+      </li>
+    </ul>
+    <hr>
+  </div>
+	</div>
+	<div class="col-8 p-3" th:object="${alumno}">
+		
+		<h1>Alumno <span th:text="${alumno.nombre}"></span></h1>
+		<hr>
+		<p>Aquí tu alumno y tú podeis gestionar los ejercicios</p>
+		<div th:if="${misEjercicios.empty}">
+			<p>Todavía no hay ejercicios</p>
+		</div>
+		<div class="row">
+        <div class="col">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-ejercicios-tab" data-toggle="pill" href="#pills-ejercicios" role="tab" aria-controls="pills-ejercicios" aria-selected="true">Ejercicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-rutinas-tab" data-toggle="pill" href="#pills-rutinas" role="tab" aria-controls="pills-rutinas" aria-selected="false">Rutinas</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-ejercicios" role="tabpanel" aria-labelledby="pills-ejercicios-tab">
+                    <!-- Aquí se muestra la lista de ejercicios -->
+                    	<div class="card-deck d-flex flex-row flex-wrap">
+    <div th:each="ejercicio : ${alumno.ejercicios}">
+        <div class="card card-compact m-2" style="width:350px;">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+				<img th:if="${ejercicio.imagen == null}" src="../Imagenes/defecto.png" width="325px" height="200px">
+				<img th:if="${ejercicio.imagen != null}" th:src="@{'data:'+${ejercicio.getMimeType()}+';base64,'+${ejercicio.getImagen()}}" alt="Imagen" width="325px" height="200px"/>
+                <h5 class="card-title" th:text="${ejercicio.nombre}"></h5>
+                <div class="text-center">
+				<a th:href="@{/entrenadorEjercicio/{id}(id=${ejercicio.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>
+                <a th:attr="data-target='#modal-edit'+${ejercicio.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
+                <a th:attr="data-target='#modal-delete'+${ejercicio.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+            	</div>
+            </div>
+        </div>
+        <!-- edit modal -->
+	
+	<div class="modal fade" th:id="modal-edit+${ejercicio.id}">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Editar</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Introduce el nuevo ejercicio:
+	<strong><span th:text="${ejercicio.nombre}"> </span></strong></p>
+	
+	<!-- formulario nombre a editar-->
+	<form action="#" th:action="@{/entrenadorAlumno/{id}/editEjer/{ejerId}(ejerId=${ejercicio.id}, id=${alumno.id})}" th:object="${ejercicioaEditar}" method="post" enctype="multipart/form-data">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Nombre</label>
+	<input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" th:attr="placeholder=${ejercicio.nombre}"/>
+
+	 
+	 </div>
+	 
+	 </div>
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="file">Imagen</label>
+	  <input id="input-file" type="file" name="file" accept="image/png, image/jpeg" />
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Series</label>
+	 <input type="number" th:field="*{series}" class="form-control" placeholder"1"/>
+	 <label for="texto">Repeticiones</label>
+	  <input type="number" th:field="*{reps}" class="form-control" placeholder"1"/> 
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+		<div class="form-floating">
+  			<textarea th:field="*{descripcion}" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+ 			 <label for="floatingTextarea">Descripcion</label>
+		</div>
+	 </div>
+	 
+	 </div>
+	 
+	 </div>
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Editar" class="btn btn-primary float-right"/>
+	 </div>
+	
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	<!-- fin modal -->
+	
+	
+	<!-- delete modal -->
+	
+	<div class="modal fade" th:id="modal-delete+${ejercicio.id}">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Eliminar</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	
+	<div class="modal-body">
+	<p class="error-text"> ¿Está seguro de eliminar el ejercicio:
+	<strong><span th:text="${ejercicio.nombre}"> </span></strong>?</p>
+	
+	 </div>
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <a th:href="@{/entrenadorAlumno/{id}/deleteEjer/{ejerId}(ejerId=${ejercicio.id}, id=${alumno.id})}">
+	 <span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+	 </a>
+	 </div>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin delete modal -->
+    </div>
+</div>
+
+<div class="col-3 float right">
+
+<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
+Añadir ejercicio</button>
+</div>
+
+<!-- create modal -->
+	
+	<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Crear ejercicio</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Introduce el nombre nuevo para el nuevo ejercicio:</p>
+	
+	
+	<form action="#" th:action="@{/entrenadorAlumno/{id}/addEjer(id=${alumno.id})}" th:object="${ejercicioNuevo}" method="post" enctype="multipart/form-data">
+  <div class="form-row">
+    <div class="form-group mt-1">
+      <label for="nombre">Nombre</label>
+      <input type="text" th:field="${ejercicioNuevo.nombre}" class="form-control" id="nombre" name="nombre" th:attr="placeholder=${ejercicioNuevo.nombre}"/>
+    </div>
+  </div>
+  
+  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="file">Imagen</label>
+	  <input id="file" type="file" name="file" accept="image/*" />
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Series</label>
+	 <input type="number" th:field="*{series}" class="form-control" placeholder"1"/>
+	 <label for="texto">Repeticiones</label>
+	  <input type="number" th:field="*{reps}" class="form-control" placeholder"1"/> 
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+		<div class="form-floating">
+  			<textarea th:field="*{descripcion}" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+ 			 <label for="floatingTextarea">Descripcion</label>
+		</div>
+	 </div>
+	 
+	 </div>
+  
+  <div class="modal-footer">
+    <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <input type="submit" value="Crear Ejercicio" class="btn btn-primary float-right"/>
+  </div>
+</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	
+	<!-- fin create modal -->
+
+
+</div>
+
+</div>	
+                </div>
+                <div class="tab-pane fade" id="pills-rutinas" role="tabpanel" aria-labelledby="pills-rutinas-tab" th:object="${miEntrenador}">
+                    <!-- Aquí se mostrarían las rutinas -->
+                    
+                   <div class="card-deck d-flex flex-row flex-wrap">
+    <div th:each="rutina: ${misRutinas}">
+        <div class="card card-compact m-2" style="width:250px;">
+            <div class="card-body text-center">
+				<img src="../Imagenes/logo.png" alt="Descripción de la imagen">
+                <h5 class="card-title" th:text="${rutina.nombre}"></h5>
+                <ul class="list-group list-group-flush" th:each="ejercicio:${rutina.ejercicios}">
+                            <li class="list-group-item" th:text="${ejercicio.nombre}"></li>
+                        </ul>
+                <a th:attr="data-target='#modal-edit-rutina'+${rutina.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
+                <a th:attr="data-target='#modal-delete-rutina'+${rutina.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+            </div>
+        </div>
+        <!-- edit modal -->
+	
+	<div class="modal fade" th:id="modal-edit-rutina+${rutina.id}">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Editar</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Introduce el nuevo ejercicio:
+	<strong><span th:text="${rutina.nombre}"> </span></strong></p>
+	
+	<!-- formulario nombre a editar-->
+	<form action="#" th:action="@{/entrenadorAlumno/{id}/editRutina/{idRutina}(id=${alumno.id}, idRutina=${rutina.id})}" th:object="${rutinaaEditar}" method="post">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Nombre</label>
+	 <input type="text" th:field=${rutinaaEditar.nombre} class="form-control" id="exampleInputEmail1" th:attr="placeholder=${rutina.nombre}"/>
+	 
+	 </div>
+	 
+	 </div>
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 
+	 <label for="texto">Seleccionar ejercicios del alumno</label>
+	 <select th:Field="${rutinaaEditar.ejercicios}" multiple = "multiple" class="form-control selectpicker" name="ejercicios" id="ejercicios">
+	 <option th:each="e:${alumno.ejercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
+	 
+	 </select>
+	 </div>
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 
+	 <label for="texto">Seleccionar tus ejercicios</label>
+	 <select th:Field="${rutinaaEditar.ejercicios}" multiple = "multiple" class="form-control selectpicker" name="ejercicios2" id="ejercicios2">
+	 <option th:each="e:${miEntrenador.ejercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
+	 
+	 </select>
+	 </div>
+	 </div>
+	 
+	 </div>
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Editar" class="btn btn-primary float-right"/>
+	 </div>
+	
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin modal -->
+	
+	
+	<!-- delete modal -->
+	
+	<div class="modal fade" th:id="modal-delete-rutina+${rutina.id}">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Eliminar</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	
+	<div class="modal-body">
+	<p class="error-text"> ¿Está seguro de eliminar la rutina
+	<strong><span th:text="${rutina.nombre}"> </span></strong>?</p>
+	
+	 </div>
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <a th:href="@{/entrenadorAlumno/{id}/deleteRutina/{rutinaId}(rutinaId=${rutina.id}, id=${alumno.id})}">
+	 <span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+	 </a>
+	 </div>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin delete modal -->
+    </div>
+</div>
+
+<div class="col-3 float right">
+
+<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje2">
+Añadir Rutina</button>
+</div>
+
+<!-- create modal -->
+	
+	<div class="modal fade" th:id="crearMensaje2" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Crear Rutina</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Introduce el nombre nuevo para la nueva rutina:</p>
+	
+	
+	<form action="#" th:action="@{/entrenadorAlumno/{id}/addRutina(id=${alumno.id})}" th:object="${rutinaNuevo}" method="post">
+  <div class="form-row">
+    <div class="form-group mt-1">
+      <label for="nombre">Nombre</label>
+      <input type="text" th:field="${rutinaNuevo.nombre}" class="form-control" id="nombre" name="nombre" th:attr="placeholder=${rutinaNuevo.nombre}"/>
+    </div>
+  </div>
+  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 
+	 <label for="texto">Seleccionar ejercicios del alumno</label>
+	 <select th:field="${rutinaNuevo.ejercicios}" multiple = "multiple" class="form-control selectpicker" name="ejercicios" id="ejercicios">
+	 <option th:each="e:${alumno.ejercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
+	 </select>
+	 </div>
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 
+	 <label for="texto">Seleccionar tus ejercicios</label>
+	 <select th:field="${rutinaNuevo.ejercicios}" multiple = "multiple" class="form-control selectpicker" name="ejercicios2" id="ejercicios2">
+	 <option th:each="e:${miEntrenador.ejercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
+	 </select>
+	 </div>
+	 </div>
+	 </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <input type="submit" value="Crear Rutina" class="btn btn-primary float-right"/>
+  </div>
+</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin create modal -->
+
+
+</div>
+
+</div>	                    
+                    <!-- Agrega el contenido de las rutinas aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	 
+	</div>
+	<div class="col-3 p-3">
+	</div>
+	</div>
+</main>
+
+</body>
