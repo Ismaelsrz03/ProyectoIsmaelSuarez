@@ -7,6 +7,7 @@ import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import principal.modelo.Alumno;
+import principal.modelo.Entrenador;
 import principal.modelo.Rol;
 import principal.modelo.Usuario;
 import principal.modelo.dto.UsuarioDTO;
@@ -32,7 +34,12 @@ public class UsuarioController {
 	@Autowired
 	UsuarioServiceImpl userDetailsService;
 	
+	@Autowired
+	RolServiceImpl rolService;
+	
 	private Usuario miUsuario;
+	
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	@GetMapping(value= {"","/"})
 	String homeusuarios(Model model) {
@@ -40,14 +47,16 @@ public class UsuarioController {
 		// Salir a buscar a la BBDD
 		miUsuario = obtenerLog();
 		ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) userDetailsService.listarUsuarios();
-		model.addAttribute("listaUsuarios", listaUsuarios);
+		ArrayList<Rol> listaRoles = (ArrayList<Rol>) rolService.listarRoles();
+		model.addAttribute("listausuarios", listaUsuarios);
+		model.addAttribute("listaroles", listaRoles);
 		model.addAttribute("usuarioaEditar", new Usuario());
-		model.addAttribute("usuarioNuevo", new Usuario());
+		model.addAttribute("usuarioNuevo", new UsuarioDTO());
 		model.addAttribute("miUsuario",miUsuario);
 		
 		//
 		
-		return "alumnos";
+		return "usuarios";
 	}
 	private Usuario obtenerLog() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -71,11 +80,8 @@ public class UsuarioController {
 		
 		usuarioaeditar.setUsername(usuarioEditado.getUsername());
 		
-		usuarioaeditar.setPassword(usuarioEditado.getPassword());
+		usuarioaeditar.setPassword(passwordEncoder.encode(usuarioEditado.getPassword()));
 		
-		usuarioaeditar.setImagen(usuarioEditado.getImagen());
-		
-		usuarioaeditar.setMimeType(usuarioEditado.getMimeType());
 		
 		userDetailsService.insertarUsuario(usuarioaeditar);
 		
@@ -83,22 +89,9 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/add")
-	public String addUsuario(@ModelAttribute("usuarioNuevo") Usuario usuarioNew, BindingResult bindingresult, @RequestParam("file") MultipartFile file) {
-		if(!file.isEmpty()) {
-
-			 
-			 try {
-
-				 byte[] imageBytes =file.getBytes();
-				 String encodedString = Base64.getEncoder().encodeToString(imageBytes);
-				 usuarioNew.setImagen(encodedString);
-				 usuarioNew.setMimeType(file.getContentType());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		userDetailsService.insertarUsuario(usuarioNew);
+	public String addUsuario(@ModelAttribute("usuarioNuevo") UsuarioDTO usuarioNew, BindingResult bindingresult) {
+	
+		userDetailsService.insertarusuarioDTO(usuarioNew);
 		
 		return "redirect:/usuarios";
 	}
@@ -117,11 +110,18 @@ public class UsuarioController {
 		
 		if(esAdmin()) {
 		Usuario aeliminar = userDetailsService.obtenerUsuarioPorID(id);
+		ArrayList<Entrenador> entrenador = new ArrayList<Entrenador>();
+		for(Entrenador e : aeliminar.getEntrenadores()) {
+			for(Alumno a: e.getAlumnos()) {
+				a.setEntrenadores(null);
+			}
+		}
+		
 		userDetailsService.eliminarUsuario(aeliminar);
 		}
 		
 		
-		return "index";
+		return "redirect:/usuarios";
 	}
 	
 	@GetMapping("/registro")

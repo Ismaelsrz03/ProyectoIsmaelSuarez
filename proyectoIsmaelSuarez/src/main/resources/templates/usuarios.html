@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<head th:insert="librerias::librerias">
+
+</head>
+<body style="background-color: lightblue;">
+
+
+
+<header>
+<div th:insert="menu::menu"></div>
+</header>
+<div class="container">
+<div class="admin" sec:authorize="hasAuthority('ROLE_ADMIN')">
+ <nav class="menuAdmin">
+        <ul>
+          <li><a href="/alumnos">Alumnos</a></li>
+          <li><a href="/entrenadores">Entrenadores</a></li>
+          <li><a href="/ejercicios">Ejercicios</a></li>
+          <li><a href="/rutinas">Rutinas</a></li>
+          <li><a href="/usuarios">Usuarios</a></li>
+        </ul>
+      </nav>
+</div>
+<h1 class="mt-5">Usuarios en Spring </h1>
+
+<!-- Imprimir tabla usuarios -->
+
+<table class="table table-dark">
+<thead class = "table-dark bg-info text-white">
+<tr>
+<th>Id </th>
+<th>Nombre</th>
+<th>Nombre de usuario</th>
+<th>Rol</th>
+<th>Editar</th>
+<th>Borrar</th>
+</tr>
+</thead>
+<tbody>
+<!-- El meolo -->
+	<tr th:if="${listausuarios.empty}">
+		<td colspan="2"> No hay usuarios</td>
+	</tr>
+	<tr th:each="usuario:${listausuarios}">
+	<td>
+		<a th:href="@{/usuarios/{id}(id=${usuario.id})}" class="btn btn-primary btn-sm">
+			<span th:text="${usuario.id}"> </span>
+		</a>
+	</td>
+	<td>
+		<span th:text="${usuario.nombre}"> </span>
+	</td>
+	
+	<td>
+		<span th:text="${usuario.username}"> </span>
+	</td>
+	
+	<td>
+		<span th:each="rol:${usuario.roles}">
+		<span th:text="${rol.getNombre()}">Nombre del rol</span>
+		<span>,</span>
+		</span>
+	</td>
+	
+	<td>
+		<a th:attr="data-target='#modal-edit'+${usuario.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
+	</td>
+	
+	<td>
+		<a th:attr="data-target='#modal-delete'+${usuario.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+	</td>
+	
+	<!-- edit modal -->
+	
+	<div class="modal fade" th:id="modal-edit+${usuario.id}">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Editar</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Introduce el nombre nuevo para usuario/a:
+	<strong><span th:text="${usuario.nombre}"> </span></strong></p>
+	
+	<!-- formulario nombre a editar-->
+	<form action="#" th:action="@{/usuarios/edit/{id}(id=${usuario.id})}" th:object="${usuarioaEditar}" method="post" enctype="multipart/form-data">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Nombre</label>
+	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" th:attr="placeholder=${usuario.nombre}"/>
+	 
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Username</label>
+	 <input type="text" th:field="*{username}" class="form-control" id="exampleInputEmail1" th:attr="placeholder=${usuario.username}"/>
+	 
+	 </div>
+	 
+	 </div>
+	 
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Contraseña</label>
+	 <input type="password" th:field="*{password}" class="form-control" id="password"/>
+	 
+	 </div>
+	 
+	 </div>
+	 
+	 </div>
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Editar" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin modal -->
+	
+	
+	<!-- delete modal -->
+	
+	<div class="modal fade" th:id="modal-delete+${usuario.id}">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Eliminar</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	
+	<div class="modal-body">
+	<p class="error-text"> ¿Está seguro de eliminar al usuario:
+	<strong><span th:text="${usuario.nombre}"> </span></strong>?</p>
+	
+	 </div>
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <a th:href="@{/usuarios/delete/{id}(id=${usuario.id})}">
+	 <span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+	 </a>
+	 </div>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin delete modal -->
+	</tr>
+</tbody>
+</table>
+
+<div class="col-2 float right">
+
+<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
+Añadir usuario</button>
+</div>
+
+<!-- create modal -->
+	
+	<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Crear usuario</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Introduce el nombre nuevo para el nuevo usuario:</p>
+	
+	<!-- formulario nombre a editar-->
+	<form action="#" th:action="@{/usuarios/add/}" th:object="${usuarioNuevo}" method="post">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Nombre</label>
+	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre"/>
+	 
+	 </div>
+	 
+	 </div>
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Username</label>
+	 <input type="text" th:field="*{username}" class="form-control" id="exampleInputEmail1" placeholder="Insertar username"/>
+	 
+	 </div>
+	 
+	 </div>
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-row">
+
+							<div class="form-group col-10">
+							<label>Tipo de cuenta</label>
+							<br>
+								<div class="form-check-inline">
+									<input th:field="*{rol}" class="form-check-input" type="radio" name="flexRadioDefault"
+										id="flexRadioDefault1" value="Alumno" checked>
+									<label class="form-check-label" for="flexRadioDefault1">
+										Alumno
+									</label>
+								</div>
+								<div class="form-check-inline">
+									<input th:field="*{rol}" class="form-check-input" type="radio" name="flexRadioDefault"
+										id="flexRadioDefault2" value="Entrenador">
+									<label class="form-check-label" for="flexRadioDefault2">
+										Entrenador
+									</label>
+								</div>
+								<div class="form-check-inline">
+									<input th:field="*{rol}" class="form-check-input" type="radio" name="flexRadioDefault"
+										id="flexRadioDefault2" value="Admin">
+									<label class="form-check-label" for="flexRadioDefault2">
+										Admin
+									</label>
+								</div>
+							</div>
+
+						</div>
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Contraseña</label>
+	 <input type="password" th:field="*{password}" class="form-control" id="password"/>
+	 
+	 </div>
+	 
+	 </div>
+	 
+	 
+
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Crear Usuario" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin create modal -->
+
+</div>
+
+</div>
+</body>

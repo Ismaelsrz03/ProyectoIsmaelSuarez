@@ -78,9 +78,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	        nuevoAlumno.setEntrenadores(null);
 	        
 	    } else if (rolSeleccionado.equals("Entrenador")) {
-	        nuevoUsuario.getRoles().add(rolRepo.findByNombre("ROLE_ENTRENADOR"));;
+	        nuevoUsuario.getRoles().add(rolRepo.findByNombre("ROLE_ENTRENADOR"));
 	        nuevoUsuario.getEntrenadores().add(nuevoEntrenador);
 	        nuevoEntrenador.setUsuarios(nuevoUsuario);
+	    } else if(rolSeleccionado.equals("Admin")) {
+	    	nuevoUsuario.getRoles().add(rolRepo.findByNombre("ROLE_ADMIN"));
 	    }
 		usuarioRepo.save(nuevoUsuario);
 		if (rolSeleccionado.equals("Alumno")) {

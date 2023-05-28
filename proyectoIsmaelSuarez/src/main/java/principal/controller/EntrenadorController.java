@@ -137,30 +137,30 @@ public class EntrenadorController {
 			return "redirect:/entrenadores";
 		}
 		
-		@PostMapping("/add")
-		public String addEntrenador(@ModelAttribute("entrenadorNuevo") Entrenador entrenadorNew, BindingResult bindingresult,Integer id) {
-			
-			for(Alumno a: entrenadorNew.getAlumnos()) {
-				Alumno a2 = a;
-				if(a2.getEntrenadores()==null) {
-				a2.setEntrenadores(entrenadorNew);
-				}
-			}
-			
-			for(Ejercicio e: entrenadorNew.getEjercicios()) {
-				Ejercicio e2 = e;
-				e2.getEntrenadores().add(entrenadorNew);
-			}
-			
-			for(Rutina r: entrenadorNew.getRutinas()) {
-				Rutina r2 = r;
-				r2.getEntrenadores().add(entrenadorNew);
-			}
-			
-			entrenadorService.insertarEntrenador(entrenadorNew);
-			
-			return "redirect:/entrenadores";
-		}
+//		@PostMapping("/add")
+//		public String addEntrenador(@ModelAttribute("entrenadorNuevo") Entrenador entrenadorNew, BindingResult bindingresult,Integer id) {
+//			
+//			for(Alumno a: entrenadorNew.getAlumnos()) {
+//				Alumno a2 = a;
+//				if(a2.getEntrenadores()==null) {
+//				a2.setEntrenadores(entrenadorNew);
+//				}
+//			}
+//			
+//			for(Ejercicio e: entrenadorNew.getEjercicios()) {
+//				Ejercicio e2 = e;
+//				e2.getEntrenadores().add(entrenadorNew);
+//			}
+//			
+//			for(Rutina r: entrenadorNew.getRutinas()) {
+//				Rutina r2 = r;
+//				r2.getEntrenadores().add(entrenadorNew);
+//			}
+//			
+//			entrenadorService.insertarEntrenador(entrenadorNew);
+//			
+//			return "redirect:/entrenadores";
+//		}
 		
 		@GetMapping({"/{id}"})
 		String idEntrenador(Model model, @PathVariable Integer id) {

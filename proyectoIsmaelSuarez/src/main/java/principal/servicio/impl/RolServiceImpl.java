@@ -40,6 +40,12 @@ public class RolServiceImpl implements RolService {
 	}
 	
 	@Override
+	public List<Rol> listarRoles() {
+		
+		return rolrepo.findAll();
+	}
+	
+	@Override
 	public Rol obtenerRolPorNombre(String nombre) {
 		// TODO Auto-generated method stub
 		return rolrepo.findByNombre(nombre);

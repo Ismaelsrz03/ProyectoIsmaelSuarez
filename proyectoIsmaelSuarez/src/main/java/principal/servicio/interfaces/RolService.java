@@ -13,4 +13,6 @@ public interface RolService extends UserDetailsService {
 
 	Rol insertarRol(Rol rol);
 
+	List<Rol> listarRoles();
+
 }

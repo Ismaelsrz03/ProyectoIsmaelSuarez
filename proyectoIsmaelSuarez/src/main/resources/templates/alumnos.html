@@ -4,38 +4,8 @@
 </head>
 <body style="background-color: lightblue;">
 
-
-
 <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-black" th:fragment="menu">
-  <a class="navbar-brand" href="/">
-    <img src="../Imagenes/logo.png" width="200" height="70" alt="">
-  </a>
-  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="font-size: 24px;">
-      <li class="nav-item active">
-        <a class="nav-link text-white" href="/">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#">Servicios</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#">Blogs</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#">Opiniones</a>
-      </li>
-    </ul>
-    <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0 m-3">
-      <a class="btn bg-success my-2 my-sm-0 text-white" href="/login">Iniciar</a>
-      <a class="btn bg-success my-2 my-sm-0 text-white" th:href="@{/usuarios/registro}">Registrar</a>
-      </form>
-    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0 m-3"> 
-      <button class="btn bg-success my-2 my-sm-0 text-white" type="submit">Salir</button>
-    </form>
-   
-  </div>
-</nav>
+<div th:insert="menu::menu"></div>
 </header>
 <div class="container">
 <div class="admin" sec:authorize="hasAuthority('ROLE_ADMIN')">
@@ -45,6 +15,7 @@
           <li><a href="/entrenadores">Entrenadores</a></li>
           <li><a href="/ejercicios">Ejercicios</a></li>
           <li><a href="/rutinas">Rutinas</a></li>
+          <li><a href="/usuarios">Usuarios</a></li>
         </ul>
       </nav>
 </div>
@@ -215,83 +186,12 @@
 </tbody>
 </table>
 
-<div class="col-2 float right">
+<div class="col-6 float right">
 
 <div class="p-5">
-<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
-Añadir alumno</button>
-</div>
-
-<!-- create modal -->
-	
-	<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
-	<div class="modal-dialog" role="document">
-	<div class="modal-content">
-	<div class="modal-header">
-		<h4 class="modal-title" id="exampleModelLabel">Crear alumno</h4>
-		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
-		<span aria-hidden="true">x</span>
-		</button>
-	</div>
-	<div class="modal-body">
-	<p class="error-text"> Introduce el nombre nuevo para el nuevo alumno:</p>
-	
-	<!-- formulario nombre a editar-->
-	<form action="#" th:action="@{/alumnos/add/}" th:object="${alumnoNuevo}" method="post">
-	 
-	 <div class="form-row">
-	 
-	 <div class="form-group mt-1">
-	 <label for="texto">Nombre</label>
-	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre"/>
-	 
-	 </div>
-	 
-	 </div>
-	 <div class="form-row">
-	 
-	 <div class="form-group mt-1">
-	 <label for="texto">Seleccionar entrenador</label>
-	 <select th:Field="*{entrenadores}" multiple = "multiple" class="form-control selectpicker" name="entrenadores" id="entrenadores">
-	 <option th:each="e:${listaEntrenadores}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Entrenadores</option>
-	 </select>
-	 
-	 </div>
-	 
-	 </div>
-	  <div class="form-row">
-	 
-	 <div class="form-group mt-4">
-	 
-	 <label for="texto">Seleccionar ejercicios</label>
-	 <select th:Field="*{ejercicios}" multiple = "multiple" class="form-control selectpicker" name="ejercicios" id="ejercicios">
-	 <option th:each="e:${listaEjercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
-	 </select>
-	 </div>
-	 </div>
-	  <div class="form-row">
-	 
-	 <div class="form-group mt-7">
-	 
-	 <label for="texto">Seleccionar rutinas</label>
-	 <select th:Field="*{rutinas}" multiple = "multiple" class="form-control selectpicker" name="rutinas" id="rutinas">
-	 <option th:each="r:${listaRutinas}" th:value="${r.id}" th:text="${r.nombre}" value=""> Seleccionar rutinas</option>
-	 </select>
-	 </div>
-	 </div>
-	 <div class="modal-footer">
-	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-	 <input type="submit" value="Crear Alumno" class="btn btn-primary float-right"/>
-	 </div>
-	
-	</form>
-	
-	</div>
-	</div>
-	</div>
-	
-	<!-- fin create modal -->
-
+<p><strong>Para añadir un alumno tienes que añadir un usuario con rol Alumno</strong></p>
+<a href="/usuarios" type="button" class="btn btn-primary w-100">
+Añadir alumno</a>
 </div>
 
 </div>

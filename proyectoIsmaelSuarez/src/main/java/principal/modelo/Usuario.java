@@ -59,10 +59,10 @@ public class Usuario implements UserDetails {
 	@JsonIgnore
 	private Set<Rol> roles;
 	
-	@OneToMany(mappedBy="usuarios",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="usuarios", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private Set<Alumno> alumnos = new HashSet<>();
 	
-	@OneToMany(mappedBy="usuarios",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="usuarios", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private Set<Entrenador> entrenadores = new HashSet<>();
 	
 	public Usuario() {

@@ -129,29 +129,29 @@ public class AlumnoController {
 		return "redirect:/alumnos";
 	}
 	
-	@PostMapping("/add")
-	public String addAlumno(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bindingresult,Integer id) {
-		
-		  if (alumnoNew.getEntrenadores() != null) { 
-		        Entrenador entrenadorNuevo = entrenadorService.obtenerEntrenadorPorID(alumnoNew.getEntrenadores().getId());
-		        entrenadorNuevo.getAlumnos().add(alumnoNew);
-		        alumnoNew.setEntrenadores(entrenadorNuevo);
-		    }
-		
-		for(Ejercicio e: alumnoNew.getEjercicios()) {
-			Ejercicio e2 = e;
-			e2.getAlumnos().add(alumnoNew);
-		}
-		
-		for(Rutina r: alumnoNew.getRutinas()) {
-			Rutina r2 = r;
-			r2.getAlumnos().add(alumnoNew);
-		}
-
-		alumnoService.insertarAlumno(alumnoNew);
-		
-		return "redirect:/alumnos";
-	}
+//	@PostMapping("/add")
+//	public String addAlumno(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bindingresult,Integer id) {
+//		
+//		  if (alumnoNew.getEntrenadores() != null) { 
+//		        Entrenador entrenadorNuevo = entrenadorService.obtenerEntrenadorPorID(alumnoNew.getEntrenadores().getId());
+//		        entrenadorNuevo.getAlumnos().add(alumnoNew);
+//		        alumnoNew.setEntrenadores(entrenadorNuevo);
+//		    }
+//		
+//		for(Ejercicio e: alumnoNew.getEjercicios()) {
+//			Ejercicio e2 = e;
+//			e2.getAlumnos().add(alumnoNew);
+//		}
+//		
+//		for(Rutina r: alumnoNew.getRutinas()) {
+//			Rutina r2 = r;
+//			r2.getAlumnos().add(alumnoNew);
+//		}
+//
+//		alumnoService.insertarAlumno(alumnoNew);
+//		
+//		return "redirect:/alumnos";
+//	}
 	
 	@GetMapping({"/{id}"})
 	String idAlumno(Model model, @PathVariable Integer id) {

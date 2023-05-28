@@ -57,7 +57,7 @@ public class Entrenador {
 	@JsonIgnore
 	private Set<Rutina> rutinas;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name= "id_usuario", nullable = true)
 	private Usuario usuarios;
 	

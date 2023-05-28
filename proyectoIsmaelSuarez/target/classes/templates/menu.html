@@ -28,7 +28,9 @@
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">	 
 							
 							 	<img th:if="${miUsuario.imagen != null}" th:src="@{'data:'+${miUsuario.mimeType}+';base64,'+${miUsuario.getImagen()}}" class="rounded-circle" width="50px" height="50px">
-							 	<img th:if="${miUsuario.imagen == null}" src="../Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
+							 	<img sec:authorize="hasAuthority('ROLE_USER')" th:if="${miUsuario.imagen == null}" src="../Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
+							 	<img sec:authorize="hasAuthority('ROLE_ENTRENADOR')" th:if="${miUsuario.imagen == null}" src="../Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
+							 	<img sec:authorize="hasAuthority('ROLE_ADMIN')" th:if="${miUsuario.imagen == null}" src="../Imagenes/admin.png" class="rounded-circle" width="50px" height="50px">
 						 	    <span sec:authentication = "principal.username" /> 
 						   
 						</a>
