@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
@@ -171,6 +172,28 @@ ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
 	    return "redirect:/entrenadorRutina";
 	}
 	
+	@PostMapping("/enviarRutina")
+	public String enviarRutina(Model model, @ModelAttribute("rutinaNuevo") Rutina rutinaNew,
+	                              BindingResult bindingResult, @RequestParam("alumnosSeleccionados") Integer[] alumnosIds,
+	                              @RequestParam("rutinasSeleccionados") Integer[] rutinasIds) {
+
+	    for (Integer alumnoId : alumnosIds) {
+	        Alumno alumno = alumnoService.obtenerAlumnoPorID(alumnoId);
+
+	        for (Integer rutinaId : rutinasIds) {
+	            Rutina rutina = rutinaService.obtenerRutinaPorID(rutinaId);
+	            
+	            if (!alumno.getRutinas().contains(rutina)) {
+	                alumno.getRutinas().add(rutina);
+	            }
+	        }
+
+	        alumnoService.insertarAlumno(alumno);
+	    }
+
+	    return "redirect:/entrenadorRutina";
+	}
+	
 	@GetMapping({"/{id}"})
 	String idEjercicio(Model model, @PathVariable Integer id) {
 		
@@ -184,11 +207,6 @@ ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
 	@GetMapping("/delete/{id}")
 	String deleteEjercicio(Model model, @PathVariable Integer id) {
 Rutina rut = rutinaService.obtenerRutinaPorID(id);
-		
-		for(Alumno a: rut.getAlumnos()) {
-			a.getRutinas().remove(rut);
-			a.getRutinas().add(null);
-		}
 		
 		for(Entrenador e: rut.getEntrenadores()) {
 			e.getRutinas().remove(rut);

@@ -51,10 +51,20 @@
   </div>
 	</div>
 	<div class="col-8 p-3" th:object="${alumno}">
-		
+		  <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/entrenadorAlumno">Alumnos</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${alumno.nombre}"></li>
+          </ol>
+        </nav>
+      </div>
+    </div>
 		<h1>Alumno <span th:text="${alumno.nombre}"></span></h1>
 		<hr>
-		<p>Aquí tu alumno y tú podeis gestionar los ejercicios</p>
+		<p>Aquí tu alumno y tú podeis gestionar los ejercicios y rutinas</p>
 		<div th:if="${misEjercicios.empty}">
 			<p>Todavía no hay ejercicios</p>
 		</div>
@@ -194,9 +204,10 @@
 
 <div class="col-3 float right">
 
-<div class="p-5">
-<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
+<div class="p-5 d-flex flex-row">
+<button type="button" class="btn btn-primary w-100 m-3" data-toggle="modal" data-target="#crearMensaje">
 Añadir ejercicio</button>
+<a th:href="@{/entrenadorEjercicio/}" class="btn btn-primary btn-sm text-white pointer w-100 m-3">Enviar ejercicios</a>
 </div>
 
 <!-- create modal -->
@@ -389,9 +400,10 @@ Añadir ejercicio</button>
 
 <div class="col-3 float right">
 
-<div class="p-5">
-<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje2">
+<div class="p-5 d-flex flex-row">
+<button type="button" class="btn btn-primary w-100 m-3" data-toggle="modal" data-target="#crearMensaje2">
 Añadir Rutina</button>
+<a th:href="@{/entrenadorRutina/}" class="btn btn-primary btn-sm text-white pointer w-100 m-3">Enviar rutinas</a>
 </div>
 
 <!-- create modal -->
@@ -454,7 +466,6 @@ Añadir Rutina</button>
 </div>
 
 </div>	                    
-                    <!-- Agrega el contenido de las rutinas aquí -->
                 </div>
             </div>
         </div>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
@@ -183,6 +184,30 @@ public class EntrenadorEjercicioController {
 		return "redirect:/entrenadorEjercicio";
 	}
 	
+	@PostMapping("/enviarEjercicio")
+	public String enviarEjercicio(Model model, @ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew,
+	                              BindingResult bindingResult, @RequestParam("alumnosSeleccionados") Integer[] alumnosIds,
+	                              @RequestParam("ejerciciosSeleccionados") Integer[] ejerciciosIds) {
+
+	    for (Integer alumnoId : alumnosIds) {
+	        Alumno alumno = alumnoService.obtenerAlumnoPorID(alumnoId);
+
+	        for (Integer ejercicioId : ejerciciosIds) {
+	            Ejercicio ejercicio = ejercicioService.obtenerEjercicioPorID(ejercicioId);
+	            
+	            if (!alumno.getEjercicios().contains(ejercicio)) {
+	                alumno.getEjercicios().add(ejercicio);
+	            }
+	        }
+
+	        alumnoService.insertarAlumno(alumno);
+	    }
+
+	    return "redirect:/entrenadorEjercicio";
+	}
+
+
+	
 	@GetMapping({"/{id}"})
 	String idEjercicio(Model model, @PathVariable Integer id) {
 		usuarioLog= obtenerLog();
@@ -197,18 +222,15 @@ public class EntrenadorEjercicioController {
 	String deleteEjercicio(Model model, @PathVariable Integer id) {
 		
 Ejercicio ejer = ejercicioService.obtenerEjercicioPorID(id);
-		
-		for(Alumno a: ejer.getAlumnos()) {
-			a.getEjercicios().remove(ejer);
-			a.getEjercicios().add(null);
-		}
+
+Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
 		
 		for(Entrenador e: ejer.getEntrenadores()) {
 			e.getEjercicios().remove(ejer);
 			e.getEjercicios().add(null);
 		}
 		
-		for(Rutina r: ejer.getRutinas()) {
+		for(Rutina r: entrenadorUsuario.getRutinas()) {
 			r.getEjercicios().remove(ejer);
 			r.getEjercicios().add(null);
 		}

@@ -184,11 +184,12 @@ public class EntrenadorAlumnoController {
 	public RedirectView editarejercicio(@PathVariable Integer id,@PathVariable Integer ejerId, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado,
 			BindingResult bindingresult, @RequestParam("file") MultipartFile file) {
 		
-		Ejercicio ejercicioaEditar = ejercicioService.obtenerEjercicioPorID(ejerId);
+		Ejercicio ejercicioaEditar = new Ejercicio();
+		
+		Alumno a = alumnoService.obtenerAlumnoPorID(id);
 		
 		ejercicioaEditar.setNombre(ejercicioEditado.getNombre());
-		ejercicioaEditar.setImagen(ejercicioEditado.getImagen());
-		ejercicioaEditar.setMimeType(ejercicioEditado.getMimeType());
+		
 		ejercicioaEditar.setSeries(ejercicioEditado.getSeries());
 		ejercicioaEditar.setReps(ejercicioEditado.getReps());
 		ejercicioaEditar.setDescripcion(ejercicioEditado.getDescripcion());
@@ -204,8 +205,31 @@ public class EntrenadorAlumnoController {
 				e.printStackTrace();
 			}
 		}
+		ejercicioaEditar.setImagen(ejercicioEditado.getImagen());
+		ejercicioaEditar.setMimeType(ejercicioEditado.getMimeType());
 		
-		ejercicioService.insertarEjercicio(ejercicioEditado);
+		ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
+		
+		for(Ejercicio ee: a.getEjercicios()) {
+			lista.add(ee);
+		}
+		Ejercicio aBorrar = new Ejercicio();
+		for(Ejercicio ej: lista) {
+			if(ej.getId()==ejerId) {
+				aBorrar = ej;
+				a.getEjercicios().add(ejercicioaEditar);
+				
+				for(Rutina r: a.getRutinas()) {
+					r.getEjercicios().remove(aBorrar);
+					r.getEjercicios().add(ejercicioaEditar);
+				}
+			}
+		}
+		
+		a.getEjercicios().remove(aBorrar);
+		
+		
+		alumnoService.insertarAlumno(a);
 		
 		return new RedirectView("/entrenadorAlumno/{id}", true);
 	}
@@ -253,32 +277,36 @@ public class EntrenadorAlumnoController {
 	}
 
 	@PostMapping("/{id}/addEjer")
-	public RedirectView addEjercicio(Model model,@ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew, BindingResult bindingresult,
-			@PathVariable Integer id, @RequestParam("file") MultipartFile file) {
+	public RedirectView addEjercicio(Model model, @ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew,
+	                                 BindingResult bindingresult, @PathVariable Integer id,
+	                                 @RequestParam("file") MultipartFile file) {
 	    Alumno a = alumnoService.obtenerAlumnoPorID(id);
-	    if(!file.isEmpty()) {
 
-			 
-			 try {
+	    if (!file.isEmpty()) {
+	        try {
+	            byte[] imageBytes = file.getBytes();
+	            String encodedString = Base64.getEncoder().encodeToString(imageBytes);
+	            ejercicioNew.setImagen(encodedString);
+	            ejercicioNew.setMimeType(file.getContentType());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
-				 byte[] imageBytes =file.getBytes();
-				 String encodedString = Base64.getEncoder().encodeToString(imageBytes);
-				 ejercicioNew.setImagen(encodedString);
-				 ejercicioNew.setMimeType(file.getContentType());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	    
-	    ejercicioNew.getAlumnos().add(a);
-	    
-	    a.getEjercicios().add(ejercicioNew);
-	    
+	    Ejercicio nuevoEjercicio = new Ejercicio();
+	    nuevoEjercicio.setNombre(ejercicioNew.getNombre());
+	    nuevoEjercicio.setImagen(ejercicioNew.getImagen());
+	    nuevoEjercicio.setMimeType(ejercicioNew.getMimeType());
+	    nuevoEjercicio.setSeries(ejercicioNew.getSeries());
+	    nuevoEjercicio.setReps(ejercicioNew.getReps());
+	    nuevoEjercicio.setDescripcion(ejercicioNew.getDescripcion());
+
+	    a.getEjercicios().add(nuevoEjercicio);
 	    alumnoService.insertarAlumno(a);
-	    
+
 	    return new RedirectView("/entrenadorAlumno/{id}", true);
 	}
+
 	
 	@PostMapping("/{id}/addRutina")
 	public RedirectView addRutina(@PathVariable Integer id, @ModelAttribute("rutinaNuevo") Rutina rutinaNew, BindingResult bindingresult) {
@@ -314,18 +342,16 @@ public class EntrenadorAlumnoController {
 	RedirectView deleteejercicio(Model model, @PathVariable Integer id, @PathVariable Integer ejerId) {
 		
 		Ejercicio ejer = ejercicioService.obtenerEjercicioPorID(ejerId);
+		Alumno al = alumnoService.obtenerAlumnoPorID(id);
 		
 		for(Alumno a: ejer.getAlumnos()) {
+			a = alumnoService.obtenerAlumnoPorID(id);
 			a.getEjercicios().remove(ejer);
 			a.getEjercicios().add(null);
 		}
+
 		
-		for(Entrenador e: ejer.getEntrenadores()) {
-			e.getEjercicios().remove(ejer);
-			e.getEjercicios().add(null);
-		}
-		
-		for(Rutina r: ejer.getRutinas()) {
+		for(Rutina r: al.getRutinas()) {
 			r.getEjercicios().remove(ejer);
 			r.getEjercicios().add(null);
 		}
@@ -341,13 +367,9 @@ public class EntrenadorAlumnoController {
 		Rutina rut = rutinaService.obtenerRutinaPorID(rutinaId);
 		
 		for(Alumno a: rut.getAlumnos()) {
+			a = alumnoService.obtenerAlumnoPorID(id);
 			a.getRutinas().remove(rut);
 			a.getRutinas().add(null);
-		}
-		
-		for(Entrenador e: rut.getEntrenadores()) {
-			e.getRutinas().remove(rut);
-			e.getRutinas().add(null);
 		}
 		
 		rutinaService.eliminarRutinaPorId(rutinaId);

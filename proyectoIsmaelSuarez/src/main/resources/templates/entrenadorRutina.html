@@ -159,6 +159,7 @@
     </div>
 </div>
 
+<div class="row">
 <div class="col-3 float right">
 
 <div class="p-5">
@@ -210,6 +211,66 @@ Añadir Rutina</button>
 	
 	<!-- fin create modal -->
 
+
+</div>
+
+</div>
+
+<div class="col-3 float right">
+
+<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje2">
+Enviar Rutina</button>
+</div>
+
+<!-- create modal -->
+	
+	<div class="modal fade" th:id="crearMensaje2" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content" th:object="${miEntrenador}">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Enviar Rutina</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Selecciona las rutinas y los alumnos a los que envías las rutinas:</p>
+	
+	
+	<form action="#" th:action="@{/entrenadorRutina/enviarRutina/}" th:object="${rutinaNuevo}" method="post">
+  <div class="form-row">
+      <div class="form-group">
+        <label for="alumnos">Seleccionar alumnos:</label>
+        <select class="form-control selectpicker" name="alumnosSeleccionados" id="alumnos" multiple="multiple">
+            <option th:each="alumno : ${miEntrenador.alumnos}" th:value="${alumno.id}" th:text="${alumno.nombre}"></option>
+        </select>
+    </div>
+  </div>
+  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="rutinas">Seleccionar rutinas:</label>
+        <select name="rutinasSeleccionados" class="form-control selectpicker" id="rutinas" multiple="multiple">
+            <option th:each="rutina : ${miEntrenador.rutinas}" th:value="${rutina.id}" th:text="${rutina.nombre}"></option>
+        </select>
+	 </div>
+	 
+	 </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <input type="submit" value="Crear Rutina" class="btn btn-primary float-right"/>
+  </div>
+</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin create modal -->
+
+
+</div>
 
 </div>
 

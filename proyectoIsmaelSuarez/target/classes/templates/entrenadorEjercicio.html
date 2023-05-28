@@ -179,7 +179,7 @@
     </div>
 </div>
 
-
+<div class="row">
 <div class="col-3 float right">
 
 <div class="p-5">
@@ -253,7 +253,64 @@ Añadir ejercicio</button>
 
 
 </div>
+</div>
+<div class="col-3 float right">
+<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje2">
+Enviar ejercicios</button>
+</div>
 
+<!-- create modal -->
+	
+	<div class="modal fade" th:id="crearMensaje2" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Enviar ejercicios</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text">Selecciona los ejercicios y los alumnos a los que quieres enviar ejercicios</p>
+	
+	
+	<form action="#" th:action="@{/entrenadorEjercicio/enviarEjercicio/}" th:object="${ejercicioNuevo}" method="post" enctype="multipart/form-data">
+  <div class="form-row">
+      <div class="form-group">
+        <label for="alumnos">Seleccionar alumnos:</label>
+        <select class="form-control selectpicker" name="alumnosSeleccionados" id="alumnos" multiple="multiple">
+            <option th:each="alumno : ${miEntrenador.alumnos}" th:value="${alumno.id}" th:text="${alumno.nombre}"></option>
+        </select>
+    </div>
+  </div>
+  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="ejercicios">Seleccionar ejercicios:</label>
+        <select name="ejerciciosSeleccionados" class="form-control selectpicker" id="ejercicios" multiple="multiple">
+            <option th:each="ejercicio : ${miEntrenador.ejercicios}" th:value="${ejercicio.id}" th:text="${ejercicio.nombre}"></option>
+        </select>
+	 </div>
+	 
+	 </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <input type="submit" value="Enviar Ejercicios" class="btn btn-primary float-right"/>
+  </div>
+</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin create modal -->
+
+
+</div>
+
+</div>
 </div>		 
 	</div>
 	<div class="col-3 p-3">
