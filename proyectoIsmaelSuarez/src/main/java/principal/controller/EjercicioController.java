@@ -3,6 +3,7 @@ package principal.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
@@ -89,7 +91,7 @@ public class EjercicioController {
 	public String editarejercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado,
 			BindingResult bindingresult, @RequestParam("file") MultipartFile file) {
 		
-		Ejercicio ejercicioaEditar = ejercicioService.obtenerEjercicioPorID(id);
+		Ejercicio ejercicioaEditar = ejercicioService.obtenerEjercicioPorID(id).get();
 		
 		ejercicioaEditar.setNombre(ejercicioEditado.getNombre());
 		ejercicioaEditar.setImagen(ejercicioEditado.getImagen());
@@ -139,39 +141,49 @@ public class EjercicioController {
 	
 
 	@GetMapping({"/{id}"})
-	String idAlumno(Model model, @PathVariable Integer id) {
+	String idEjercicio(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
-		Ejercicio ejercicioMostrar = ejercicioService.obtenerEjercicioPorID(id);
-		model.addAttribute("ejercicioMostrar",ejercicioMostrar);
+		Optional<Ejercicio> ejercicioMostrar = ejercicioService.obtenerEjercicioPorID(id);
+		
+		if(ejercicioMostrar.isPresent()) {
+		
+		model.addAttribute("ejercicioMostrar",ejercicioMostrar.get());
 		
 		
 		return "ejercicio";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "No existe ejercicio con id " + id);
+		}
+	return "redirect:/ejercicios";
 	}
 	
 	@GetMapping("/delete/{id}")
-	String deleteejercicio(Model model, @PathVariable Integer id) {
+	String deleteejercicio(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
-		Ejercicio ejer = ejercicioService.obtenerEjercicioPorID(id);
+		Optional<Ejercicio> ejer = ejercicioService.obtenerEjercicioPorID(id);
 		
-		for(Alumno a: ejer.getAlumnos()) {
-			a.getEjercicios().remove(ejer);
-			a.getEjercicios().add(null);
+		if(ejer.isPresent()) {
+		Ejercicio e = ejercicioService.obtenerEjercicioPorID(id).get();
+		for(Alumno a: e.getAlumnos()) {
+			a.getEjercicios().remove(e);
 		}
 		
-		for(Entrenador e: ejer.getEntrenadores()) {
-			e.getEjercicios().remove(ejer);
-			e.getEjercicios().add(null);
+		for(Entrenador ej: e.getEntrenadores()) {
+			ej.getEjercicios().remove(e);
 		}
 		
-		for(Rutina r: ejer.getRutinas()) {
-			r.getEjercicios().remove(ejer);
-			r.getEjercicios().add(null);
+		for(Rutina r: e.getRutinas()) {
+			r.getEjercicios().remove(e);
 		}
 		
 		ejercicioService.eliminarEjercicioPorId(id);
 
 		
 		return "redirect:/ejercicios";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "No existe ejercicio con id " + id);
+		}
+	return "redirect:/ejercicios";
 	}
 	
 }

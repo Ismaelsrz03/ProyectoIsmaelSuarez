@@ -1,6 +1,8 @@
 package principal.servicio.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,15 +31,15 @@ public class AlumnoServiceImpl implements AlumnoService {
 	}
 
 	@Override
-	public Alumno obtenerAlumnoPorID(Integer id) {
+	public Optional<Alumno> obtenerAlumnoPorID(Integer id) {
 		// TODO Auto-generated method stub
-		return alumnoRepo.findById(id).get();
+		return alumnoRepo.findById(id);
 	}
 
 	@Override
-	public Alumno obtenerAlumnoPorNombre(String nombre) {
+	public ArrayList<Alumno> obtenerAlumnoPorNombre(String nombre) {
 		// TODO Auto-generated method stub
-		return alumnoRepo.findByNombre(nombre).get();
+		return alumnoRepo.findAllByNombre(nombre);
 	}
 
 	@Override

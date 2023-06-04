@@ -1,6 +1,7 @@
 package principal.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
@@ -84,19 +86,19 @@ public class AlumnoController {
 	@PostMapping("/edit/{id}")
 	public String editarAlumno(@PathVariable Integer id, @ModelAttribute("alumnoaEditar") Alumno alumnoEditado, BindingResult bindingresult) {
 		
-		Alumno alumnoaEditar = alumnoService.obtenerAlumnoPorID(id);
+		Alumno alumnoaEditar = alumnoService.obtenerAlumnoPorID(id).get();
 		
 		alumnoaEditar.setNombre(alumnoEditado.getNombre());
 		
 		if (alumnoEditado.getEntrenadores() != null) {
-			Entrenador e = entrenadorService.obtenerEntrenadorPorID(alumnoEditado.getEntrenadores().getId());
+			Entrenador e = entrenadorService.obtenerEntrenadorPorID(alumnoEditado.getEntrenadores().getId()).get();
 			alumnoEditado.setEntrenadores(e);
 		} else {
 			alumnoEditado.setEntrenadores(null);
 		}
 		
 		if (alumnoaEditar.getUsuarios() != null) {
-			Usuario u = usuarioService.obtenerUsuarioPorID(alumnoaEditar.getUsuarios().getId());
+			Usuario u = usuarioService.obtenerUsuarioPorID(alumnoaEditar.getUsuarios().getId()).get();
 			alumnoEditado.setUsuarios(u);
 		}
 		
@@ -154,22 +156,37 @@ public class AlumnoController {
 //	}
 	
 	@GetMapping({"/{id}"})
-	String idAlumno(Model model, @PathVariable Integer id) {
+	String idAlumno(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
-		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id);
-		model.addAttribute("alumnoMostrar",alumnoMostrar);
+		Optional<Alumno> alumnoMostrar = alumnoService.obtenerAlumnoPorID(id);
+		if(alumnoMostrar.isPresent()) {
+		model.addAttribute("alumnoMostrar",alumnoMostrar.get());
 		
 		
 		return "alumno";
+		}
+		 else {
+				redirectAttributes.addFlashAttribute("fallo", "No existe alumno con id " + id);
+			}
+		return "redirect:/alumnos";
 	}
 	
 	@GetMapping("/delete/{id}")
-	String deleteAlumno(Model model, @PathVariable Integer id) {
+	String deleteAlumno(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
+		
+		Optional<Alumno> alumno = alumnoService.obtenerAlumnoPorID(id);
+		
+		if(alumno.isPresent()) {
 		
 		alumnoService.eliminarAlumnoPorId(id);
-
 		
 		return "redirect:/alumnos";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "No existe alumno con id " + id);
+		}
+	return "redirect:/alumnos";
+		
+		
 	}
 	
 }

@@ -101,12 +101,12 @@ public class AlumnoEntrenadorController {
 	@PostMapping("/edit/{id}")
 	public String editarAlumno(@PathVariable Integer id, @ModelAttribute("alumnoaEditar") Alumno alumnoEditado, BindingResult bindingresult) {
 		
-		Alumno alumnoaEditar = alumnoService.obtenerAlumnoPorID(id);
+		Alumno alumnoaEditar = alumnoService.obtenerAlumnoPorID(id).get();
 		
 		alumnoaEditar.setNombre(alumnoEditado.getNombre());
 		
 		if (alumnoEditado.getEntrenadores() != null) {
-			Entrenador e = entrenadorService.obtenerEntrenadorPorID(alumnoEditado.getEntrenadores().getId());
+			Entrenador e = entrenadorService.obtenerEntrenadorPorID(alumnoEditado.getEntrenadores().getId()).get();
 			alumnoEditado.setEntrenadores(e);
 		} else {
 			alumnoEditado.setEntrenadores(null);
@@ -148,7 +148,7 @@ public class AlumnoEntrenadorController {
 		Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
 		
 		if (alumnoUsuario.getEntrenadores() == null) { 
-		Entrenador en = entrenadorService.obtenerEntrenadorPorID(alumnoNew.getEntrenadores().getId());
+		Entrenador en = entrenadorService.obtenerEntrenadorPorID(alumnoNew.getEntrenadores().getId()).get();
 		en.getAlumnos().add(alumnoUsuario);
 		alumnoUsuario.setEntrenadores(en);
 		}
@@ -158,15 +158,6 @@ public class AlumnoEntrenadorController {
 		
 	}
 	
-	@GetMapping({"/{id}"})
-	String idAlumno(Model model, @PathVariable Integer id) {
-		
-		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id);
-		model.addAttribute("alumnoMostrar",alumnoMostrar);
-		
-		
-		return "alumno";
-	}
 	
 	@GetMapping("/delete/{id}")
 	String deleteAlumno(Model model, @PathVariable Integer id) {

@@ -1,6 +1,8 @@
 package principal.servicio.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,15 +31,15 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 	}
 
 	@Override
-	public Entrenador obtenerEntrenadorPorID(Integer id) {
+	public Optional<Entrenador> obtenerEntrenadorPorID(Integer id) {
 		// TODO Auto-generated method stub
-		return entrenadorRepo.findById(id).get();
+		return entrenadorRepo.findById(id);
 	}
 
 	@Override
-	public Entrenador obtenerEntrenadorPorNombre(String nombre) {
+	public ArrayList<Entrenador> obtenerEntrenadorPorNombre(String nombre) {
 		// TODO Auto-generated method stub
-		return entrenadorRepo.findByNombre(nombre).get();
+		return entrenadorRepo.findAllByNombre(nombre);
 	}
 
 	@Override

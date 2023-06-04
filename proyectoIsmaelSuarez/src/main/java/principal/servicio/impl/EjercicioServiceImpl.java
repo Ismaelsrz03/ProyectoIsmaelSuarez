@@ -1,6 +1,7 @@
 package principal.servicio.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,9 @@ public class EjercicioServiceImpl implements EjercicioService {
 	}
 
 	@Override
-	public Ejercicio obtenerEjercicioPorID(Integer id) {
+	public Optional<Ejercicio> obtenerEjercicioPorID(Integer id) {
 		// TODO Auto-generated method stub
-		return ejercicioRepo.findById(id).get();
+		return ejercicioRepo.findById(id);
 	}
 
 	@Override

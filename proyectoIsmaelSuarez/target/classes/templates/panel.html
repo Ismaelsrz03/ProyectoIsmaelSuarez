@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<head th:insert="librerias::librerias">
+</head>
+<body style="background-color: lightblue;">
+
+
+
+<header>
+<div th:insert="menu::menu"></div>
+</header>
+<div class="row">
+	<div class="col-4 p-3" th:object="${alumno}">
+		<h1 class=" text-center">Alumnos</h1>
+		<hr>
+	<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
+Buscar alumno por id</button>
+</div>
+
+<!-- create modal -->
+	
+	<div class="modal fade" th:id="crearMensaje" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Buscar alumno</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	
+	<!-- formulario nombre a editar-->
+	<form action="/panel/buscarAlumnoId" method="get">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="idInput">Id</label>
+	 <input type="number" name="id" class="form-control" id="idInput" placeholder="Insertar id"/>
+	 
+	 </div>
+	 
+	 </div>
+	
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Buscar Alumno" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	</div>
+	
+	<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje2">
+Buscar alumno por nombre</button>
+</div>
+
+<!-- create modal -->
+	
+	<div class="modal fade" th:id="crearMensaje2" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Buscar alumno</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	
+	<!-- formulario nombre a editar-->
+	<form action="/panel/buscarAlumnoNombre" method="get">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="nombreInput">Nombre</label>
+	 <input type="text" name="nombre" class="form-control" id="nombreInput" placeholder="Insertar nombre"/>
+	 
+	 </div>
+	 
+	 </div>
+	
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Buscar Alumno" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	</div>
+	
+		<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje3">
+Borrar alumno por id</button>
+</div>
+
+<div class="modal fade" th:id="crearMensaje3" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Borrar alumno</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	
+	<!-- formulario nombre a editar-->
+	<form th:action="@{/panel/borrarAlumnoId/{id}(id=${alumno.id})}" method="get">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="idInput">Id</label>
+	 <input type="number" name="idAlumno" class="form-control" id="idInput" placeholder="Insertar id"/>
+	 
+	 </div>
+	 
+	 </div>
+	
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Borrar Alumno" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	</div>
+	
+	</div>
+	<div class="col-4 p-3" th:object="${entrenador}">
+		<h1 class="text-center">Entrenadores</h1>
+		<hr>
+		<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje4">
+Buscar entrenador por id</button>
+</div>
+
+<!-- create modal --> 
+	
+	<div class="modal fade" th:id="crearMensaje4" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Buscar entrenador</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	
+	<!-- formulario nombre a editar-->
+	<form action="/panel/buscarEntrenadorId" method="get">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="idInput">Id</label>
+	 <input type="number" name="id" class="form-control" id="idInput" placeholder="Insertar id"/>
+	 
+	 </div>
+	 
+	 </div>
+	
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Buscar Entrenador" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	</div>
+	
+		<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje5">
+Buscar entrenador por nombre</button>
+</div>
+ 
+	<div class="modal fade" th:id="crearMensaje5" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Buscar entrenador</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	
+	<!-- formulario nombre a editar-->
+	<form action="/panel/buscarEntrenadorNombre" method="get">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="nombreInput">Nombre</label>
+	 <input type="text" name="nombre" class="form-control" id="nombreInput" placeholder="Insertar nombre"/>
+	 
+	 </div>
+	 
+	 </div>
+	
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Buscar Entrenador" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	</div>
+	
+			<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje6">
+Borrar entrenador por id</button>
+</div>
+
+<div class="modal fade" th:id="crearMensaje6" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Borrar entrenador</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	
+	<!-- formulario nombre a editar-->
+	<form th:action="@{/panel/borrarEntrenadorId/{id}(id=${entrenador.id})}" method="get">
+	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="idInput">Id</label>
+	 <input type="number" name="idEntrenador" class="form-control" id="idInput" placeholder="Insertar id"/>
+	 
+	 </div>
+	 
+	 </div>
+	
+	 <div class="modal-footer">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <input type="submit" value="Borrar Entrenador" class="btn btn-primary float-right"/>
+	 </div>
+	
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	</div>
+
+	</div>
+	<div class="col-4 p-3  text-center">
+		<h1>Usuarios</h1>
+		<hr>
+		 
+	</div>
+	
+</div>
+</body>

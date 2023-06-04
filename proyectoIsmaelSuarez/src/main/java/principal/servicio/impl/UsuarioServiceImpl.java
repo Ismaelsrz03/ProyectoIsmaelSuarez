@@ -102,9 +102,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Usuario obtenerUsuarioPorID(Integer id) {
+	public Optional<Usuario> obtenerUsuarioPorID(Integer id) {
 		// TODO Auto-generated method stub
-		return usuarioRepo.findById(id).get();
+		return usuarioRepo.findById(id);
 	}
 
 	@Override

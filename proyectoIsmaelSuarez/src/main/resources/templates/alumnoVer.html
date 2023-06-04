@@ -89,7 +89,7 @@
 				<img th:if="${ejercicio.imagen != null}" th:src="@{'data:'+${ejercicio.getMimeType()}+';base64,'+${ejercicio.getImagen()}}" alt="Imagen" width="325px" height="200px"/>
                 <h5 class="card-title" th:text="${ejercicio.nombre}"></h5>
                 <div class="text-center">
-				<a th:href="@{/entrenadorEjercicio/{id}(id=${ejercicio.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>
+				<a th:href="@{/entrenadorAlumno/{id}/{ejerId}(id=${alumno.id}, ejerId=${ejercicio.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>
                 <a th:attr="data-target='#modal-edit'+${ejercicio.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
                 <a th:attr="data-target='#modal-delete'+${ejercicio.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
             	</div>
@@ -294,6 +294,7 @@ Añadir ejercicio</button>
                 <ul class="list-group list-group-flush" th:each="ejercicio:${rutina.ejercicios}">
                             <li class="list-group-item" th:text="${ejercicio.nombre}"></li>
                         </ul>
+                        <a th:href="@{/entrenadorAlumno/{id}/{rutinaId}/verRutina(id=${alumno.id}, rutinaId=${rutina.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>
                 <a th:attr="data-target='#modal-edit-rutina'+${rutina.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
                 <a th:attr="data-target='#modal-delete-rutina'+${rutina.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
             </div>
@@ -477,5 +478,5 @@ Añadir Rutina</button>
 	</div>
 	</div>
 </main>
-
+<div class="alerta" th:if="${fallo}">[[${fallo}]]</div>
 </body>

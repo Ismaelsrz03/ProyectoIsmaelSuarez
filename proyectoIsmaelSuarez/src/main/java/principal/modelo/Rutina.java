@@ -31,7 +31,7 @@ public class Rutina {
 	@Column(name="Nombre")
 	private String nombre;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE},fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "rutinas_ejercicios",
 			joinColumns = {@JoinColumn(name = "id_Rutina")},

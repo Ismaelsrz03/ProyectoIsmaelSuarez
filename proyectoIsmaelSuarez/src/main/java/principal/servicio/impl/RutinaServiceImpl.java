@@ -1,6 +1,7 @@
 package principal.servicio.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,9 @@ public class RutinaServiceImpl implements RutinaService {
 	}
 
 	@Override
-	public Rutina obtenerRutinaPorID(Integer id) {
+	public Optional<Rutina> obtenerRutinaPorID(Integer id) {
 		// TODO Auto-generated method stub
-		return rutinaRepo.findById(id).get();
+		return rutinaRepo.findById(id);
 	}
 
 	@Override

@@ -49,6 +49,10 @@ public class MainController {
 	
 	private Usuario miUsuario;
 	
+	private Alumno alumno;
+	
+	private Entrenador entrenador;
+	
 	private boolean bienvenida = true;
 	
 	@GetMapping("/")
@@ -64,15 +68,30 @@ public class MainController {
 		model.addAttribute("miUsuario",miUsuario);
 		
 		if(miUsuario != null) {
-		model.addAttribute("bienvenida",bienvenida);
-		
-		
-			bienvenida = false;
-		} 
-		
-		if(miUsuario==null) {
-			bienvenida=true;
-		}
+			model.addAttribute("bienvenida",bienvenida);
+			
+			
+				bienvenida = false;
+				
+				for(Alumno a : miUsuario.getAlumnos()) {
+					alumno = a;
+				}
+				
+				for(Entrenador e: miUsuario.getEntrenadores()) {
+					entrenador = e;
+				}
+			} 
+			
+			if(miUsuario==null) {
+				bienvenida=true;
+			}
+			
+			
+			
+			
+			model.addAttribute("miAlumno", alumno);
+			
+			model.addAttribute("miEntrenador", entrenador);
 		
 		
 		return "index";

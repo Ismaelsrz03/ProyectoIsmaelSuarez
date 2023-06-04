@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +23,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import principal.modelo.Alumno;
@@ -37,6 +43,7 @@ import principal.servicio.impl.UsuarioServiceImpl;
 @RequestMapping("/entrenadorAlumno")
 @Controller
 public class EntrenadorAlumnoController {
+
 
 	@Autowired
 	private AlumnoServiceImpl alumnoService;
@@ -88,7 +95,7 @@ public class EntrenadorAlumnoController {
 				
 				for(Alumno a: entrenadorUsuario.getAlumnos()) {
 					
-					Usuario u = usuarioService.obtenerUsuarioPorID(a.getUsuarios().getId());
+					Usuario u = usuarioService.obtenerUsuarioPorID(a.getUsuarios().getId()).get();
 					listUsu.add(u);
 					
 				}
@@ -163,125 +170,147 @@ public class EntrenadorAlumnoController {
 	
 
 	@RequestMapping(value = "/{id}", method = {RequestMethod.GET, RequestMethod.POST})
-	String idAlumno(Model model, @PathVariable Integer id) {
+	String idAlumno(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		usuarioLog= obtenerLog();
 		entrenadorUsuario = obtenerEntrenadorDeUsuario();
-		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id);
-		model.addAttribute("alumno",alumnoMostrar);
+		Optional<Alumno> alumnoMostrar = alumnoService.obtenerAlumnoPorID(id);
+		if(alumnoMostrar.isPresent()) {
+		Alumno al = alumnoService.obtenerAlumnoPorID(id).get();
+		model.addAttribute("alumno",alumnoMostrar.get());
 		model.addAttribute("miUsuario",usuarioLog);
 		model.addAttribute("ejercicioaEditar", new Ejercicio());
 		model.addAttribute("ejercicioNuevo", new Ejercicio());
 		model.addAttribute("rutinaaEditar", new Rutina());
 		model.addAttribute("rutinaNuevo", new Rutina());
-		model.addAttribute("misEjercicios",alumnoMostrar.getEjercicios());
-		model.addAttribute("misRutinas",alumnoMostrar.getRutinas());
+		model.addAttribute("misEjercicios",al.getEjercicios());
+		model.addAttribute("misRutinas",al.getRutinas());
 		model.addAttribute("miEntrenador",entrenadorUsuario);
 		model.addAttribute("id", id);
 		return "alumnoVer";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
+		}
+		return "redirect:/entrenadorAlumno";
 	}
 	
 	@PostMapping("{id}/editEjer/{ejerId}")
-	public RedirectView editarejercicio(@PathVariable Integer id,@PathVariable Integer ejerId, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado,
-			BindingResult bindingresult, @RequestParam("file") MultipartFile file) {
-		
-		Ejercicio ejercicioaEditar = new Ejercicio();
-		
-		Alumno a = alumnoService.obtenerAlumnoPorID(id);
-		
-		ejercicioaEditar.setNombre(ejercicioEditado.getNombre());
-		
-		ejercicioaEditar.setSeries(ejercicioEditado.getSeries());
-		ejercicioaEditar.setReps(ejercicioEditado.getReps());
-		ejercicioaEditar.setDescripcion(ejercicioEditado.getDescripcion());
-		if(!file.isEmpty()) {
-			 
-			 try {
-				 byte[] imageBytes =file.getBytes();
-				 String encodedString = Base64.getEncoder().encodeToString(imageBytes);
-				 ejercicioEditado.setImagen(encodedString);
-				 ejercicioEditado.setMimeType(file.getContentType());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public RedirectView editarejercicio(@PathVariable Integer id, @PathVariable Integer ejerId,
+	                                    @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado,
+	                                    BindingResult bindingresult, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+
+	    Optional<Alumno> alumno = alumnoService.obtenerAlumnoPorID(id);
+
+	    if(alumno.isPresent()) {
+	    Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
+	    
+	    Ejercicio ejercicioaEditar = null;
+
+	    for (Ejercicio ej : a.getEjercicios()) {
+	        if (ej.getId().equals(ejerId)) {
+	            ejercicioaEditar = ej;
+	            break;
+	        }
+	    }
+
+	    if (ejercicioaEditar == null) {
+	        // Manejar el caso en el que no se encuentre el ejercicio
+	        // Puedes lanzar una excepción, mostrar un mensaje de error, etc.
+	        return new RedirectView("/entrenadorAlumno/{id}", true);
+	    }
+
+	    ejercicioaEditar.setNombre(ejercicioEditado.getNombre());
+	    ejercicioaEditar.setSeries(ejercicioEditado.getSeries());
+	    ejercicioaEditar.setReps(ejercicioEditado.getReps());
+	    ejercicioaEditar.setDescripcion(ejercicioEditado.getDescripcion());
+
+	    if (!file.isEmpty()) {
+	        try {
+	            byte[] imageBytes = file.getBytes();
+	            String encodedString = Base64.getEncoder().encodeToString(imageBytes);
+	            ejercicioaEditar.setImagen(encodedString);
+	            ejercicioaEditar.setMimeType(file.getContentType());
+	        } catch (IOException e) {
+	            // Manejar la excepción de lectura del archivo
+	            e.printStackTrace();
+	        }
+	    }
+
+	    ArrayList<Rutina> rutinasActualizadas = new ArrayList<>();
+
+	    for (Rutina r : a.getRutinas()) {
+	        if (r.getEjercicios().contains(ejercicioaEditar)) {
+	            r.getEjercicios().remove(ejercicioaEditar);
+	            r.getEjercicios().add(ejercicioaEditar);
+	            rutinasActualizadas.add(r);
+	        }
+	    }
+
+	    a.getEjercicios().remove(ejercicioaEditar);
+	    a.getEjercicios().add(ejercicioaEditar);
+
+	    alumnoService.insertarAlumno(a);
+
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
+	    
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
 		}
-		ejercicioaEditar.setImagen(ejercicioEditado.getImagen());
-		ejercicioaEditar.setMimeType(ejercicioEditado.getMimeType());
-		
-		ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
-		
-		for(Ejercicio ee: a.getEjercicios()) {
-			lista.add(ee);
-		}
-		Ejercicio aBorrar = new Ejercicio();
-		for(Ejercicio ej: lista) {
-			if(ej.getId()==ejerId) {
-				aBorrar = ej;
-				a.getEjercicios().add(ejercicioaEditar);
-				
-				for(Rutina r: a.getRutinas()) {
-					r.getEjercicios().remove(aBorrar);
-					r.getEjercicios().add(ejercicioaEditar);
-				}
-			}
-		}
-		
-		a.getEjercicios().remove(aBorrar);
-		
-		
-		alumnoService.insertarAlumno(a);
-		
-		return new RedirectView("/entrenadorAlumno/{id}", true);
+	    
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
 	}
+
 	
 	@PostMapping("/{id}/editRutina/{rutinaId}")
-	public RedirectView editarRutina(@PathVariable Integer id, @PathVariable Integer rutinaId, @ModelAttribute("rutinaaEditar") Rutina rutinaEditado, BindingResult bindingresult) {
-		
-		
-		Alumno a = alumnoService.obtenerAlumnoPorID(id);
-		
-		Rutina r = new Rutina();
-		r.setNombre(rutinaEditado.getNombre());
-		Rutina aBorrar = new Rutina();
-		
-		ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
-		
-		for(Ejercicio ee: rutinaEditado.getEjercicios()) {
-			lista.add(ee);
+	public RedirectView editarRutina(@PathVariable Integer id, @PathVariable Integer rutinaId,
+	                                 @ModelAttribute("rutinaaEditar") Rutina rutinaEditado,
+	                                 BindingResult bindingresult, RedirectAttributes redirectAttributes) {
+	    Optional<Alumno> alum = alumnoService.obtenerAlumnoPorID(id);
+
+	    if(alum.isPresent()) {
+	    Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
+	    Rutina r = null;
+
+	    for (Rutina ru : a.getRutinas()) {
+	        if (ru.getId().equals(rutinaId)) {
+	            r = ru;
+	            break;
+	        }
+	    }
+
+	    if (r == null) {
+	        // Manejar el caso en el que no se encuentre la rutina
+	        // Puedes lanzar una excepción, mostrar un mensaje de error, etc.
+	        return new RedirectView("/entrenadorAlumno/{id}", true);
+	    }
+
+	    r.setNombre(rutinaEditado.getNombre());
+	    r.getEjercicios().clear(); // Limpiar la lista de ejercicios existente en la rutina
+
+	    for (Ejercicio e : rutinaEditado.getEjercicios()) {
+	        r.getEjercicios().add(e);
+	    }
+
+	    a.getRutinas().remove(r);
+	    a.getRutinas().add(r);
+
+	    alumnoService.insertarAlumno(a);
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
+	    } else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
 		}
-		
-		ArrayList<Rutina> lista2 = new ArrayList<Rutina>();
-		
-		for(Rutina rut: a.getRutinas()) {
-			lista2.add(rut);
-		}
-		
-		
-		
-		for(Rutina ru: lista2) {
-			if(ru.getId()==rutinaId) {
-				aBorrar = ru;
-				a.getRutinas().add(r);		
-				
-			}
-		}
-		
-		for(Ejercicio e: lista) {
-					r.getEjercicios().add(e);
-				}
-		
-		a.getRutinas().remove(aBorrar);
-		
-		alumnoService.insertarAlumno(a);
-		return new RedirectView("/entrenadorAlumno/{id}", true);
+	    
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
 	}
+
 
 	@PostMapping("/{id}/addEjer")
 	public RedirectView addEjercicio(Model model, @ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew,
 	                                 BindingResult bindingresult, @PathVariable Integer id,
-	                                 @RequestParam("file") MultipartFile file) {
-	    Alumno a = alumnoService.obtenerAlumnoPorID(id);
+	                                 @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+	    Optional<Alumno> alum = alumnoService.obtenerAlumnoPorID(id);
 
+	    if(alum.isPresent()) {
+	    Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
 	    if (!file.isEmpty()) {
 	        try {
 	            byte[] imageBytes = file.getBytes();
@@ -305,14 +334,22 @@ public class EntrenadorAlumnoController {
 	    alumnoService.insertarAlumno(a);
 
 	    return new RedirectView("/entrenadorAlumno/{id}", true);
+	    } else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
+		}
+	    
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
 	}
 
 	
 	@PostMapping("/{id}/addRutina")
-	public RedirectView addRutina(@PathVariable Integer id, @ModelAttribute("rutinaNuevo") Rutina rutinaNew, BindingResult bindingresult) {
+	public RedirectView addRutina(@PathVariable Integer id, @ModelAttribute("rutinaNuevo") Rutina rutinaNew, 
+			BindingResult bindingresult, RedirectAttributes redirectAttributes) {
 	   
-		Alumno a = alumnoService.obtenerAlumnoPorID(id);
+		Optional<Alumno> alum = alumnoService.obtenerAlumnoPorID(id);
 		
+		if(alum.isPresent()) {
+		Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
 		Rutina rutinaNueva = new Rutina();
 		rutinaNueva.setNombre(rutinaNew.getNombre());
 		
@@ -325,55 +362,233 @@ public class EntrenadorAlumnoController {
 	
 	    
 	    return new RedirectView("/entrenadorAlumno/{id}", true);
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
+		}
+	    
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
 	}
 	
 	@GetMapping("/delete/{id}")
-	String deleteAlumno(Model model, @PathVariable Integer id) {
+	String deleteAlumno(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
-		Alumno al = alumnoService.obtenerAlumnoPorID(id);
-
-		al.setEntrenadores(null);
+		Optional<Alumno> alum = alumnoService.obtenerAlumnoPorID(id);
+		Entrenador en = entrenadorService.obtenerEntrenadorPorID(entrenadorUsuario.getId()).get();
+		if(alum.isPresent()) {
+		Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
+		if(en.getAlumnos().contains(alum.get())) {
+		a.setEntrenadores(null);
 		entrenadorService.insertarEntrenador(entrenadorUsuario);
 		
 		return "redirect:/entrenadorAlumno";
+		}
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
+		}
+	    
+	    return "redirect:/entrenadorAlumno";
 	}
 	
 	@GetMapping("{id}/deleteEjer/{ejerId}")
-	RedirectView deleteejercicio(Model model, @PathVariable Integer id, @PathVariable Integer ejerId) {
+	RedirectView deleteejercicio(Model model, @PathVariable Integer id, @PathVariable Integer ejerId, RedirectAttributes redirectAttributes) {
 		
-		Ejercicio ejer = ejercicioService.obtenerEjercicioPorID(ejerId);
-		Alumno al = alumnoService.obtenerAlumnoPorID(id);
+		Optional<Ejercicio> ejer = ejercicioService.obtenerEjercicioPorID(ejerId);
+		Optional<Alumno> al = alumnoService.obtenerAlumnoPorID(id);
+		if(ejer.isPresent() && al.isPresent()) {
+			Alumno alum = alumnoService.obtenerAlumnoPorID(id).get();
+		if(alum.getEjercicios().contains(ejer.get())) {
+		Ejercicio e = ejercicioService.obtenerEjercicioPorID(ejerId).get();
+		for(Alumno a: e.getAlumnos()) {
+			a = alumnoService.obtenerAlumnoPorID(id).get();
+			a.getEjercicios().remove(e);
 		
-		for(Alumno a: ejer.getAlumnos()) {
-			a = alumnoService.obtenerAlumnoPorID(id);
-			a.getEjercicios().remove(ejer);
-			a.getEjercicios().add(null);
 		}
 
 		
-		for(Rutina r: al.getRutinas()) {
-			r.getEjercicios().remove(ejer);
-			r.getEjercicios().add(null);
+		for(Rutina r: alum.getRutinas()) {
+			r.getEjercicios().remove(e);
 		}
 		
 		ejercicioService.eliminarEjercicioPorId(ejerId);
 
 		
 		return new RedirectView("/entrenadorAlumno/{id}", true);
+		}
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe ejercicio con id " + ejerId);
+		}
+		
+		return new RedirectView("/entrenadorAlumno/{id}", true);
 	}
 	
 	@GetMapping("{id}/deleteRutina/{rutinaId}")
-	RedirectView deleteRutina(Model model, @PathVariable Integer id, @PathVariable Integer rutinaId) {
-		Rutina rut = rutinaService.obtenerRutinaPorID(rutinaId);
+	RedirectView deleteRutina(Model model, @PathVariable Integer id, @PathVariable Integer rutinaId, RedirectAttributes redirectAttributes) {
+		Optional<Rutina> rut = rutinaService.obtenerRutinaPorID(rutinaId);
+		Optional<Alumno> alum = alumnoService.obtenerAlumnoPorID(id);
+		if(rut.isPresent() && alum.isPresent()) {
+		Rutina r = rutinaService.obtenerRutinaPorID(rutinaId).get();
+		Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
+		if(a.getRutinas().contains(rut.get())) {
 		
-		for(Alumno a: rut.getAlumnos()) {
-			a = alumnoService.obtenerAlumnoPorID(id);
-			a.getRutinas().remove(rut);
-			a.getRutinas().add(null);
+		for(Alumno al: r.getAlumnos()) {
+			al = alumnoService.obtenerAlumnoPorID(id).get();
+			al.getRutinas().remove(r);
+			al.getRutinas().add(null);
 		}
 		
 		rutinaService.eliminarRutinaPorId(rutinaId);
 	    return new RedirectView("/entrenadorAlumno/{id}", true);
 	}
+	} else {
+		redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe rutina con id " + rutinaId);
+	}
 	
+	return new RedirectView("/entrenadorAlumno/{id}", true);
+	}
+	
+	@GetMapping({"/{id}/{ejerId}"})
+	String verEjercicioAlumno(Model model, @PathVariable Integer id, @PathVariable Integer ejerId, 
+			RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		usuarioLog= obtenerLog();
+		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id).get();
+		
+		Optional<Ejercicio> ejerMostrar = ejercicioService.obtenerEjercicioPorID(ejerId);
+		model.addAttribute("alumno",alumnoMostrar);
+		if (ejerMostrar.isPresent()
+				&& alumnoMostrar.getEjercicios().contains(ejerMostrar.get())) {
+			model.addAttribute("ejerMostrar", ejerMostrar.get());
+			String urlActual = request.getRequestURI();
+	        model.addAttribute("urlActual", urlActual);
+	        
+	        boolean isEntrenadorAlumnoUrl = urlActual.startsWith("/entrenadorAlumno/" + id + "/" + ejerId);
+	       
+	        model.addAttribute("isEntrenadorAlumnoUrl", isEntrenadorAlumnoUrl);
+	        
+	        
+			model.addAttribute("miUsuario", usuarioLog);
+
+			return "ejercicioVer";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "El alumno no tiene un ejercicio con id " + id);
+		}
+
+		
+
+		return "redirect:/entrenadorAlumno/" +id;
+
+	}
+	
+	@GetMapping({"/{id}/{rutinaId}/verRutina"})
+	String verRutinaAlumno(Model model, @PathVariable Integer id, @PathVariable Integer rutinaId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		usuarioLog= obtenerLog();
+		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
+		
+		Optional<Rutina> rutinaMostrar = rutinaService.obtenerRutinaPorID(rutinaId);
+		
+		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id).get();
+		
+		model.addAttribute("alumno",alumnoMostrar);
+		if (rutinaMostrar.isPresent() && alumnoMostrar.getRutinas().contains(rutinaMostrar.get())) {
+			model.addAttribute("rutinaMostrar", rutinaMostrar.get());
+			 String urlActual = request.getRequestURI();
+	        model.addAttribute("urlActual", urlActual);
+	        
+	        boolean isEntrenadorAlumnoRutinaUrl = urlActual.startsWith("/entrenadorAlumno/" + id + "/" + rutinaId + "/verRutina");
+	        model.addAttribute("isEntrenadorAlumnoRutinaUrl", isEntrenadorAlumnoRutinaUrl);
+			model.addAttribute("miUsuario", usuarioLog);
+			model.addAttribute("miEntrenador",entrenadorUsuario);
+			return "rutinaVer";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "El alumno no tiene una rutina con id " + id);
+		}
+
+		
+
+		return "redirect:/entrenadorAlumno/" +id;
+
+	}
+	
+	@GetMapping({"/{id}/{rutinaId}/verRutina/{ejerId}"})
+	String verEjercicioRutinaAlumno(Model model, @PathVariable Integer id, @PathVariable Integer ejerId, @PathVariable Integer rutinaId,
+			RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		usuarioLog= obtenerLog();
+		Rutina rutinaMostrar = rutinaService.obtenerRutinaPorID(rutinaId).get();
+		
+		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id).get();
+		model.addAttribute("alumno",alumnoMostrar);
+		
+		Optional<Ejercicio> ejerMostrar = ejercicioService.obtenerEjercicioPorID(ejerId);
+		model.addAttribute("rutinaMostrar",rutinaMostrar);
+		if (ejerMostrar.isPresent()
+				&& rutinaMostrar.getEjercicios().contains(ejerMostrar.get()) && alumnoMostrar.getRutinas().contains(rutinaMostrar)) {
+			model.addAttribute("ejerMostrar", ejerMostrar.get());
+			String urlActual = request.getRequestURI();
+	        model.addAttribute("urlActual", urlActual);
+	        
+	        boolean isEntrenadorAlumnoRutinaEjercicioUrl = urlActual.startsWith("/entrenadorAlumno/" + id + "/" + rutinaId + "/verRutina/" +ejerId);
+	       
+	        model.addAttribute("isEntrenadorAlumnoRutinaEjercicioUrl", isEntrenadorAlumnoRutinaEjercicioUrl);
+	        
+	        
+			model.addAttribute("miUsuario", usuarioLog);
+
+			return "ejercicioVer";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "La rutina no tiene un ejercicio con id " + id);
+		}
+
+		
+
+		return "redirect:/entrenadorRutina/" +id;
+
+	}
+	
+	@GetMapping("/{id}/{rutinaId}/verRutina/quitar/{ejerId}")
+	RedirectView quitarEjercicioRutina(Model model, @PathVariable Integer id, @PathVariable Integer ejerId, @PathVariable Integer rutinaId,
+	                                  RedirectAttributes redirectAttributes) {
+	    Optional<Rutina> rut = rutinaService.obtenerRutinaPorID(rutinaId);
+	    Optional<Ejercicio> ejer = ejercicioService.obtenerEjercicioPorID(ejerId);
+	    Optional<Alumno> alum = alumnoService.obtenerAlumnoPorID(id);
+	    
+	    if (rut.isPresent() && ejer.isPresent() && alum.get().getRutinas().contains(rut.get())
+	    		&& rut.get().getEjercicios().contains(ejer.get())) {
+	        Rutina r = rut.get();
+	        Ejercicio ejercicio = ejer.get();
+	        
+	        if (r.getEjercicios().contains(ejercicio)) {
+	            r.getEjercicios().remove(ejercicio);
+	            ejercicio.getRutinas().remove(r);
+	            
+	            rutinaService.insertarRutina(r);
+	            return new RedirectView("/entrenadorAlumno/{id}/{rutinaId}/verRutina", true);
+	        }
+	    }  else {
+	            redirectAttributes.addFlashAttribute("fallo", "La rutina no contiene un ejercicio con ID " + ejerId);
+	        }
+	    
+	    return new RedirectView("/entrenadorAlumno/{id}/{rutinaId}/verRutina", true);
+	}
+	
+	@PostMapping("/{id}/{rutinaId}/verRutina/agregarEjercicio")
+	public String agregarEjercicio(Model model, @PathVariable Integer id, @PathVariable Integer rutinaId, @RequestParam("ejerciciosId") Integer[] ejerciciosId) {
+	    Optional<Rutina> rutina = rutinaService.obtenerRutinaPorID(rutinaId);
+	    Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
+	    Alumno alumno = alumnoService.obtenerAlumnoPorID(id).get();
+	    model.addAttribute("miEntrenador", entrenadorUsuario);
+	    model.addAttribute("rutinaMostrar",rutina);
+	    
+	    Entrenador entrenador = entrenadorService.obtenerEntrenadorPorID(entrenadorUsuario.getId()).get();
+	    if (rutina.isPresent() && alumno.getRutinas().contains(rutina.get())) {
+	        Rutina rutinaActualizada = rutina.get();
+	        for(Integer ejercicioId: ejerciciosId) {
+	        Ejercicio ejercicio = ejercicioService.obtenerEjercicioPorID(ejercicioId).get(); // Obtener el ejercicio seleccionado
+	        
+	            rutinaActualizada.getEjercicios().add(ejercicio);
+
+	        }
+	        rutinaService.insertarRutina(rutinaActualizada);
+	    }
+
+	    return "redirect:/entrenadorAlumno/" + id + "/" + rutinaId + "/verRutina";
+	}
 }

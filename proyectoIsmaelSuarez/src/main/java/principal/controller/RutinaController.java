@@ -1,6 +1,7 @@
 package principal.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import principal.modelo.Ejercicio;
 import principal.modelo.Rutina;
@@ -85,7 +87,7 @@ public class RutinaController {
 		@PostMapping("/edit/{id}")
 		public String editarRutina(@PathVariable Integer id, @ModelAttribute("rutinaaEditar") Rutina rutinaEditado, BindingResult bindingresult) {
 			
-			Rutina rutinaaEditar = rutinaService.obtenerRutinaPorID(id);
+			Rutina rutinaaEditar = rutinaService.obtenerRutinaPorID(id).get();
 			
 			rutinaaEditar.setNombre(rutinaEditado.getNombre());
 			
@@ -121,33 +123,47 @@ public class RutinaController {
 		}
 		
 		@GetMapping({"/{id}"})
-		String idUsuario(Model model, @PathVariable Integer id) {
+		String idUsuario(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 			
-			Rutina rutinaMostrar = rutinaService.obtenerRutinaPorID(id);
-			model.addAttribute("rutinaMostrar",rutinaMostrar);
+			Optional<Rutina> rutinaMostrar = rutinaService.obtenerRutinaPorID(id);
+			
+			if(rutinaMostrar.isPresent()) {
+			
+			model.addAttribute("rutinaMostrar",rutinaMostrar.get());
 			
 			
 			return "rutina";
+			}  else {
+				redirectAttributes.addFlashAttribute("fallo", "No existe ejercicio con id " + id);
+			}
+		return "redirect:/rutinas";
 		}
 		
 		@GetMapping("/delete/{id}")
-		String deleteRutina(Model model, @PathVariable Integer id) {
-			Rutina rutina = rutinaService.obtenerRutinaPorID(id);
+		String deleteRutina(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 			
-			for(Alumno a: rutina.getAlumnos()) {
-				a.getRutinas().remove(rutina);
-				a.getRutinas().add(null);
+			Optional<Rutina> rutina = rutinaService.obtenerRutinaPorID(id);
+			
+			if(rutina.isPresent()) {
+			
+			Rutina r = rutinaService.obtenerRutinaPorID(id).get();
+				
+			for(Alumno a: r.getAlumnos()) {
+				a.getRutinas().remove(r);
 			}
 			
-			for(Entrenador e: rutina.getEntrenadores()) {
-				e.getRutinas().remove(rutina);
-				e.getRutinas().add(null);
+			for(Entrenador e: r.getEntrenadores()) {
+				e.getRutinas().remove(r);
 			}
 			   
 			rutinaService.eliminarRutinaPorId(id);
 
 			
 			return "redirect:/rutinas";
+			} else {
+				redirectAttributes.addFlashAttribute("fallo", "No existe ejercicio con id " + id);
+			}
+		return "redirect:/rutinas";
 		}
 
 }

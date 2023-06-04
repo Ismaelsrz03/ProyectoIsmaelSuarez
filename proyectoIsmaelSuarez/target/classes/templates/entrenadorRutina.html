@@ -69,6 +69,7 @@
                             <li class="list-group-item" th:text="${ejercicio.nombre}"></li>
                         </ul>
                        </div>
+                        <a th:href="@{/entrenadorRutina/{id}(id=${rutina.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>
                 <a th:attr="data-target='#modal-edit'+${rutina.id}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">Edit</a>
                 <a th:attr="data-target='#modal-delete'+${rutina.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
             </div>
@@ -280,5 +281,5 @@ Enviar Rutina</button>
 	</div>
 	</div>
 </main>
-
+<div class="alerta" th:if="${fallo}">[[${fallo}]]</div>
 </body>

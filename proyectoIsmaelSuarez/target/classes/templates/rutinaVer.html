@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<head th:insert="librerias::librerias">
+	</head>
+<body>
+<header>
+
+<div th:insert="menu::menu"></div>
+
+</header> 
+
+<main class="row">
+	<div class="col-3">
+		<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white" style="width: 300px;">
+    <h1>
+       Bienvenido  <span sec:authentication = "principal.username" />
+    </h1>
+    <hr>
+    <ul sec:authorize="hasAuthority('ROLE_USER')" class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="/" class="nav-link text-white bg-success" aria-current="page" role="button">
+          <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="/alumnoEntrenador" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+         Entrenador
+        </a>
+      </li>
+      <li>
+        <a href="/alumnoEjercicio" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+          Ejercicios
+        </a>
+      </li>
+      <li>
+        <a href="/alumnoRutina" class="nav-link text-white bg-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+          Rutinas
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+          Progreso
+        </a>
+      </li>
+    </ul>
+    <ul sec:authorize="hasAuthority('ROLE_ENTRENADOR')" class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="/" class="nav-link text-white bg-success" aria-current="page" role="button">
+          <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="/entrenadorAlumno" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+         Alumnos
+        </a>
+      </li>
+      <li>
+        <a href="/entrenadorEjercicio" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+          Ejercicios
+        </a>
+      </li>
+      <li>
+        <a href="/entrenadorRutina" class="nav-link text-white bg-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+          Rutinas
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+          Progreso
+        </a>
+      </li>
+    </ul>
+    <hr>
+  </div>
+	</div>
+	
+	<div sec:authorize="hasAuthority('ROLE_USER')" class="col-8 p-3" th:object="${rutinaMostrar}">
+		
+		<h1 th:text="${rutinaMostrar.nombre}"></h1>
+		<hr>
+		                  	<div class="card-deck d-flex flex-row flex-wrap">
+    <div th:each="ejercicio : ${rutinaMostrar.ejercicios}">
+        <div class="card card-compact m-2" style="width:350px;">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+				<img th:if="${ejercicio.imagen == null}" src="/Imagenes/defecto.png" width="325px" height="200px">
+				<img th:if="${ejercicio.imagen != null}" th:src="@{'data:'+${ejercicio.getMimeType()}+';base64,'+${ejercicio.getImagen()}}" alt="Imagen" width="325px" height="200px"/>
+                <h5 class="card-title" th:text="${ejercicio.nombre}"></h5>
+                <div class="text-center">
+				<a th:href="@{/alumnoRutina/{id}/{ejerId}(id=${rutinaMostrar.id}, ejerId=${ejercicio.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>
+	<p>
+    <a th:href="@{/alumnoRutina}" class="btn btn-primary mt-3">Cerrar</a>
+</p>
+	</div>
+	<div sec:authorize="hasAuthority('ROLE_ENTRENADOR')" class="col-8 p-3" th:object="${rutinaMostrar}">
+		<h1 th:text="${rutinaMostrar.nombre}"></h1>
+		<hr>
+		                  	<div class="card-deck d-flex flex-row flex-wrap">
+    <div th:each="ejercicio : ${rutinaMostrar.ejercicios}">
+        <div class="card card-compact m-2" style="width:350px;">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+				<img th:if="${ejercicio.imagen == null}" src="/Imagenes/defecto.png" width="325px" height="200px">
+				<img th:if="${ejercicio.imagen != null}" th:src="@{'data:'+${ejercicio.getMimeType()}+';base64,'+${ejercicio.getImagen()}}" alt="Imagen" width="325px" height="200px"/>
+                <h5 class="card-title" th:text="${ejercicio.nombre}"></h5>
+                <div th:if="${isEntrenadorAlumnoRutinaUrl}" class="text-center" th:object="${alumno}">
+				<a th:href="@{/entrenadorAlumno/{id}/{rutinaId}/verRutina/{ejerId}(id=${alumno.id}, rutinaId=${rutinaMostrar.id}, ejerId=${ejercicio.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>
+                <a th:attr="data-target='#modal-delete'+${ejercicio.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+            	</div>
+            	<div th:if="${isEntrenadorRutinaUrl}" class="text-center">
+					<a th:href="@{/entrenadorRutina/{id}/{ejerId}(id=${rutinaMostrar.id}, ejerId=${ejercicio.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>
+					 <a th:attr="data-target='#modal-delete'+${ejercicio.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+				</div>
+            </div>
+        </div>
+	
+	<!-- delete modal -->
+	
+	<div class="modal fade" th:id="modal-delete+${ejercicio.id}">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Eliminar</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	
+	<div class="modal-body">
+	<p class="error-text"> ¿Está seguro de quitar el ejercicio de la rutina:
+	<strong><span th:text="${ejercicio.nombre}"> </span></strong>?</p>
+	
+	 </div>
+	 <div class="modal-footer" th:if="${isEntrenadorRutinaUrl}">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <a th:href="@{/entrenadorRutina/{id}/quitar/{ejerId}(ejerId=${ejercicio.id}, id=${rutinaMostrar.id})}">
+	 <span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+	 </a>
+	 </div>
+	  <div class="modal-footer" th:if="${isEntrenadorAlumnoRutinaUrl}" th:object="${alumno}">
+	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+	 <a th:href="@{/entrenadorAlumno/{id}/{rutinaId}/verRutina/quitar/{ejerId}(id=${alumno.id}, ejerId=${ejercicio.id}, rutinaId=${rutinaMostrar.id})}">
+	 <span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+	 </a>
+	 </div>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin delete modal -->
+    </div>
+</div>
+
+<div class="p-5">
+<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
+Añadir ejercicio</button>
+</div>
+
+<!-- create modal -->
+	
+	<div th:if="${isEntrenadorRutinaUrl}" class="modal fade" th:object="${miEntrenador}" th:id="crearMensaje" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Nuevos ejercicios</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Añade ejercicios a la rutina</p>
+	
+	
+	<form action="#" th:action="@{/entrenadorRutina/{id}/agregarEjercicio(id=${rutinaMostrar.id})}"  method="post">
+
+  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 
+	 <label for="ejerciciosId">Seleccionar ejercicios</label>
+	 <select  name="ejerciciosId" multiple = "multiple" class="form-control selectpicker" id="ejerciciosId">
+	 <option th:each="e:${miEntrenador.ejercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
+	 </select>
+	 </div>
+	 </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <input type="submit" value="Añadir ejercicios" class="btn btn-primary float-right"/>
+  </div>
+</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin create modal -->
+
+
+</div>
+
+<div th:if="${isEntrenadorAlumnoRutinaUrl}" class="modal fade" th:object="${miEntrenador}" th:id="crearMensaje" tabindex="1" role="dialog">
+	<div class="modal-dialog" role="document" th:object="${alumno}">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="exampleModelLabel">Nuevos ejercicios</h4>
+		<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">x</span>
+		</button>
+	</div>
+	<div class="modal-body">
+	<p class="error-text"> Añade ejercicios a la rutina</p>
+	
+	
+	<form action="#" th:action="@{/entrenadorAlumno/{id}/{rutinaId}/verRutina/agregarEjercicio(id=${alumno.id}, rutinaId=${rutinaMostrar.id})}"  method="post">
+
+  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 
+	 <label for="ejerciciosId">Seleccionar tus ejercicios</label>
+	 <select  name="ejerciciosId" multiple = "multiple" class="form-control selectpicker" id="ejerciciosId">
+	 <option th:each="e:${miEntrenador.ejercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
+	 </select>
+	 </div>
+	 </div>
+	  <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 
+	 <label for="ejerciciosId">Seleccionar ejercicios del alumno</label>
+	 <select  name="ejerciciosId" multiple = "multiple" class="form-control selectpicker" id="ejerciciosId">
+	 <option th:each="e:${alumno.ejercicios}" th:value="${e.id}" th:text="${e.nombre}" value=""> Seleccionar Ejercicios</option>
+	 </select>
+	 </div>
+	 </div>
+	 </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <input type="submit" value="Añadir ejercicios" class="btn btn-primary float-right"/>
+  </div>
+</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	<!-- fin create modal -->
+<div th:if="${isEntrenadorAlumnoRutinaUrl}" th:object="${alumno}">
+		 <p >
+        <a th:href="@{/entrenadorAlumno/{id}(id=${alumno.id})}" class="btn btn-primary mt-3">Cerrar</a>
+    </p>
+</div>
+<div th:if="${isEntrenadorRutinaUrl}">
+<p>
+    <a th:href="@{/entrenadorRutina}" class="btn btn-primary mt-3">Cerrar</a>
+</p>
+</div>
+
+	</div>
+
+</div>
+
+
+	
+</main>
+<div class="alerta" th:if="${fallo}">[[${fallo}]]</div>
+</body>

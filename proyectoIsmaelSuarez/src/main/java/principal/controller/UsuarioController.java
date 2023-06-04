@@ -3,6 +3,7 @@ package principal.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import principal.modelo.Alumno;
 import principal.modelo.Entrenador;
@@ -74,7 +76,7 @@ public class UsuarioController {
 	@PostMapping("/edit/{id}")
 	public String editarUsuario(@PathVariable Integer id, @ModelAttribute("usuarioaEditar") Usuario usuarioEditado, BindingResult bindingresult) {
 		
-		Usuario usuarioaeditar= userDetailsService.obtenerUsuarioPorID(id);
+		Usuario usuarioaeditar= userDetailsService.obtenerUsuarioPorID(id).get();
 		
 		usuarioaeditar.setNombre(usuarioEditado.getNombre());
 		
@@ -97,27 +99,39 @@ public class UsuarioController {
 	}
 	
 	@GetMapping({"/{id}"})
-	String idUsuario(Model model, @PathVariable Integer id) {
+	String idUsuario(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
-		Usuario usuarioMostrar = userDetailsService.obtenerUsuarioPorID(id);
+		Optional<Usuario> usuarioMostrar = userDetailsService.obtenerUsuarioPorID(id);
+		
+		if(usuarioMostrar.isPresent()) {
+		
 		model.addAttribute("usuarioMostrar",usuarioMostrar);
 		
 		return "usuario";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "No existe usuario con id " + id);
+		}
+	return "redirect:/usuarios";
 	}
 	
 	@GetMapping("/delete/{id}")
-	String deleteUsuario(Model model, @PathVariable Integer id) {
+	String deleteUsuario(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
 		if(esAdmin()) {
-		Usuario aeliminar = userDetailsService.obtenerUsuarioPorID(id);
-		ArrayList<Entrenador> entrenador = new ArrayList<Entrenador>();
-		for(Entrenador e : aeliminar.getEntrenadores()) {
+		Optional<Usuario> aeliminar = userDetailsService.obtenerUsuarioPorID(id);
+		if(aeliminar.isPresent()) {
+		Usuario usuario = userDetailsService.obtenerUsuarioPorID(id).get();
+		for(Entrenador e : usuario.getEntrenadores()) {
 			for(Alumno a: e.getAlumnos()) {
 				a.setEntrenadores(null);
 			}
 		}
 		
-		userDetailsService.eliminarUsuario(aeliminar);
+		userDetailsService.eliminarUsuario(usuario);
+		}  else {
+			redirectAttributes.addFlashAttribute("fallo", "No existe usuario con id " + id);
+		}
+	return "redirect:/usuarios";
 		}
 		
 		

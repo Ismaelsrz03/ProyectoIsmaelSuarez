@@ -2,6 +2,7 @@ package principal.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import principal.modelo.Ejercicio;
 import principal.modelo.Entrenador;
@@ -86,12 +88,12 @@ public class EntrenadorController {
 		@PostMapping("/edit/{id}")
 		public String editarEntrenador(@PathVariable Integer id, @ModelAttribute("entrenadoraEditar") Entrenador entrenadorEditado, BindingResult bindingresult) {
 			
-			Entrenador entrenadoraEditar = entrenadorService.obtenerEntrenadorPorID(id);
+			Entrenador entrenadoraEditar = entrenadorService.obtenerEntrenadorPorID(id).get();
 			
 			entrenadoraEditar.setNombre(entrenadorEditado.getNombre());
 			
 			if (entrenadoraEditar.getUsuarios() != null) {
-				Usuario u = usuarioService.obtenerUsuarioPorID(entrenadoraEditar.getUsuarios().getId());
+				Usuario u = usuarioService.obtenerUsuarioPorID(entrenadoraEditar.getUsuarios().getId()).get();
 				entrenadorEditado.setUsuarios(u);
 			}
 			
@@ -163,27 +165,40 @@ public class EntrenadorController {
 //		}
 		
 		@GetMapping({"/{id}"})
-		String idEntrenador(Model model, @PathVariable Integer id) {
+		String idEntrenador(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 			
-			Entrenador entrenadorMostrar = entrenadorService.obtenerEntrenadorPorID(id);
-			model.addAttribute("entrenadorMostrar",entrenadorMostrar);
+			Optional<Entrenador> entrenadorMostrar = entrenadorService.obtenerEntrenadorPorID(id);
+			
+			if(entrenadorMostrar.isPresent()) {
+			
+			model.addAttribute("entrenadorMostrar",entrenadorMostrar.get());
 			
 			
 			return "entrenador";
+			} else {
+				redirectAttributes.addFlashAttribute("fallo", "No existe entrenador con id " + id);
+			}
+		return "redirect:/entrenadores";
 		}
 		
 		@GetMapping("/delete/{id}")
-		String deleteEntrenador(Model model, @PathVariable Integer id) {
+		String deleteEntrenador(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 
-			Entrenador en = entrenadorService.obtenerEntrenadorPorID(id);
+			Optional<Entrenador> en = entrenadorService.obtenerEntrenadorPorID(id);
 			
-			for(Alumno a : en.getAlumnos()) {
+			if(en.isPresent()) {
+			Entrenador entrenador = entrenadorService.obtenerEntrenadorPorID(id).get();	
+			for(Alumno a : entrenador.getAlumnos()) {
 				a.setEntrenadores(null);
 			};
 			
 			entrenadorService.eliminarEntrenadorPorId(id);
 			
 			return "redirect:/entrenadores";
+			} else {
+				redirectAttributes.addFlashAttribute("fallo", "No existe entrenador con id " + id);
+			}
+		return "redirect:/entrenadores";
 		}
 
 }

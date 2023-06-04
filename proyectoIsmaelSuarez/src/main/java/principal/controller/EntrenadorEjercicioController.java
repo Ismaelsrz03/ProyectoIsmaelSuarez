@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import principal.modelo.Alumno;
@@ -108,51 +114,43 @@ public class EntrenadorEjercicioController {
 	}
 	@PostMapping("/edit/{id}")
 	public String editarEjercicio(@PathVariable Integer id, @ModelAttribute("ejercicioaEditar") Ejercicio ejercicioEditado,
-			BindingResult bindingresult, @RequestParam("file") MultipartFile file) {
-		
-		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
-		Ejercicio e = new Ejercicio();
-		e.setNombre(ejercicioEditado.getNombre());
-		e.setReps(ejercicioEditado.getReps());
-		e.setSeries(ejercicioEditado.getSeries());
-		e.setDescripcion(ejercicioEditado.getDescripcion());
-		ArrayList<Ejercicio> lista = new ArrayList<Ejercicio>();
-		
-		for(Ejercicio ee: entrenadorUsuario.getEjercicios()) {
-			lista.add(ee);
-		}
-		Ejercicio aBorrar = new Ejercicio();
-		for(Ejercicio ej: lista) {
-			if(ej.getId()==id) {
-				aBorrar = ej;
-				entrenadorUsuario.getEjercicios().add(e);
-				
-				for(Rutina r: entrenadorUsuario.getRutinas()) {
-					r.getEjercicios().remove(aBorrar);
-					r.getEjercicios().add(e);
-				}
-			}
-		}
-		
-		if(!file.isEmpty()) {
+	                              BindingResult bindingresult, @RequestParam("file") MultipartFile file) {
+	    Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
+	    Ejercicio e = null;
 
-			 try {
-				 byte[] imageBytes =file.getBytes();
-				 String encodedString = Base64.getEncoder().encodeToString(imageBytes);
-				 e.setImagen(encodedString);
-				 e.setMimeType(file.getContentType());
-			} catch (IOException ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
-			}
-		}
-		
-		entrenadorUsuario.getEjercicios().remove(aBorrar);
-		
-//		ejercicioService.insertarEjercicio(ejercicioEditado);
-		entrenadorService.insertarEntrenador(entrenadorUsuario);
-		return "redirect:/entrenadorEjercicio";
+	    for (Ejercicio ej : entrenadorUsuario.getEjercicios()) {
+	        if (ej.getId().equals(id)) {
+	            e = ej;
+	            break;
+	        }
+	    }
+
+	    if (e == null) {
+	        // Manejar el caso en el que no se encuentre el ejercicio
+	        // Puedes lanzar una excepción, mostrar un mensaje de error, etc.
+	        return "redirect:/entrenadorEjercicio";
+	    }
+
+	    e.setNombre(ejercicioEditado.getNombre());
+	    e.setReps(ejercicioEditado.getReps());
+	    e.setSeries(ejercicioEditado.getSeries());
+	    e.setDescripcion(ejercicioEditado.getDescripcion());
+
+	    if (!file.isEmpty()) {
+	        try {
+	            byte[] imageBytes = file.getBytes();
+	            String encodedString = Base64.getEncoder().encodeToString(imageBytes);
+	            e.setImagen(encodedString);
+	            e.setMimeType(file.getContentType());
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+
+	    entrenadorService.insertarEntrenador(entrenadorUsuario);
+	    return "redirect:/entrenadorEjercicio";
 	}
+
 	
 	@PostMapping("/add")
 	public String addEjercicio(@ModelAttribute("ejercicioNuevo") Ejercicio ejercicioNew, BindingResult bindingresult,
@@ -190,14 +188,26 @@ public class EntrenadorEjercicioController {
 	                              @RequestParam("ejerciciosSeleccionados") Integer[] ejerciciosIds) {
 
 	    for (Integer alumnoId : alumnosIds) {
-	        Alumno alumno = alumnoService.obtenerAlumnoPorID(alumnoId);
+	        Alumno alumno = alumnoService.obtenerAlumnoPorID(alumnoId).get();
 
 	        for (Integer ejercicioId : ejerciciosIds) {
-	            Ejercicio ejercicio = ejercicioService.obtenerEjercicioPorID(ejercicioId);
-	            
-	            if (!alumno.getEjercicios().contains(ejercicio)) {
-	                alumno.getEjercicios().add(ejercicio);
-	            }
+	            Ejercicio ejercicio = ejercicioService.obtenerEjercicioPorID(ejercicioId).get();
+
+	            // Crear una copia del ejercicio para el alumno
+	            Ejercicio copiaEjercicio = new Ejercicio();
+	            copiaEjercicio.setNombre(ejercicio.getNombre());
+                copiaEjercicio.setDescripcion(ejercicio.getDescripcion());
+                copiaEjercicio.setSeries(ejercicio.getSeries());
+                copiaEjercicio.setReps(ejercicio.getSeries());
+                copiaEjercicio.setImagen(ejercicio.getImagen());
+                copiaEjercicio.setMimeType(ejercicio.getMimeType());
+	            // Copiar otros atributos relevantes del ejercicio
+
+	            // Guardar el ejercicio en la base de datos y obtener su ID
+	            ejercicioService.insertarEjercicio(copiaEjercicio);
+
+	            // Agregar la copia del ejercicio al alumno
+	            alumno.getEjercicios().add(copiaEjercicio);
 	        }
 
 	        alumnoService.insertarAlumno(alumno);
@@ -207,38 +217,75 @@ public class EntrenadorEjercicioController {
 	}
 
 
+
 	
 	@GetMapping({"/{id}"})
-	String idEjercicio(Model model, @PathVariable Integer id) {
+	String idEjercicio(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		usuarioLog= obtenerLog();
-		Ejercicio ejerMostrar = ejercicioService.obtenerEjercicioPorID(id);
-		model.addAttribute("ejerMostrar",ejerMostrar);
-		model.addAttribute("miUsuario",usuarioLog);
+		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
 		
-		return "ejercicioVer";
+		Optional<Ejercicio> ejerMostrar = ejercicioService.obtenerEjercicioPorID(id);
+		
+		if (ejerMostrar.isPresent()
+				&& entrenadorUsuario.getEjercicios().contains(ejerMostrar.get())) {
+			model.addAttribute("ejerMostrar", ejerMostrar.get());
+			 String urlActual = request.getRequestURI();
+	        model.addAttribute("urlActual", urlActual);
+	        
+	        boolean isEntrenadorEjercicioUrl = urlActual.startsWith("/entrenadorEjercicio/" + id);
+	        model.addAttribute("isEntrenadorEjercicioUrl", isEntrenadorEjercicioUrl);
+			model.addAttribute("miUsuario", usuarioLog);
+
+			return "ejercicioVer";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe ejercicio con id " + id);
+		}
+
+		
+
+		return "redirect:/entrenadorEjercicio";
+
 	}
 	
 	@GetMapping("/delete/{id}")
-	String deleteEjercicio(Model model, @PathVariable Integer id) {
+	String deleteEjercicio(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
-Ejercicio ejer = ejercicioService.obtenerEjercicioPorID(id);
+		Optional<Ejercicio> ejer = ejercicioService.obtenerEjercicioPorID(id);
 
-Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
+		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
 		
-		for(Entrenador e: ejer.getEntrenadores()) {
-			e.getEjercicios().remove(ejer);
-			e.getEjercicios().add(null);
+		Entrenador entrenador = entrenadorService.obtenerEntrenadorPorID(entrenadorUsuario.getId()).get();
+		
+		if(ejer.isPresent() && entrenador.getEjercicios().contains(ejer.get())) {
+		
+			Ejercicio ej = ejercicioService.obtenerEjercicioPorID(id).get();
+			
+		for(Entrenador e: ej.getEntrenadores()) {
+			e.getEjercicios().remove(ej);
 		}
 		
-		for(Rutina r: entrenadorUsuario.getRutinas()) {
-			r.getEjercicios().remove(ejer);
-			r.getEjercicios().add(null);
+		for(Alumno a: entrenador.getAlumnos()) {
+			for(Rutina r: a.getRutinas()) {
+				r.getEjercicios().remove(ej);
+			}
+		}
+		
+		for(Rutina r: entrenador.getRutinas()) {
+			r.getEjercicios().remove(ej);
 		}
 		
 		ejercicioService.eliminarEjercicioPorId(id);
 
 		
 		return "redirect:/entrenadorEjercicio";
-	}
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe ejercicio con id " + id);
+		}
+
+		
+
+		return "redirect:/entrenadorEjercicio"; 
+	
+		}
 	
 }

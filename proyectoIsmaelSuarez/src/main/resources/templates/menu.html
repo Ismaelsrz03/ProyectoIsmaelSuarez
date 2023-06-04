@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-black" th:fragment="menu">
   <a class="navbar-brand" href="/">
-    <img src="../Imagenes/logo.png" width="200" height="70" alt="">
+    <img src="/Imagenes/logo.png" width="200" height="70" alt="">
   </a>
   <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarTogglerDemo02">
     <ul class="navbar-nav mt-2 mt-lg-0" style="font-size: 24px;">
@@ -28,9 +28,9 @@
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">	 
 							
 							 	<img th:if="${miUsuario.imagen != null}" th:src="@{'data:'+${miUsuario.mimeType}+';base64,'+${miUsuario.getImagen()}}" class="rounded-circle" width="50px" height="50px">
-							 	<img sec:authorize="hasAuthority('ROLE_USER')" th:if="${miUsuario.imagen == null}" src="../Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
-							 	<img sec:authorize="hasAuthority('ROLE_ENTRENADOR')" th:if="${miUsuario.imagen == null}" src="../Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
-							 	<img sec:authorize="hasAuthority('ROLE_ADMIN')" th:if="${miUsuario.imagen == null}" src="../Imagenes/admin.png" class="rounded-circle" width="50px" height="50px">
+							 	<img sec:authorize="hasAuthority('ROLE_USER')" th:if="${miUsuario.imagen == null}" src="/Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
+							 	<img sec:authorize="hasAuthority('ROLE_ENTRENADOR')" th:if="${miUsuario.imagen == null}" src="/Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
+							 	<img sec:authorize="hasAuthority('ROLE_ADMIN')" th:if="${miUsuario.imagen == null}" src="/Imagenes/admin.png" class="rounded-circle" width="50px" height="50px">
 						 	    <span sec:authentication = "principal.username" /> 
 						   
 						</a>
@@ -56,7 +56,7 @@
 								<div class="dropdown-divider"></div>
 							</div>
 							<div sec:authorize="hasAuthority('ROLE_ADMIN')">
-								<a class="dropdown-item" href="/seguridad/panel">
+								<a class="dropdown-item" href="/panel">
 									<i class="fas fa-cog fa-sm fa-fw mr-3 text-gray-600"></i>
 									Configuración Admin
 								</a>

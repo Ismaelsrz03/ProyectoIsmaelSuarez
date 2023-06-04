@@ -37,7 +37,7 @@ public class Alumno {
 	@JoinColumn(name = "id_Entrenador", nullable = true)
 	private Entrenador entrenadores;
 	
-	@ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.ALL},fetch = FetchType.EAGER)
+	@ManyToMany( cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "alumnos_ejercicios",
 			joinColumns = {@JoinColumn(name = "id_Alumno")},
