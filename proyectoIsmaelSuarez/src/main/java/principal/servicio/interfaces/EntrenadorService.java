@@ -14,5 +14,6 @@ public interface EntrenadorService {
 	public ArrayList<Entrenador> obtenerEntrenadorPorNombre (String nombre);
 	public void eliminarEntrenador(Entrenador entrenador);
 	public void eliminarEntrenadorPorId(Integer id);
+	ArrayList<Entrenador> obtenerEntrenadoresPorNombre(String nombre);
 
 }

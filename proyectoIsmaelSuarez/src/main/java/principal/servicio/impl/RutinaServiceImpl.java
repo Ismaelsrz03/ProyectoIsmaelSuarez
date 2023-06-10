@@ -1,5 +1,6 @@
 package principal.servicio.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +37,17 @@ public class RutinaServiceImpl implements RutinaService {
 	}
 
 	@Override
-	public Rutina obtenerRutinaPorNombre(String nombre) {
+	public Optional<Rutina> obtenerRutinaPorNombre(String nombre) {
 		// TODO Auto-generated method stub
-		return rutinaRepo.findByNombre(nombre).get();
+		return rutinaRepo.findByNombre(nombre);
+	}
+	
+	@Override
+	public ArrayList<Rutina> obtenerRutinasPorNombre(String nombre) {
+
+		ArrayList<Rutina> lista = rutinaRepo.findAllByNombre(nombre);
+		
+		return lista;
 	}
 
 	@Override

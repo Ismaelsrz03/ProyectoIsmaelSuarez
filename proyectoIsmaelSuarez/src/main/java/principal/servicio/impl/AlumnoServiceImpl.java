@@ -41,6 +41,12 @@ public class AlumnoServiceImpl implements AlumnoService {
 		// TODO Auto-generated method stub
 		return alumnoRepo.findAllByNombre(nombre);
 	}
+	
+	@Override
+	public ArrayList<Alumno> obtenerAlumnosPorNombre(String nombre) {
+		ArrayList<Alumno> lista = alumnoRepo.findAllByNombre(nombre);
+		return lista;
+	}
 
 	@Override
 	public void eliminarAlumno(Alumno alumno) {

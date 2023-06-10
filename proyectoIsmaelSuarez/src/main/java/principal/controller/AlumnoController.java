@@ -156,12 +156,12 @@ public class AlumnoController {
 //	}
 	
 	@GetMapping({"/{id}"})
-	String idAlumno(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
+	String idAlumno(Model model, @ModelAttribute("miUsuario") Usuario miUsuario, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
 		Optional<Alumno> alumnoMostrar = alumnoService.obtenerAlumnoPorID(id);
 		if(alumnoMostrar.isPresent()) {
 		model.addAttribute("alumnoMostrar",alumnoMostrar.get());
-		
+		model.addAttribute("miUsuario",miUsuario);
 		
 		return "alumno";
 		}

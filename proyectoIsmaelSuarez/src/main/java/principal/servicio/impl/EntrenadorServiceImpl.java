@@ -41,6 +41,14 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 		// TODO Auto-generated method stub
 		return entrenadorRepo.findAllByNombre(nombre);
 	}
+	
+	@Override
+	public ArrayList<Entrenador> obtenerEntrenadoresPorNombre(String nombre) {
+		
+		ArrayList<Entrenador> lista = entrenadorRepo.findAllByNombre(nombre);
+		
+		return lista;
+	}
 
 	@Override
 	public void eliminarEntrenador(Entrenador entrenador) {

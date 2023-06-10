@@ -141,14 +141,14 @@ public class EjercicioController {
 	
 
 	@GetMapping({"/{id}"})
-	String idEjercicio(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
+	String idEjercicio(Model model, @ModelAttribute("miUsuario") Usuario miUsuario, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
 		Optional<Ejercicio> ejercicioMostrar = ejercicioService.obtenerEjercicioPorID(id);
 		
 		if(ejercicioMostrar.isPresent()) {
 		
 		model.addAttribute("ejercicioMostrar",ejercicioMostrar.get());
-		
+		model.addAttribute("miUsuario",miUsuario);
 		
 		return "ejercicio";
 		} else {

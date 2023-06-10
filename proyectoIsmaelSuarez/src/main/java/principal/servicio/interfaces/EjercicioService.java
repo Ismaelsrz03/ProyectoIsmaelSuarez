@@ -1,5 +1,6 @@
 package principal.servicio.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +11,7 @@ public interface EjercicioService {
 	public Ejercicio insertarEjercicio (Ejercicio ejer);
 	public List<Ejercicio> listarEjercicios();
 	public Optional<Ejercicio> obtenerEjercicioPorID (Integer id);
-	public Ejercicio obtenerEjercicioPorNombre (String nombre);
+	public Optional<Ejercicio> obtenerEjercicioPorNombre (String nombre);
 	public void eliminarEjercicio(Ejercicio ejer);
 	public void eliminarEjercicioPorId(Integer id);
 	

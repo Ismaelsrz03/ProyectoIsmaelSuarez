@@ -14,5 +14,6 @@ public interface AlumnoService {
 	public ArrayList<Alumno> obtenerAlumnoPorNombre (String nombre);
 	public void eliminarAlumno(Alumno alumno);
 	public void eliminarAlumnoPorId(Integer id);
+	ArrayList<Alumno> obtenerAlumnosPorNombre(String nombre);
 
 }

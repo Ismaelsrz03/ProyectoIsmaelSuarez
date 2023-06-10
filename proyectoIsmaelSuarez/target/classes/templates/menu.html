@@ -1,77 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-pzjw8D+ua6Idg9q9X1e/jl4mOyOubImKaBNUfDF5f3g8hz4w75g8cRk7lFqzQ6Wo"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSl1x2JBSpK6GFO5aXl0q0J+q4k5tcYbN6cF5JIAq4W7GMnEIXa"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+            integrity="sha384-ZpXB09iRkWZ+eNqf7+6s9C/VPHLs+It2fE6MHWyXpXX1DGQCyjzP84vksvv+9Lz4"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-pzjw8D+ua6Idg9q9X1e/jl4mOyOubImKaBNUfDF5f3g8hz4w75g8cRk7lFqzQ6Wo"
+            crossorigin="anonymous"></script>
+</head>
+<body>
 <nav class="navbar navbar-expand-lg navbar-light bg-black" th:fragment="menu">
-  <a class="navbar-brand" href="/">
-    <img src="/Imagenes/logo.png" width="200" height="70" alt="">
-  </a>
-  <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mt-2 mt-lg-0" style="font-size: 24px;">
-      <li class="nav-item active">
-        <a class="nav-link text-white" href="/">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#">Servicios</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#">Blogs</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#">Opiniones</a>
-      </li>
-    </ul>
-    <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0 m-3">
-      <a class="btn bg-success my-2 my-sm-0 text-white" href="/login">Iniciar</a>
-      <a class="btn bg-success my-2 my-sm-0 text-white" th:href="@{/usuarios/registro}">Registrar</a>
-      </form>
-	<div sec:authorize="isAuthenticated()" class="d-flex flex-row justify-content-around">
-    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0 m-3 d-flex flex-row justify-content-between"> 
-		      <div sec:authorize="isAuthenticated()" th:object="${miUsuario}">
-		<a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">	 
-							
-							 	<img th:if="${miUsuario.imagen != null}" th:src="@{'data:'+${miUsuario.mimeType}+';base64,'+${miUsuario.getImagen()}}" class="rounded-circle" width="50px" height="50px">
-							 	<img sec:authorize="hasAuthority('ROLE_USER')" th:if="${miUsuario.imagen == null}" src="/Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
-							 	<img sec:authorize="hasAuthority('ROLE_ENTRENADOR')" th:if="${miUsuario.imagen == null}" src="/Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
-							 	<img sec:authorize="hasAuthority('ROLE_ADMIN')" th:if="${miUsuario.imagen == null}" src="/Imagenes/admin.png" class="rounded-circle" width="50px" height="50px">
-						 	    <span sec:authentication = "principal.username" /> 
-						   
-						</a>
-						
-						<!-- Dropdown - User Information -->
-						<div class="dropdown-menu dropdown-menu shadow animated--grow-in"
-							aria-labelledby="userDropdown">
-							<a class="dropdown-item" href="/seguridad/password">
-								<i class="fas fa-lock fa-sm fa-fw mr-3 text-gray-600"></i>
-								Contraseña
-							</a>
-
-							<a class="dropdown-item" href="/voluntariado/setEmail">
-								<i class="fas fa-address-card fa-sm fa-fw mr-3 text-gray-600"></i>
-								Configurar datos contacto
-							</a>
-							<div class="dropdown-divider"></div>
-							<div sec:authorize="hasAuthority('ROLE_USER')">
-								<a class="dropdown-item" href="/seguridad/panel">
-									<i class="fas fa-cog fa-sm fa-fw mr-3 text-gray-600"></i>
-									Configuración User
-								</a>
-								<div class="dropdown-divider"></div>
-							</div>
-							<div sec:authorize="hasAuthority('ROLE_ADMIN')">
-								<a class="dropdown-item" href="/panel">
-									<i class="fas fa-cog fa-sm fa-fw mr-3 text-gray-600"></i>
-									Configuración Admin
-								</a>
-								<div class="dropdown-divider"></div>
-							</div>
-							<a   class="dropdown-item" th:href="@{/logout}">
-								<i class="fas fa-sign-out-alt fa-sm fa-fw mr-3 text-gray-600"></i>
-								<span >Cerrar Sesión</span>
-							</a>
-						</div>
-	  </div>
-    </form>
-   	 <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0 m-3"> 
-      <button class="btn bg-success my-2 my-sm-0 text-white" type="submit">Salir</button>
-    </form>
+    <a class="navbar-brand" href="/">
+        <img src="/Imagenes/logo.png" width="200" height="70" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon bg-white"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mx-auto mt-2 mt-lg-0 text-center" style="font-size: 24px;">
+            <li class="nav-item active">
+                <a class="nav-link text-white" href="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">Servicios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">Blogs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">Opiniones</a>
+            </li>
+        </ul>
+        <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0 m-3 d-flex flex-row justify-content-center">
+            <a class="btn bg-success m-1 my-2 my-sm-0 text-white" href="/login">Iniciar</a>
+            <a class="btn bg-success m-1 my-2 my-sm-0 text-white" th:href="@{/usuarios/registro}">Registrar</a>
+        </form>
+        <div sec:authorize="isAuthenticated()" class="d-flex flex-row justify-content-center">
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post"
+                  class="form-inline my-2 my-lg-0 m-3 d-flex flex-row justify-content-between">
+                <div sec:authorize="isAuthenticated()" th:object="${miUsuario}">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img th:if="${miUsuario.imagen != null}"
+                             th:src="@{'data:'+${miUsuario.mimeType}+';base64,'+${miUsuario.getImagen()}}"
+                             class="rounded-circle" width="50px" height="50px">
+                        <img sec:authorize="hasAuthority('ROLE_USER')" th:if="${miUsuario.imagen == null}"
+                             src="/Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
+                        <img sec:authorize="hasAuthority('ROLE_ENTRENADOR')" th:if="${miUsuario.imagen == null}"
+                             src="/Imagenes/usuario.png" class="rounded-circle" width="50px" height="50px">
+                        <img sec:authorize="hasAuthority('ROLE_ADMIN')" th:if="${miUsuario.imagen == null}"
+                             src="/Imagenes/admin.png" class="rounded-circle" width="50px" height="50px">
+                        <span sec:authentication="principal.username"></span>
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                         aria-labelledby="userDropdown" style="width: 200px;">
+                        <a class="dropdown-item" href="/contrasena">
+                            <i class="fas fa-lock fa-sm fa-fw mr-3 text-gray-600"></i>
+                            Contraseña
+                        </a>
+                        <a class="dropdown-item" href="/cuenta">
+                            <i class="fas fa-address-card fa-sm fa-fw mr-3 text-gray-600"></i>
+                            Configurar datos
+                        </a>
+                        <div class="dropdown-divider"></div>
+                
+                        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a class="dropdown-item" href="/panel">
+                                <i class="fas fa-cog fa-sm fa-fw mr-3 text-gray-600"></i>
+                                Configuración Admin
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                        <a class="dropdown-item" th:href="@{/logout}">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-3 text-gray-600"></i>
+                            <span>Cerrar Sesión</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post"
+                  class="form-inline my-2 my-lg-0 m-3">
+                <button class="btn bg-success my-2 my-sm-0 text-white" type="submit">Salir</button>
+            </form>
+        </div>
     </div>
-  </div>
 </nav>
+</body>
+</html>

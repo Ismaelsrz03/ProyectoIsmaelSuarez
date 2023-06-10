@@ -112,6 +112,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		// TODO Auto-generated method stub
 		return usuarioRepo.findByUsername(nombre).get();
 	}
+	
+	@Override
+	public Optional<Usuario> obtenerUsuariosPorNombre2(String nombre) {
+		// TODO Auto-generated method stub
+		return usuarioRepo.findByUsername(nombre);
+	}
 
 	@Override
 	public void eliminarUsuario(Usuario user) {

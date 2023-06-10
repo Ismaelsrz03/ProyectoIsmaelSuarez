@@ -17,5 +17,6 @@ public interface UsuarioService extends UserDetailsService {
 	public Usuario obtenerUsuarioPorNombre (String nombre);
 	public void eliminarUsuario(Usuario user);
 	public void eliminarUsuarioPorId(Integer id);
+	Optional<Usuario> obtenerUsuariosPorNombre2(String nombre);
 	
 }

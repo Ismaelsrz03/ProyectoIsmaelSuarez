@@ -80,10 +80,6 @@ public class UsuarioController {
 		
 		usuarioaeditar.setNombre(usuarioEditado.getNombre());
 		
-		usuarioaeditar.setUsername(usuarioEditado.getUsername());
-		
-		usuarioaeditar.setPassword(passwordEncoder.encode(usuarioEditado.getPassword()));
-		
 		
 		userDetailsService.insertarUsuario(usuarioaeditar);
 		
@@ -99,13 +95,14 @@ public class UsuarioController {
 	}
 	
 	@GetMapping({"/{id}"})
-	String idUsuario(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
+	String idUsuario(Model model,@ModelAttribute("miUsuario") Usuario miUsuario, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
 		Optional<Usuario> usuarioMostrar = userDetailsService.obtenerUsuarioPorID(id);
 		
 		if(usuarioMostrar.isPresent()) {
 		
-		model.addAttribute("usuarioMostrar",usuarioMostrar);
+		model.addAttribute("usuarioMostrar",usuarioMostrar.get());
+		model.addAttribute("miUsuario",miUsuario);
 		
 		return "usuario";
 		} else {
@@ -117,17 +114,25 @@ public class UsuarioController {
 	@GetMapping("/delete/{id}")
 	String deleteUsuario(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		
+		Usuario logueado = obtenerLog();
+		
 		if(esAdmin()) {
 		Optional<Usuario> aeliminar = userDetailsService.obtenerUsuarioPorID(id);
 		if(aeliminar.isPresent()) {
-		Usuario usuario = userDetailsService.obtenerUsuarioPorID(id).get();
-		for(Entrenador e : usuario.getEntrenadores()) {
-			for(Alumno a: e.getAlumnos()) {
-				a.setEntrenadores(null);
+		Usuario user = userDetailsService.obtenerUsuarioPorID(id).get();
+			
+		if(user.getId() == logueado.getId()) {
+			redirectAttributes.addFlashAttribute("fallo", "No te puedes borrar a ti mismo");
+		} else {
+			Usuario usuario = userDetailsService.obtenerUsuarioPorID(id).get();
+			for(Entrenador e : usuario.getEntrenadores()) {
+				for(Alumno a: e.getAlumnos()) {
+					a.setEntrenadores(null);
+				}
 			}
+		 userDetailsService.eliminarUsuario(usuario);
 		}
-		
-		userDetailsService.eliminarUsuario(usuario);
+
 		}  else {
 			redirectAttributes.addFlashAttribute("fallo", "No existe usuario con id " + id);
 		}

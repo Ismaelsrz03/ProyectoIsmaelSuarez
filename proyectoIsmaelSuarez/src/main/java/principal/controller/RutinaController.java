@@ -123,14 +123,14 @@ public class RutinaController {
 		}
 		
 		@GetMapping({"/{id}"})
-		String idUsuario(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
+		String idUsuario(Model model,@ModelAttribute("miUsuario") Usuario miUsuario,  @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 			
 			Optional<Rutina> rutinaMostrar = rutinaService.obtenerRutinaPorID(id);
 			
 			if(rutinaMostrar.isPresent()) {
 			
 			model.addAttribute("rutinaMostrar",rutinaMostrar.get());
-			
+			model.addAttribute("miUsuario",miUsuario);
 			
 			return "rutina";
 			}  else {

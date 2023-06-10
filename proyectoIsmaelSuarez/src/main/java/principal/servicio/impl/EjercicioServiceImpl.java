@@ -1,5 +1,6 @@
 package principal.servicio.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +37,14 @@ public class EjercicioServiceImpl implements EjercicioService {
 	}
 
 	@Override
-	public Ejercicio obtenerEjercicioPorNombre(String nombre) {
+	public Optional<Ejercicio> obtenerEjercicioPorNombre(String nombre) {
 		// TODO Auto-generated method stub
-		return ejercicioRepo.findByNombre(nombre).get();
+		return ejercicioRepo.findByNombre(nombre);
+	}
+	
+	public ArrayList<Ejercicio> obtenerEjerciciosPorNombre(String nombre) {
+		ArrayList<Ejercicio> lista = ejercicioRepo.findAllByNombre(nombre);
+		return lista;
 	}
 
 	@Override

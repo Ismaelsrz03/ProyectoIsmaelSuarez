@@ -165,14 +165,14 @@ public class EntrenadorController {
 //		}
 		
 		@GetMapping({"/{id}"})
-		String idEntrenador(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
+		String idEntrenador(Model model,@ModelAttribute("miUsuario") Usuario miUsuario, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
 			
 			Optional<Entrenador> entrenadorMostrar = entrenadorService.obtenerEntrenadorPorID(id);
 			
 			if(entrenadorMostrar.isPresent()) {
 			
 			model.addAttribute("entrenadorMostrar",entrenadorMostrar.get());
-			
+			model.addAttribute("miUsuario",miUsuario);
 			
 			return "entrenador";
 			} else {
