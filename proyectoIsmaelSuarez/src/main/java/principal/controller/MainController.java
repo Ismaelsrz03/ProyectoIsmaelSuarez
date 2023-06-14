@@ -1,6 +1,7 @@
 package principal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -49,14 +50,8 @@ public class MainController {
 	
 	private Usuario miUsuario;
 	
-	private Alumno alumno;
-	
-	private Entrenador entrenador;
-	
-	private boolean bienvenida = true;
-	
 	@GetMapping("/")
-	String home(Model model) {
+	String home(Model model, Authentication authentication) {
 		
 		
 		if (tablasCreadas==false && usuarioService.listarUsuarios().isEmpty()) {
@@ -67,34 +62,15 @@ public class MainController {
 		miUsuario = obtenerLog();
 		model.addAttribute("miUsuario",miUsuario);
 		
-		if(miUsuario != null) {
-			model.addAttribute("bienvenida",bienvenida);
-			
-			
-				bienvenida = false;
-				
-				for(Alumno a : miUsuario.getAlumnos()) {
-					alumno = a;
-				}
-				
-				for(Entrenador e: miUsuario.getEntrenadores()) {
-					entrenador = e;
-				}
-			} 
-			
-			if(miUsuario==null) {
-				bienvenida=true;
-			}
-			
-			
-			
-			
-			model.addAttribute("miAlumno", alumno);
-			
-			model.addAttribute("miEntrenador", entrenador);
+		 if (authentication != null && authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+	            return "redirect:/perfilAlumno";
+	        } else {
+	        	if (authentication != null && authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ENTRENADOR"))) {
+	            return "redirect:/perfilEntrenador";
+	        }
+	            return "index"; // Cambia "index" por la página predeterminada en tu aplicación
+	        }
 		
-		
-		return "index";
 		
 	}
 	
@@ -114,16 +90,16 @@ public class MainController {
 
 	public void crearTablas() {
 		
-		Alumno a1 = new Alumno("Ismael");
-		Alumno a2 = new Alumno("Juan");
-		Alumno a3 = new Alumno("Ana");
+		Alumno a1 = new Alumno("Ismael",null,null,null,0,0,0,null,null,null,null,null,null,null);
+		Alumno a2 = new Alumno("Juan",null,null,null,0,0,0,null,null,null,null,null,null,null);
+		Alumno a3 = new Alumno("Ana",null,null,null,0,0,0,null,null,null,null,null,null,null);
 		
 		Ejercicio ej1 = new Ejercicio("Press banca",3,12,"aaaaaa",null,null);
 		Ejercicio ej2 = new Ejercicio("Jalón al pecho",3,12,"aaaaaaa",null,null);
 		Ejercicio ej3 = new Ejercicio("Sentadillas",3,12,"a",null,null);
 		
-		Entrenador en1 = new Entrenador("Mario");
-		Entrenador en2 = new Entrenador("Luis");
+		Entrenador en1 = new Entrenador("Mario",null,null,null,0,null,null,null,null,null,null,null,null,null);
+		Entrenador en2 = new Entrenador("Luis",null,null,null,0,null,null,null,null,null,null,null,null,null);
 		
 		Rutina r1 = new Rutina("Full body");
 		Rutina r2 = new Rutina("Torso pierna");
@@ -184,21 +160,21 @@ public class MainController {
 		Rol rol2 = new Rol("ROLE_USER");
 		Rol rol3 = new Rol("ROLE_ENTRENADOR");
 		
-		UsuarioDTO user1DTO = new UsuarioDTO("admin","admin","admin123",null,null);
+		UsuarioDTO user1DTO = new UsuarioDTO("admin","admin","admin123",null,null,null,null,null);
 		
-		Usuario admin = new Usuario(user1DTO.getUsername(),user1DTO.getNombre(),passwordEncoder.encode(user1DTO.getPassword()),user1DTO.getImagen(),user1DTO.getMimeType());
+		Usuario admin = new Usuario(user1DTO.getUsername(),user1DTO.getNombre(),passwordEncoder.encode(user1DTO.getPassword()),user1DTO.getImagen(),user1DTO.getMimeType(),null,null,null);
 		
-		UsuarioDTO u1DTO = new UsuarioDTO("Ismael","Ismael","12345",null,null);
-		UsuarioDTO u2DTO = new UsuarioDTO("Juan","Juan","12345",null,null);
-		UsuarioDTO u3DTO = new UsuarioDTO("Ana","Ana","12345",null,null);
-		UsuarioDTO u4DTO = new UsuarioDTO("Mario","Mario","12345",null,null);		
-		UsuarioDTO u5DTO = new UsuarioDTO("Luis","Luis","12345",null,null);
+		UsuarioDTO u1DTO = new UsuarioDTO("Ismael","Ismael","12345",null,null,null,null,null);
+		UsuarioDTO u2DTO = new UsuarioDTO("Juan","Juan","12345",null,null,null,null,null);
+		UsuarioDTO u3DTO = new UsuarioDTO("Ana","Ana","12345",null,null,null,null,null);
+		UsuarioDTO u4DTO = new UsuarioDTO("Mario","Mario","12345",null,null,null,null,null);		
+		UsuarioDTO u5DTO = new UsuarioDTO("Luis","Luis","12345",null,null,null,null,null);
 		
-		Usuario u1 = new Usuario(u1DTO.getUsername(),u1DTO.getNombre(),passwordEncoder.encode(u1DTO.getPassword()),u1DTO.getImagen(),u1DTO.getMimeType());
-		Usuario u2 = new Usuario(u2DTO.getUsername(),u2DTO.getNombre(),passwordEncoder.encode(u2DTO.getPassword()),u2DTO.getImagen(),u2DTO.getMimeType());
-		Usuario u3 = new Usuario(u3DTO.getUsername(),u3DTO.getNombre(),passwordEncoder.encode(u3DTO.getPassword()),u3DTO.getImagen(),u3DTO.getMimeType());
-		Usuario u4 = new Usuario(u4DTO.getUsername(),u4DTO.getNombre(),passwordEncoder.encode(u4DTO.getPassword()),u4DTO.getImagen(),u4DTO.getMimeType());
-		Usuario u5 = new Usuario(u5DTO.getUsername(),u5DTO.getNombre(),passwordEncoder.encode(u5DTO.getPassword()),u5DTO.getImagen(),u5DTO.getMimeType());
+		Usuario u1 = new Usuario(u1DTO.getUsername(),u1DTO.getNombre(),passwordEncoder.encode(u1DTO.getPassword()),u1DTO.getImagen(),u1DTO.getMimeType(),null,null,null);
+		Usuario u2 = new Usuario(u2DTO.getUsername(),u2DTO.getNombre(),passwordEncoder.encode(u2DTO.getPassword()),u2DTO.getImagen(),u2DTO.getMimeType(),null,null,null);
+		Usuario u3 = new Usuario(u3DTO.getUsername(),u3DTO.getNombre(),passwordEncoder.encode(u3DTO.getPassword()),u3DTO.getImagen(),u3DTO.getMimeType(),null,null,null);
+		Usuario u4 = new Usuario(u4DTO.getUsername(),u4DTO.getNombre(),passwordEncoder.encode(u4DTO.getPassword()),u4DTO.getImagen(),u4DTO.getMimeType(),null,null,null);
+		Usuario u5 = new Usuario(u5DTO.getUsername(),u5DTO.getNombre(),passwordEncoder.encode(u5DTO.getPassword()),u5DTO.getImagen(),u5DTO.getMimeType(),null,null,null);
 		
 		u1.getAlumnos().add(a1);
 		a1.setUsuarios(u1);

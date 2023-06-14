@@ -3,6 +3,7 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Título de la página</title>
+    
 </head>
 <body>
 
@@ -123,5 +124,11 @@
 
 <div class="alerta" th:if="${fallo}">[[${fallo}]]</div>
 </div>
-
+<script>
+	$(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+</script>
 </body>

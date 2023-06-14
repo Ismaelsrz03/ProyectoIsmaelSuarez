@@ -10,19 +10,29 @@ public class UsuarioDTO {
 	
 	private String mimeType;
 	
+	private String apellidos;
+	
+	private String correo;
+	
+	private String sexo;
+	
 	private String rol;
 	
 	public UsuarioDTO() {
 		
 	}
 	
-	public UsuarioDTO(String username, String nombre, String password, String imagen, String mimetype) {
+	public UsuarioDTO(String username, String nombre, String password, String imagen, String mimetype,
+			 String apellidos, String correo, String sexo) {
 		super();
 		this.username = username;
 		this.nombre = nombre;
 		this.password = password;
 		this.imagen = imagen;
 		this.mimeType = mimetype;
+		this.apellidos = apellidos;
+		this.correo = correo;
+		this.sexo = sexo;
 	}
 
 	public String getUsername() {
@@ -63,6 +73,30 @@ public class UsuarioDTO {
 
 	public void setMimeType(String mimeType) {
 		this.mimeType = mimeType;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	public String getRol() {

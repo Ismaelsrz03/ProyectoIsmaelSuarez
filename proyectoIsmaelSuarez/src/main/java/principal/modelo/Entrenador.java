@@ -34,6 +34,45 @@ public class Entrenador {
 	@Column(name="nombre")
 	private String nombre;
 	
+	@Column (name="apellidos")
+	private String apellidos;
+	
+	@Column (name="correo")
+	private String correo;
+	
+	@Column (name="sexo")
+	private String sexo;
+	
+	@Column(name="edad")
+	private int edad;
+	
+	@Column (name="titulo")
+	private String titulo;
+	
+	@Column (name="profesion")
+	private String profesion;
+	
+	@Column (name="ubicacion")
+	private String ubicacion;
+	
+	@Column (name="descripcion")
+	private String descripcion;
+	
+	@Column(name="insta")
+	private String insta;
+	
+	@Column(name="youtube")
+	private String youtube;
+	
+	@Column(name="tiktok")
+	private String tiktok;
+	
+	@Column(name="twitter")
+	private String twitter;
+	
+	@Column(name="facebook")
+	private String facebook;
+	
 	@OneToMany(mappedBy="entrenadores",fetch = FetchType.EAGER)
 	private Set<Alumno> alumnos;
 	
@@ -62,16 +101,40 @@ public class Entrenador {
 	private Usuario usuarios;
 	
 	public Entrenador() {
-		
-	}
-	
-	public Entrenador(String n) {
-		nombre = n;
 		alumnos = new HashSet<Alumno>();
 		ejercicios = new HashSet<Ejercicio>();
 		rutinas = new HashSet<Rutina>();
 		usuarios = new Usuario();
 	}
+	
+	
+
+
+	public Entrenador(String nombre, String apellidos, String correo, String sexo, int edad, String titulo, String profesion,
+			String ubicacion, String descripcion, String insta, String youtube, String tiktok, String twitter,
+			String facebook) {
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.correo = correo;
+		this.sexo = sexo;
+		this.edad = edad;
+		this.titulo = titulo;
+		this.profesion = profesion;
+		this.ubicacion = ubicacion;
+		this.descripcion = descripcion;
+		this.insta = insta;
+		this.youtube = youtube;
+		this.tiktok = tiktok;
+		this.twitter = twitter;
+		this.facebook = facebook;
+		alumnos = new HashSet<Alumno>();
+		ejercicios = new HashSet<Ejercicio>();
+		rutinas = new HashSet<Rutina>();
+		usuarios = new Usuario();
+	}
+
+
+
 
 	public Integer getId() {
 		return id;
@@ -88,6 +151,170 @@ public class Entrenador {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+
+
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+
+
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+
+
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+
+
+
+	public String getProfesion() {
+		return profesion;
+	}
+
+
+
+
+	public void setProfesion(String profesion) {
+		this.profesion = profesion;
+	}
+
+
+
+
+	public String getUbicacion() {
+		return ubicacion;
+	}
+
+
+
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+
+
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+
+
+
+	public String getInsta() {
+		return insta;
+	}
+
+
+
+
+	public void setInsta(String insta) {
+		this.insta = insta;
+	}
+
+
+
+
+	public String getYoutube() {
+		return youtube;
+	}
+
+
+
+
+	public void setYoutube(String youtube) {
+		this.youtube = youtube;
+	}
+
+
+
+
+	public String getTiktok() {
+		return tiktok;
+	}
+
+
+
+
+	public void setTiktok(String tiktok) {
+		this.tiktok = tiktok;
+	}
+
+
+
+
+	public String getTwitter() {
+		return twitter;
+	}
+
+
+
+
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+
+
+
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+
+
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+
+
 
 	public Set<Alumno> getAlumnos() {
 		return alumnos;

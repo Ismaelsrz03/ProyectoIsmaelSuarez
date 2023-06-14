@@ -80,6 +80,7 @@ public class UsuarioController {
 		
 		usuarioaeditar.setNombre(usuarioEditado.getNombre());
 		
+		usuarioaeditar.setUsername(usuarioEditado.getUsername());
 		
 		userDetailsService.insertarUsuario(usuarioaeditar);
 		

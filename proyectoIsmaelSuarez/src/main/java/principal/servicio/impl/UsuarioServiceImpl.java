@@ -68,9 +68,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario insertarusuarioDTO(UsuarioDTO userDTO) {
 		String rolSeleccionado = userDTO.getRol();
 		Usuario nuevoUsuario = new Usuario(userDTO.getUsername(),userDTO.getNombre(),passwordEncoder.encode(userDTO.getPassword()),
-				userDTO.getImagen(),userDTO.getMimeType());
-		Alumno nuevoAlumno = new Alumno(nuevoUsuario.getNombre());
-		Entrenador nuevoEntrenador = new Entrenador(nuevoUsuario.getNombre());
+				userDTO.getImagen(),userDTO.getMimeType(), userDTO.getApellidos(), userDTO.getCorreo(), userDTO.getSexo());
+		Alumno nuevoAlumno = new Alumno(nuevoUsuario.getNombre(),nuevoUsuario.getApellidos(),nuevoUsuario.getCorreo(),nuevoUsuario.getSexo(),0,0,0,null,null,null,null,null,null,null);
+		Entrenador nuevoEntrenador = new Entrenador(nuevoUsuario.getNombre(),nuevoUsuario.getApellidos(),nuevoUsuario.getCorreo(),nuevoUsuario.getSexo(),0,null,null,null,null,null,null,null,null,null);
 		if (rolSeleccionado.equals("Alumno")) {
 	        nuevoUsuario.getRoles().add(rolRepo.findByNombre("ROLE_USER"));
 	        nuevoUsuario.getAlumnos().add(nuevoAlumno);

@@ -22,8 +22,23 @@
                   <h1>Crea tu cuenta Invincible Body</h1>
 
                   <div class="form-outline mb-4">
-					  	<label for="inputnombre">Nickname</label>
+					  	<label for="inputnombre">Nombre</label>
 							<input placeholder="Nombre" th:field="*{nombre}" type="text" id="nombre" name="nombre"
+								required="true" class="form-control text-grey-900" />
+
+                    
+                  </div>
+                  <div class="form-outline mb-4">
+					  	<label for="inputapellidos">Apellidos</label>
+							<input placeholder="Apellidos" th:field="*{apellidos}" type="text" id="apellidos" name="apellidos"
+								required="true" class="form-control text-grey-900" />
+
+                    
+                  </div>
+                  
+                  <div class="form-outline mb-4">
+					  	<label for="inputapemail">Correo</label>
+							<input placeholder="Email" th:field="*{correo}" type="email" id="email" name="email"
 								required="true" class="form-control text-grey-900" />
 
                     
@@ -35,6 +50,29 @@
 									name="username" required="true" class="form-control text-grey-900" />
                     
                   </div>
+                  
+                  <div class="form-row">
+
+							<div class="form-group col-10">
+							<label>Sexo</label>
+							<br>
+								<div class="form-check-inline">
+									<input th:field="*{sexo}" class="form-check-input" type="radio" name="flexRadioDefault"
+										id="flexRadioDefault1" value="Hombre" checked>
+									<label class="form-check-label" for="flexRadioDefault1">
+										Hombre
+									</label>
+								</div>
+								<div class="form-check-inline">
+									<input th:field="*{sexo}" class="form-check-input" type="radio" name="flexRadioDefault"
+										id="flexRadioDefault2" value="Mujer">
+									<label class="form-check-label" for="flexRadioDefault2">
+										Mujer
+									</label>
+								</div>
+							</div>
+
+						</div>
 
                   <div class="form-outline mb-4">
                    <label for="inputPass">Contraseña</label>
@@ -62,15 +100,15 @@
 							<br>
 								<div class="form-check-inline">
 									<input th:field="*{rol}" class="form-check-input" type="radio" name="flexRadioDefault"
-										id="flexRadioDefault1" value="Alumno" checked>
-									<label class="form-check-label" for="flexRadioDefault1">
+										id="flexRadioDefault3" value="Alumno" checked>
+									<label class="form-check-label" for="flexRadioDefault3">
 										Alumno
 									</label>
 								</div>
 								<div class="form-check-inline">
 									<input th:field="*{rol}" class="form-check-input" type="radio" name="flexRadioDefault"
-										id="flexRadioDefault2" value="Entrenador">
-									<label class="form-check-label" for="flexRadioDefault2">
+										id="flexRadioDefault4" value="Entrenador">
+									<label class="form-check-label" for="flexRadioDefault4">
 										Entrenador
 									</label>
 								</div>

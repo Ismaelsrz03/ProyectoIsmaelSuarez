@@ -37,6 +37,15 @@ public class Usuario implements UserDetails {
 	@Column (name="nombre")
 	private String nombre;
 	
+	@Column (name="apellidos")
+	private String apellidos;
+	
+	@Column (name="correo")
+	private String correo;
+	
+	@Column (name="sexo")
+	private String sexo;
+	
 	@Column(name="username", unique = true)
 	private String username;
 	
@@ -71,13 +80,17 @@ public class Usuario implements UserDetails {
 		entrenadores = new HashSet<Entrenador>();
 	}
 	
-	public Usuario(String username, String nombre, String password, String imagen, String mimetype) {
+	public Usuario(String username, String nombre, String password, String imagen, String mimetype, 
+			String apellidos, String correo, String sexo) {
 		super();
 		this.username = username;
 		this.nombre = nombre;
 		this.password = password;
 		this.imagen = imagen;
 		this.mimeType = mimetype;
+		this.apellidos=apellidos;
+		this.correo=correo;
+		this.sexo=sexo;
 		roles = new HashSet<Rol>();
 	}
 
@@ -131,6 +144,30 @@ public class Usuario implements UserDetails {
 
 	public void setMimeType(String mimeType) {
 		this.mimeType = mimeType;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	public Set<Rol> getRoles() {
