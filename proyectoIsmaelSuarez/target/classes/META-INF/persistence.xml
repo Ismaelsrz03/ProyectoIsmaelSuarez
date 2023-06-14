@@ -13,6 +13,8 @@
  		<class>principal.modelo.Rutina</class>
  		<class>principal.modelo.Usuario</class>
  		<class>principal.modelo.Rol</class>
+ 		<class>principal.modelo.Progreso</class>
+ 		<class>principal.modelo.Nota</class>
                        
         <properties>
              

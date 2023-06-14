@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <head th:insert="librerias::librerias">
+			<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de la página</title>
 	</head>
 <body>
 <header>
@@ -8,61 +11,92 @@
 
 </header>
 
-<main class="row">
-	<div class="col-3">
-		<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white" style="width: 300px;">
-    <h1>
-       Bienvenido  <span sec:authentication = "principal.username" />
-    </h1>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="/" class="nav-link bg-success text-white" aria-current="page" role="button">
-          <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="/alumnoEntrenador" class="nav-link text-white bg-black">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-         Entrenador
-        </a>
-      </li>
-      <li>
-        <a href="/alumnoEjercicio" class="nav-link text-black">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-          Ejercicios
-        </a>
-      </li>
-      <li>
-        <a href="/alumnoRutina" class="nav-link text-black">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-          Rutinas
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-black">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          Progreso
-        </a>
-      </li>
-    </ul>
-    <hr>
-  </div>
-	</div>
-	<div class="col-6 p-3" th:object="${miEntrenador}">
+<main class="container-fluid">
+			<div class="row">
+    <nav class="navbar navbar-expand-lg navbar-light bg-success d-lg-none justify-content-center">
+        <button class="navbar-toggler bg-success" type="button" data-toggle="collapse" data-target="#responsiveMenu"
+                aria-controls="responsiveMenu" aria-expanded="false" aria-label="Toggle navigation">
+           <i class="fas fa-align-left text-white"></i>
+                    <span class="text-white">Abrir menú</span>
+        </button>
+
+        <div class="collapse navbar-collapse text-center justify-content-center" id="responsiveMenu">
+            <ul class="navbar-nav">
+				<li class="nav-item">
+                    <a class="nav-link text-white" href="/">Home</a>
+                </li>
+               <li class="nav-item">
+                    <a class="nav-link text-white" href="/alumnoEntrenador">Entrenador</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/alumnoEjercicio">Ejercicios</a>
+                </li>
+                <li class="nav-item text-white">
+                    <a class="nav-link text-white" href="/alumnoRutina">Rutinas</a>
+                </li>
+                <li class="nav-item text-white">
+                    <a class="nav-link text-white" href="/progresoAlumno">Progreso</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+				</div>
+				<div class="row">
+<div class="col-3 d-none d-lg-block">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white" style="width: 300px;">
+                <h1>
+                    Bienvenido <span sec:authentication="principal.username"></span>
+                </h1>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link text-white bg-success" aria-current="page" role="button">
+                            <i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/alumnoEntrenador" class="nav-link text-white bg-black">
+                            <svg class="bi me-2" width="16" height="16">
+                                <use xlink:href="#speedometer2"></use>
+                            </svg>
+                            Entrenador
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/alumnoEjercicio" class="nav-link text-black">
+                            <svg class="bi me-2" width="16" height="16">
+                                <use xlink:href="#table"></use>
+                            </svg>
+                            Ejercicios
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/alumnoRutina" class="nav-link text-black">
+                            <svg class="bi me-2" width="16" height="16">
+                                <use xlink:href="#grid"></use>
+                            </svg>
+                            Rutinas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/progresoAlumno" class="nav-link text-black">
+                            <svg class="bi me-2" width="16" height="16">
+                                <use xlink:href="#people-circle"></use>
+                            </svg>
+                            Progreso
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+	<div class="col-lg-8 col-sm-12 p-3" th:object="${miEntrenador}">
 		<div th:if="${miEntrenador==null}">
 			<h1>Todavía no tienes entrenador</h1>
-		</div>
-		<div th:if="${miEntrenador!=null}">
-		<h1>Entrenador <span th:text="${miEntrenador.nombre}"> </h1>
-		<hr>
-		<p>¡Hola! Soy tu entrenador online. Te ayudaré con tus objetivos compartiendo ejercicios y rutinas.</p>
-		<p>Tambié haré un seguimiento de tu entrenamiento para ver tus progresos.</p>
-		 </div>
-		 
-		 <div class="p-5" th:if="${miEntrenador==null}">
-<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#crearMensaje">
+			<hr>
+					 <div class="p-5" th:if="${miEntrenador==null}">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearMensaje">
 Buscar entrenador</button>
 </div>
 
@@ -106,8 +140,188 @@ Buscar entrenador</button>
 	</div>
 	</div>
 	</div>
-	<div class="col-3 p-3">
+		</div>
+		<div th:if="${miEntrenador!=null}">
+		<h1>Perfil del entrenador <span th:text="${miEntrenador.nombre}"> </h1>
+		<hr>
+		<div class="row">
+			<div class="col">
+		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+				<li class="nav-item">
+                    <a class="nav-link active" id="pills-perfil-tab" data-toggle="pill" href="#pills-perfil" role="tab" aria-controls="pills-perfil" aria-selected="true">Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-notas-tab" data-toggle="pill" href="#pills-notas" role="tab" aria-controls="pills-notas" aria-selected="false">Notas</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-perfil" role="tabpanel" aria-labelledby="pills-perfil-tab">
+		<section class="bg-success">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center" th:each="entrenador, iter : ${miEntrenador}">
+           <img th:if="${usu[iter.index].imagen != null}"
+						th:src="@{'data:'+${usu[iter.index].mimeType}+';base64,'+${usu[iter.index].getImagen()}}" class="rounded-circle"
+						width="50px" height="50px">
+					<img th:if="${usu[iter.index].imagen == null}" src="/Imagenes/usuario.png" class="rounded-circle"
+						width="50px" height="50px">
+            <h5 th:text="${usuEntre.username}" class="my-3"></h5>
+            <p class="text-muted mb-1">Cuenta de entrenador</p>
+				          
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush rounded-3">
+              <li class="list-group-item d-flex align-items-center p-3">
+                <i class="fab fa-youtube fa-lg text-danger"></i>
+                <p th:text="${miEntrenador.youtube}" class="mb-0" style="margin-left: 2%;"></p>
+              </li>
+              <li class="list-group-item d-flex align-items-center p-3">
+                <i class="fab fa-tiktok fa-lg" style="color: #333333;"></i>
+                <p th:text="${miEntrenador.tiktok}" class="mb-0" style="margin-left: 2%;"></p>
+              </li>
+              <li class="list-group-item d-flex align-items-center p-3">
+                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                <p th:text="${miEntrenador.twitter}" class="mb-0" style="margin-left: 2%;"></p>
+              </li>
+              <li class="list-group-item d-flex align-items-center p-3">
+                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                <p th:text="${miEntrenador.insta}" class="mb-0" style="margin-left: 2%;"></p>
+              </li>
+              <li class="list-group-item d-flex align-items-center p-3">
+                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                <p th:text="${miEntrenador.facebook}" class="mb-0" style="margin-left: 2%;"></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Nombre</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><span  th:text="${miEntrenador.nombre}"></span> <span th:text="${miEntrenador.apellidos}"></span></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p th:text="${miEntrenador.correo}" class="text-muted mb-0"></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Sexo</p>
+              </div>
+              <div class="col-sm-9">
+                <p th:text="${miEntrenador.sexo}" class="text-muted mb-0"></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Edad</p>
+              </div>
+              <div class="col-sm-9">
+                <p th:text="${miEntrenador.edad}" class="text-muted mb-0"></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Titulo</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0" th:text="${miEntrenador.titulo}"></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Profesión</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0" th:text="${miEntrenador.profesion}"></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Ubicación</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0" th:text="${miEntrenador.ubicacion}"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+				<p class="mb-0">Descripción</p>
+				<hr>
+				<p class="text-muted mb-0" th:text="${miEntrenador.descripcion}"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+                </div>
+            
+            
+                           <div class="tab-pane fade" id="pills-notas" role="tabpanel" aria-labelledby="pills-notas-tab">
+
+                    <!-- Aquí se muestra la lista de progresos -->
+        <div class="card-deck d-flex flex-xs-column flex-lg-row justify-content-lg-start justify-content-sm-center align-items-center flex-wrap">
+                <div th:each="nota : ${miAlumno.notas}">
+                    <div class="card card-compact m-2" style="width:350px;">
+						<p class="card-header text-center" th:text="${#dates.format(nota.fecha, 'dd/MM/yyyy HH:mm')}"></p>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            
+                            <h1 th:text="${nota.titulo}"></h1>
+  	                          <div class="text-center">
+									<a th:href="@{/alumnoEntrenador/{id}(id=${nota.id})}"
+                                    class="btn btn-primary btn-sm text-white pointer">Ver</a>
+  	                          </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        
+            </div>
+            </div>
+        </div>
+	
+    </div>
+</div>
+
+
+                </div> 
+	
+			</div>
+		</div>	
+	
+</div>
+		 
+
 	</div>
+				</div>
 	</div>
 </main>
 <div class="alerta" th:if="${fallo}">[[${fallo}]]</div>

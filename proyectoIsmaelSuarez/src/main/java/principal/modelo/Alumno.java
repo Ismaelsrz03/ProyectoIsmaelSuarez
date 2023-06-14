@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,10 +52,10 @@ public class Alumno {
 	@Column(name="peso")
 	private double peso;
 	
-	@Column(name="descripcion")
+	@Column(name="descripcion", length = 2000)
 	private String descripcion;
 	
-	@Column(name="objetivos")
+	@Column(name="objetivos", length = 2000)
 	private String objetivos;
 	
 	@Column(name="insta")
@@ -100,11 +101,27 @@ public class Alumno {
 	@JoinColumn(name= "id_usuario", nullable = true)
 	private Usuario usuarios;
 	
+	
+	@OneToMany(mappedBy = "alumno",fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Progreso> progresos;
+	
+	@ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "alumnos_notas",
+			joinColumns = {@JoinColumn(name = "id_Alumno")},
+			inverseJoinColumns = {@JoinColumn(name = "id_Nota")}
+			
+			)
+	@JsonIgnore
+	private Set<Nota> notas;
+	
 	public Alumno() {
 		ejercicios = new HashSet<Ejercicio>();
 		entrenadores = new Entrenador();
 		rutinas = new HashSet<Rutina>();
 		usuarios = new Usuario();
+		progresos = new HashSet<Progreso>();
+		notas = new HashSet<Nota>();
 	}
 	
 	
@@ -130,6 +147,8 @@ public class Alumno {
 		entrenadores = new Entrenador();
 		rutinas = new HashSet<Rutina>();
 		usuarios = new Usuario();
+		progresos = new HashSet<Progreso>();
+		notas = new HashSet<Nota>();
 	}
 
 	public Integer getId() {
@@ -322,6 +341,26 @@ public class Alumno {
 
 	public void setUsuarios(Usuario usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public Set<Progreso> getProgresos() {
+		return progresos;
+	}
+
+
+
+	public void setProgresos(Set<Progreso> progresos) {
+		this.progresos = progresos;
+	}
+
+	public Set<Nota> getNotas() {
+		return notas;
+	}
+
+
+
+	public void setNotas(Set<Nota> notas) {
+		this.notas = notas;
 	}
 	
 	

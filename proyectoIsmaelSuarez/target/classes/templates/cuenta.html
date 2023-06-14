@@ -25,6 +25,7 @@
                         Tablas
                     </a>
                     <div class="dropdown-menu text-center bg-success" aria-labelledby="tablasDropdown">
+                        <a class="dropdown-item text-white bg-success" href="/">Home</a>
                         <a class="dropdown-item text-white bg-success" href="/alumnos">Alumnos</a>
                         <a class="dropdown-item text-white bg-success" href="/ejercicios">Ejercicios</a>
                         <a class="dropdown-item text-white bg-success" href="/entrenadores">Entrenadores</a>
@@ -55,6 +56,7 @@
                     Tablas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="tablasDropdown">
+                    <a class="dropdown-item" href="/">Home</a>
                     <a class="dropdown-item" href="/alumnos">Alumnos</a>
                     <a class="dropdown-item" href="/ejercicios">Ejercicios</a>
                     <a class="dropdown-item" href="/entrenadores">Entrenadores</a>
@@ -93,26 +95,6 @@
 	
 	<!-- formulario nombre a editar-->
 	<form action="#" th:action="@{/cuenta/editarCuenta/{id}(id=${miUsuario.id})}" th:object="${usuarioaEditar}" method="post" enctype="multipart/form-data">
-	 
-	 <div class="form-row">
-	 
-	 <div class="form-group mt-1">
-	 <label for="texto">Nombre</label>
-	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" th:attr="placeholder=${miUsuario.nombre}"/>
-	 
-	 </div>
-	 
-	 </div>
-	 
-	  <div class="form-row">
-	 
-	 <div class="form-group mt-1">
-	 <label for="texto">Username</label>
-	 <input type="text" th:field="*{username}" class="form-control" id="exampleInputEmail1" th:attr="placeholder=${miUsuario.username}"/>
-	 
-	 </div>
-	 
-	 </div>
 	 
 	 <div class="form-row">
 	 
@@ -180,7 +162,7 @@
                 <p class="mb-0">Email</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">example@example.com</p>
+                <p th:text="${miUsuario.correo}" class="text-muted mb-0"></p>
               </div>
             </div>
         

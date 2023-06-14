@@ -1,6 +1,7 @@
 package principal.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
 import principal.modelo.Entrenador;
+import principal.modelo.Nota;
 import principal.modelo.Rutina;
 import principal.modelo.Usuario;
 import principal.servicio.impl.AlumnoServiceImpl;
 import principal.servicio.impl.EjercicioServiceImpl;
 import principal.servicio.impl.EntrenadorServiceImpl;
+import principal.servicio.impl.NotaServiceImpl;
 import principal.servicio.impl.RutinaServiceImpl;
 import principal.servicio.impl.UsuarioServiceImpl;
 
@@ -45,6 +49,9 @@ public class AlumnoEntrenadorController {
 	@Autowired
 	private UsuarioServiceImpl usuarioService;
 	
+	@Autowired
+	private NotaServiceImpl notaService;
+	
 	private Usuario usuarioLog;
 	
 	private Alumno alumnoUsuario;
@@ -60,7 +67,19 @@ public class AlumnoEntrenadorController {
 		ArrayList<Ejercicio> misejercicios = (ArrayList<Ejercicio>) ejercicioService.listarEjercicios();
 		ArrayList<Rutina> misrutinas = (ArrayList<Rutina>) rutinaService.listarRutinas();
 		ArrayList<Usuario> misusuarios = (ArrayList<Usuario>) usuarioService.listarUsuarios();
-	
+		ArrayList<Usuario> listUsu = new ArrayList<Usuario>();
+		
+		if(alumnoUsuario.getEntrenadores() !=null) {
+		Entrenador en = alumnoUsuario.getEntrenadores();
+			Usuario u = usuarioService.obtenerUsuarioPorID(en.getUsuarios().getId()).get();
+			listUsu.add(u);
+			if(en!=null) {
+		model.addAttribute("usuEntre", en.getUsuarios());
+		}
+		}
+		
+		model.addAttribute("usu",listUsu);
+		
 		model.addAttribute("listaalumnos", misalumnos);
 		model.addAttribute("listaEntrenadores",misentrenadores);
 		model.addAttribute("listaEjercicios",misejercicios);
@@ -69,6 +88,8 @@ public class AlumnoEntrenadorController {
 		model.addAttribute("alumnoaEditar", new Alumno());
 		model.addAttribute("alumnoNuevo", new Alumno());
 		model.addAttribute("miEntrenador",alumnoUsuario.getEntrenadores());
+		model.addAttribute("miAlumno",alumnoUsuario);
+		
 		model.addAttribute("miUsuario",usuarioLog);
 		
 		return "alumnoEntrenador";
@@ -166,5 +187,29 @@ public class AlumnoEntrenadorController {
 
 		
 		return "redirect:/alumnos";
+	}
+	
+	@GetMapping({"/{id}"})
+	String idNota(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
+		usuarioLog= obtenerLog();
+		Alumno alumnoUsuario = obtenerAlumnoDeUsuario();
+		
+		Optional<Nota> notaMostrar = notaService.obtenerNotaPorId(id);
+		
+		if (notaMostrar.isPresent()
+				&& alumnoUsuario.getNotas().contains(notaMostrar.get())) {
+			model.addAttribute("notaMostrar", notaMostrar.get());
+			
+			model.addAttribute("miUsuario", usuarioLog);
+
+			return "notaVer";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe nota con id " + id);
+		}
+
+		
+
+		return "redirect:/alumnoEjercicio";
+
 	}
 }

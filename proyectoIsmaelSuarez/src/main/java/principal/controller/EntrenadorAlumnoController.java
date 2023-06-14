@@ -3,7 +3,8 @@ package principal.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -19,12 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -32,11 +30,15 @@ import org.springframework.web.servlet.view.RedirectView;
 import principal.modelo.Alumno;
 import principal.modelo.Ejercicio;
 import principal.modelo.Entrenador;
+import principal.modelo.Nota;
+import principal.modelo.Progreso;
 import principal.modelo.Rutina;
 import principal.modelo.Usuario;
 import principal.servicio.impl.AlumnoServiceImpl;
 import principal.servicio.impl.EjercicioServiceImpl;
 import principal.servicio.impl.EntrenadorServiceImpl;
+import principal.servicio.impl.NotaServiceImpl;
+import principal.servicio.impl.ProgresoServiceImpl;
 import principal.servicio.impl.RutinaServiceImpl;
 import principal.servicio.impl.UsuarioServiceImpl;
 
@@ -59,6 +61,12 @@ public class EntrenadorAlumnoController {
 	
 	@Autowired
 	private UsuarioServiceImpl usuarioService;
+	
+	@Autowired
+	private ProgresoServiceImpl progresoService;
+	
+	@Autowired
+	private NotaServiceImpl notaService;
 	
 	private Usuario usuarioLog;
 	
@@ -180,12 +188,26 @@ public class EntrenadorAlumnoController {
 		model.addAttribute("miUsuario",usuarioLog);
 		model.addAttribute("ejercicioaEditar", new Ejercicio());
 		model.addAttribute("ejercicioNuevo", new Ejercicio());
+		model.addAttribute("notaaEditar", new Nota());
+		model.addAttribute("notaNuevo", new Nota());
 		model.addAttribute("rutinaaEditar", new Rutina());
 		model.addAttribute("rutinaNuevo", new Rutina());
 		model.addAttribute("misEjercicios",al.getEjercicios());
 		model.addAttribute("misRutinas",al.getRutinas());
 		model.addAttribute("miEntrenador",entrenadorUsuario);
 		model.addAttribute("id", id);
+		ArrayList<Usuario> listUsu = new ArrayList<Usuario>();
+		Alumno alu = null;
+		for(Alumno a: entrenadorUsuario.getAlumnos()) {
+			alu = a;
+			Usuario u = usuarioService.obtenerUsuarioPorID(a.getUsuarios().getId()).get();
+			listUsu.add(u);
+			
+		}
+		
+		model.addAttribute("usu",listUsu);
+		model.addAttribute("usuAlum",alu);
+		
 		return "alumnoVer";
 		} else {
 			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
@@ -287,7 +309,16 @@ public class EntrenadorAlumnoController {
 	    r.getEjercicios().clear(); // Limpiar la lista de ejercicios existente en la rutina
 
 	    for (Ejercicio e : rutinaEditado.getEjercicios()) {
-	        r.getEjercicios().add(e);
+	    	Ejercicio copiaEjercicio = new Ejercicio();
+	    	copiaEjercicio.setNombre(e.getNombre());
+            copiaEjercicio.setDescripcion(e.getDescripcion());
+            copiaEjercicio.setSeries(e.getSeries());
+            copiaEjercicio.setReps(e.getSeries());
+            copiaEjercicio.setImagen(e.getImagen());
+            copiaEjercicio.setMimeType(e.getMimeType());
+            // Copiar otros atributos relevantes del ejercicioç
+            ejercicioService.insertarEjercicio(copiaEjercicio);
+	    	r.getEjercicios().add(copiaEjercicio);
 	    }
 
 	    a.getRutinas().remove(r);
@@ -354,7 +385,16 @@ public class EntrenadorAlumnoController {
 		rutinaNueva.setNombre(rutinaNew.getNombre());
 		
 	    for(Ejercicio e: rutinaNew.getEjercicios()) {
-	    	rutinaNueva.getEjercicios().add(e);
+	    	Ejercicio copiaEjercicio = new Ejercicio();
+	    	copiaEjercicio.setNombre(e.getNombre());
+            copiaEjercicio.setDescripcion(e.getDescripcion());
+            copiaEjercicio.setSeries(e.getSeries());
+            copiaEjercicio.setReps(e.getSeries());
+            copiaEjercicio.setImagen(e.getImagen());
+            copiaEjercicio.setMimeType(e.getMimeType());
+            // Copiar otros atributos relevantes del ejercicioç
+            ejercicioService.insertarEjercicio(copiaEjercicio);
+	    	rutinaNueva.getEjercicios().add(copiaEjercicio);
 	    }
 	
 	    a.getRutinas().add(rutinaNueva);
@@ -371,23 +411,45 @@ public class EntrenadorAlumnoController {
 	
 	@GetMapping("/delete/{id}")
 	String deleteAlumno(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
-		Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
-		Optional<Alumno> alum = alumnoService.obtenerAlumnoPorID(id);
-		Entrenador en = entrenadorService.obtenerEntrenadorPorID(entrenadorUsuario.getId()).get();
-		if(alum.isPresent()) {
-		Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
-		if(en.getAlumnos().contains(alum.get())) {
-		a.setEntrenadores(null);
-		entrenadorService.insertarEntrenador(entrenadorUsuario);
-		
-		return "redirect:/entrenadorAlumno";
-		}
-		} else {
-			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
-		}
-	    
+	    Entrenador entrenadorUsuario = obtenerEntrenadorDeUsuario();
+	    Optional<Alumno> alum = alumnoService.obtenerAlumnoPorID(id);
+	    Entrenador en = entrenadorService.obtenerEntrenadorPorID(entrenadorUsuario.getId()).get();
+	    if (alum.isPresent()) {
+	        Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
+	        if (en.getAlumnos().contains(alum.get())) {
+
+	            Iterator<Ejercicio> ejIterator = a.getEjercicios().iterator();
+	            while (ejIterator.hasNext()) {
+	                Ejercicio ej = ejIterator.next();
+	                ejIterator.remove();
+	            }
+
+	            Iterator<Rutina> rutinaIterator = a.getRutinas().iterator();
+	            while (rutinaIterator.hasNext()) {
+	                Rutina r = rutinaIterator.next();
+	                rutinaIterator.remove();
+	            }
+	            
+	            Iterator<Nota> notaIterator = a.getNotas().iterator();
+	            while (notaIterator.hasNext()) {
+	                Nota n = notaIterator.next();
+	                notaIterator.remove();
+	            }
+
+
+	            a.setEntrenadores(null);
+	            alumnoService.insertarAlumno(a);
+	            entrenadorService.insertarEntrenador(entrenadorUsuario);
+
+	            return "redirect:/entrenadorAlumno";
+	        }
+	    } else {
+	        redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
+	    }
+
 	    return "redirect:/entrenadorAlumno";
 	}
+
 	
 	@GetMapping("{id}/deleteEjer/{ejerId}")
 	RedirectView deleteejercicio(Model model, @PathVariable Integer id, @PathVariable Integer ejerId, RedirectAttributes redirectAttributes) {
@@ -470,6 +532,30 @@ public class EntrenadorAlumnoController {
 			return "ejercicioVer";
 		} else {
 			redirectAttributes.addFlashAttribute("fallo", "El alumno no tiene un ejercicio con id " + id);
+		}
+
+		
+
+		return "redirect:/entrenadorAlumno/" +id;
+
+	}
+	
+	@GetMapping({"/{id}/{progresoId}/verProgreso"})
+	String verProgresoAlumno(Model model, @PathVariable Integer id, @PathVariable Integer progresoId, 
+			RedirectAttributes redirectAttributes) {
+		usuarioLog= obtenerLog();
+		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id).get();
+		
+		Optional<Progreso> progresoMostrar = progresoService.obtenerProgresoPorId(progresoId);
+		model.addAttribute("alumno",alumnoMostrar);
+		if (progresoMostrar.isPresent()
+				&& alumnoMostrar.getProgresos().contains(progresoMostrar.get())) {
+			model.addAttribute("progresoMostrar", progresoMostrar.get());
+			model.addAttribute("miUsuario", usuarioLog);
+
+			return "progresoVer";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "El alumno no tiene un progreso con id " + id);
 		}
 
 		
@@ -591,4 +677,132 @@ public class EntrenadorAlumnoController {
 
 	    return "redirect:/entrenadorAlumno/" + id + "/" + rutinaId + "/verRutina";
 	}
+	
+	@PostMapping("{id}/editNota/{notaId}")
+	public RedirectView editarNota(@PathVariable Integer id, @PathVariable Integer notaId,
+	                                    @ModelAttribute("notaaEditar") Nota notaEditado, RedirectAttributes redirectAttributes) {
+
+	    Optional<Alumno> alumno = alumnoService.obtenerAlumnoPorID(id);
+
+	    if(alumno.isPresent()) {
+	    Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
+	    
+	    Nota notaaEditar = null;
+
+	    for (Nota n : a.getNotas()) {
+	        if (n.getId().equals(notaId)) {
+	            notaaEditar = n;
+	            break;
+	        }
+	    }
+
+	    if (notaaEditar == null) {
+	        // Manejar el caso en el que no se encuentre el ejercicio
+	        // Puedes lanzar una excepción, mostrar un mensaje de error, etc.
+	        return new RedirectView("/entrenadorAlumno/{id}", true);
+	    }
+
+	    notaaEditar.setFecha(new Date());
+	    notaaEditar.setTitulo(notaEditado.getTitulo());
+	    notaaEditar.setContenido(notaEditado.getContenido());
+
+	    a.getNotas().remove(notaaEditar);
+	    a.getNotas().add(notaaEditar);
+
+	    alumnoService.insertarAlumno(a);
+
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
+	    
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
+		}
+	    
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
+	}
+	
+	@PostMapping("/{id}/addNota")
+	public RedirectView addNota(Model model, @ModelAttribute("notaNuevo") Nota notaNew,
+	                                 BindingResult bindingresult, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
+	    Optional<Alumno> alum = alumnoService.obtenerAlumnoPorID(id);
+
+	    if(alum.isPresent()) {
+	    Alumno a = alumnoService.obtenerAlumnoPorID(id).get();
+	  
+
+	    Nota nuevoNota = new Nota();
+	    nuevoNota.setFecha(new Date());
+	    nuevoNota.setTitulo(notaNew.getTitulo());
+	    nuevoNota.setContenido(notaNew.getContenido());
+
+	    a.getNotas().add(nuevoNota);
+	    alumnoService.insertarAlumno(a);
+
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
+	    } else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe alumno con id " + id);
+		}
+	    
+	    return new RedirectView("/entrenadorAlumno/{id}", true);
+	}
+	
+	@GetMapping("{id}/deleteNota/{notaId}")
+	RedirectView deletenota(Model model, @PathVariable Integer id, @PathVariable Integer notaId, RedirectAttributes redirectAttributes) {
+		
+		Optional<Nota> nota = notaService.obtenerNotaPorId(notaId);
+		Optional<Alumno> al = alumnoService.obtenerAlumnoPorID(id);
+		if(nota.isPresent() && al.isPresent()) {
+			Alumno alum = alumnoService.obtenerAlumnoPorID(id).get();
+		if(alum.getNotas().contains(nota.get())) {
+		Nota n = notaService.obtenerNotaPorId(notaId).get();
+		for(Alumno a: n.getAlumnos()) {
+			a = alumnoService.obtenerAlumnoPorID(id).get();
+			a.getNotas().remove(n);
+		
+		}
+
+		
+		notaService.eliminarNotaPorId(notaId);
+
+		
+		return new RedirectView("/entrenadorAlumno/{id}", true);
+		}
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "En tu cuenta no existe ejercicio con id " + notaId);
+		}
+		
+		return new RedirectView("/entrenadorAlumno/{id}", true);
+	}
+	
+	@GetMapping({"/{id}/{notaId}/verNota"})
+	String verNotaAlumno(Model model, @PathVariable Integer id, @PathVariable Integer notaId, 
+			RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		usuarioLog= obtenerLog();
+		Alumno alumnoMostrar = alumnoService.obtenerAlumnoPorID(id).get();
+		
+		Optional<Nota> nota = notaService.obtenerNotaPorId(notaId);
+		model.addAttribute("alumno",alumnoMostrar);
+		if (nota.isPresent()
+				&& alumnoMostrar.getNotas().contains(nota.get())) {
+			model.addAttribute("notaMostrar", nota.get());
+			String urlActual = request.getRequestURI();
+	        model.addAttribute("urlActual", urlActual);
+	        
+	        boolean isEntrenadorAlumnoUrl = urlActual.startsWith("/entrenadorAlumno/" + id + "/" + notaId);
+	       
+	        model.addAttribute("isEntrenadorAlumnoUrl", isEntrenadorAlumnoUrl);
+	        
+	        
+			model.addAttribute("miUsuario", usuarioLog);
+
+			return "notaVer";
+		} else {
+			redirectAttributes.addFlashAttribute("fallo", "El alumno no tiene una nota con id " + id);
+		}
+
+		
+
+		return "redirect:/entrenadorAlumno/" +id;
+
+	}
+	
 }

@@ -95,9 +95,6 @@ public class CuentaController {
 		
 		Usuario usuarioaeditar= usuarioService.obtenerUsuarioPorID(id).get();
 		
-		usuarioaeditar.setNombre(usuarioEditado.getNombre());
-		
-		usuarioaeditar.setUsername(usuarioEditado.getUsername());
 		
 		if(!file.isEmpty()) {
 			 

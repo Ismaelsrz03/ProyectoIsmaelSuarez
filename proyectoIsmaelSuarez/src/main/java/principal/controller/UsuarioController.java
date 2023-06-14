@@ -80,7 +80,6 @@ public class UsuarioController {
 		
 		usuarioaeditar.setNombre(usuarioEditado.getNombre());
 		
-		usuarioaeditar.setUsername(usuarioEditado.getUsername());
 		
 		userDetailsService.insertarUsuario(usuarioaeditar);
 		
@@ -153,8 +152,11 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/addRegistro")
-	public String addRegistro(@ModelAttribute("usuarioNuevo") UsuarioDTO usuarioNew, BindingResult bindingresult, @RequestParam("file") MultipartFile file) {
+	public String addRegistro(@ModelAttribute("newUserDTO") UsuarioDTO usuarioNew, BindingResult bindingresult, 
+			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, Model model) {
 
+		boolean duplicadoUsername = false;
+		boolean duplicadoCorreo = false;
 		if(!file.isEmpty()) {
 
 			 
@@ -169,7 +171,27 @@ public class UsuarioController {
 				e.printStackTrace();
 			}
 		}
-		userDetailsService.insertarusuarioDTO(usuarioNew);
+		ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) userDetailsService.listarUsuarios();
+		for(Usuario u: listaUsuarios) {
+			if(u.getUsername().equals(usuarioNew.getUsername())) {
+				
+				duplicadoUsername = true;
+			}
+			if(u.getCorreo().equals(usuarioNew.getCorreo())) {
+				duplicadoCorreo = true;
+			}
+		}
+		if(duplicadoUsername == false) {
+			if(duplicadoCorreo == false) {
+			userDetailsService.insertarusuarioDTO(usuarioNew);
+			} else {
+				model.addAttribute("fallo", "Ya existe un usuario con correo " +usuarioNew.getCorreo());
+				return "registro";
+			}
+		} else {
+			model.addAttribute("fallo", "Ya existe un usuario con nombre de usuario " +usuarioNew.getUsername());
+			return "registro";
+		}
 		
 		return "login";
 	}

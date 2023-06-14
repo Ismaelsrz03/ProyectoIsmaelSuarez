@@ -55,7 +55,7 @@ public class Entrenador {
 	@Column (name="ubicacion")
 	private String ubicacion;
 	
-	@Column (name="descripcion")
+	@Column (name="descripcion", length = 2000)
 	private String descripcion;
 	
 	@Column(name="insta")
@@ -100,10 +100,21 @@ public class Entrenador {
 	@JoinColumn(name= "id_usuario", nullable = true)
 	private Usuario usuarios;
 	
+	@ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "entrenadores_notas",
+			joinColumns = {@JoinColumn(name = "id_Entrenador")},
+			inverseJoinColumns = {@JoinColumn(name = "id_Nota")}
+			
+			)
+	@JsonIgnore
+	private Set<Nota> notas;
+	
 	public Entrenador() {
 		alumnos = new HashSet<Alumno>();
 		ejercicios = new HashSet<Ejercicio>();
 		rutinas = new HashSet<Rutina>();
+		notas = new HashSet<Nota>();
 		usuarios = new Usuario();
 	}
 	
@@ -131,6 +142,7 @@ public class Entrenador {
 		ejercicios = new HashSet<Ejercicio>();
 		rutinas = new HashSet<Rutina>();
 		usuarios = new Usuario();
+		notas = new HashSet<Nota>();
 	}
 
 
@@ -346,6 +358,17 @@ public class Entrenador {
 
 	public void setUsuarios(Usuario usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public Set<Nota> getNotas() {
+		return notas;
+	}
+
+
+
+
+	public void setNotas(Set<Nota> notas) {
+		this.notas = notas;
 	}
 	
 	

@@ -47,7 +47,7 @@ public class Ejercicio {
 	@Column(name="repeticiones")
 	private int reps;
 	
-	@Column(name="descripcion")
+	@Column(name="descripcion", length = 2000)
 	private String descripcion;
 	
 	@ManyToMany(mappedBy = "ejercicios", fetch = FetchType.EAGER)

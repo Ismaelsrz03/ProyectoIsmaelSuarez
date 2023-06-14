@@ -160,21 +160,21 @@ public class MainController {
 		Rol rol2 = new Rol("ROLE_USER");
 		Rol rol3 = new Rol("ROLE_ENTRENADOR");
 		
-		UsuarioDTO user1DTO = new UsuarioDTO("admin","admin","admin123",null,null,null,null,null);
+		UsuarioDTO user1DTO = new UsuarioDTO("admin","admin","admin123",null,null,null,"ekd@s.cxodf",null);
 		
-		Usuario admin = new Usuario(user1DTO.getUsername(),user1DTO.getNombre(),passwordEncoder.encode(user1DTO.getPassword()),user1DTO.getImagen(),user1DTO.getMimeType(),null,null,null);
+		Usuario admin = new Usuario(user1DTO.getUsername(),user1DTO.getNombre(),passwordEncoder.encode(user1DTO.getPassword()),user1DTO.getImagen(),user1DTO.getMimeType(),null,user1DTO.getCorreo(),null);
 		
-		UsuarioDTO u1DTO = new UsuarioDTO("Ismael","Ismael","12345",null,null,null,null,null);
-		UsuarioDTO u2DTO = new UsuarioDTO("Juan","Juan","12345",null,null,null,null,null);
-		UsuarioDTO u3DTO = new UsuarioDTO("Ana","Ana","12345",null,null,null,null,null);
-		UsuarioDTO u4DTO = new UsuarioDTO("Mario","Mario","12345",null,null,null,null,null);		
-		UsuarioDTO u5DTO = new UsuarioDTO("Luis","Luis","12345",null,null,null,null,null);
+		UsuarioDTO u1DTO = new UsuarioDTO("Ismael","Ismael","12345",null,null,null,"ekd@s.cxodf0",null);
+		UsuarioDTO u2DTO = new UsuarioDTO("Juan","Juan","12345",null,null,null,"ekd@s.cxodf1",null);
+		UsuarioDTO u3DTO = new UsuarioDTO("Ana","Ana","12345",null,null,null,"ekd@s.cxodf2",null);
+		UsuarioDTO u4DTO = new UsuarioDTO("Mario","Mario","12345",null,null,null,"ekd@s.cxodf3",null);		
+		UsuarioDTO u5DTO = new UsuarioDTO("Luis","Luis","12345",null,null,null,"ekd@s.cxodf4",null);
 		
-		Usuario u1 = new Usuario(u1DTO.getUsername(),u1DTO.getNombre(),passwordEncoder.encode(u1DTO.getPassword()),u1DTO.getImagen(),u1DTO.getMimeType(),null,null,null);
-		Usuario u2 = new Usuario(u2DTO.getUsername(),u2DTO.getNombre(),passwordEncoder.encode(u2DTO.getPassword()),u2DTO.getImagen(),u2DTO.getMimeType(),null,null,null);
-		Usuario u3 = new Usuario(u3DTO.getUsername(),u3DTO.getNombre(),passwordEncoder.encode(u3DTO.getPassword()),u3DTO.getImagen(),u3DTO.getMimeType(),null,null,null);
-		Usuario u4 = new Usuario(u4DTO.getUsername(),u4DTO.getNombre(),passwordEncoder.encode(u4DTO.getPassword()),u4DTO.getImagen(),u4DTO.getMimeType(),null,null,null);
-		Usuario u5 = new Usuario(u5DTO.getUsername(),u5DTO.getNombre(),passwordEncoder.encode(u5DTO.getPassword()),u5DTO.getImagen(),u5DTO.getMimeType(),null,null,null);
+		Usuario u1 = new Usuario(u1DTO.getUsername(),u1DTO.getNombre(),passwordEncoder.encode(u1DTO.getPassword()),u1DTO.getImagen(),u1DTO.getMimeType(),null,u1DTO.getCorreo(),null);
+		Usuario u2 = new Usuario(u2DTO.getUsername(),u2DTO.getNombre(),passwordEncoder.encode(u2DTO.getPassword()),u2DTO.getImagen(),u2DTO.getMimeType(),null,u2DTO.getCorreo(),null);
+		Usuario u3 = new Usuario(u3DTO.getUsername(),u3DTO.getNombre(),passwordEncoder.encode(u3DTO.getPassword()),u3DTO.getImagen(),u3DTO.getMimeType(),null,u3DTO.getCorreo(),null);
+		Usuario u4 = new Usuario(u4DTO.getUsername(),u4DTO.getNombre(),passwordEncoder.encode(u4DTO.getPassword()),u4DTO.getImagen(),u4DTO.getMimeType(),null,u4DTO.getCorreo(),null);
+		Usuario u5 = new Usuario(u5DTO.getUsername(),u5DTO.getNombre(),passwordEncoder.encode(u5DTO.getPassword()),u5DTO.getImagen(),u5DTO.getMimeType(),null,u5DTO.getCorreo(),null);
 		
 		u1.getAlumnos().add(a1);
 		a1.setUsuarios(u1);
