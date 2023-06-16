@@ -34,14 +34,12 @@
                 <a class="nav-link text-white" href="/">Inicio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="#">Servicios</a>
+                <a class="nav-link text-white" href="/servicios">Servicios</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="#">Blogs</a>
+                <a class="nav-link text-white" href="/blogs">Blogs</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">Opiniones</a>
-            </li>
+   
         </ul>
         <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0 m-3 d-flex flex-row justify-content-center">
             <a class="btn bg-success m-1 my-2 my-sm-0 text-white" href="/login">Iniciar</a>
@@ -67,11 +65,19 @@
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                          aria-labelledby="userDropdown" style="width: 200px;">
-                        <a class="dropdown-item" href="/contrasena">
+                        <a class="dropdown-item" href="/contrasena" sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <i class="fas fa-lock fa-sm fa-fw mr-3 text-gray-600"></i>
                             Contraseña
                         </a>
-                        <a class="dropdown-item" href="/cuenta">
+                        <a class="dropdown-item" href="/cuenta" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <i class="fas fa-address-card fa-sm fa-fw mr-3 text-gray-600"></i>
+                            Configurar datos
+                        </a>
+                        <a class="dropdown-item" href="/perfilAlumno" sec:authorize="hasAuthority('ROLE_USER')">
+                            <i class="fas fa-address-card fa-sm fa-fw mr-3 text-gray-600"></i>
+                            Configurar datos
+                        </a>
+                        <a class="dropdown-item" href="/perfilEntrenador" sec:authorize="hasAuthority('ROLE_ENTRENADOR')">
                             <i class="fas fa-address-card fa-sm fa-fw mr-3 text-gray-600"></i>
                             Configurar datos
                         </a>

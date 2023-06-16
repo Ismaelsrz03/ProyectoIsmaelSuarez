@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="librerias::librerias">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog de Entrenamientos</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        /* Estilos para dispositivos móviles */
+        @media screen and (max-width: 767px) {
+            .container {
+                padding: 10px;
+            }
+        }
+        /* Estilos para tablets y escritorios */
+        @media screen and (min-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .blog-post {
+                display: flex;
+            }
+            .blog-post img {
+                flex: 0 0 200px;
+                margin-right: 20px;
+            }
+            .blog-post .content {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+	<header>
+<div th:insert="menu::menu"></div>
+</header>
+    <div class="container">
+        <h1>Blogs</h1>
+
+        <div class="blog-post">
+            <img src="/Imagenes/gym.jpg" alt="Imagen del blog 1">
+            <div class="content">
+                <h2>¡Comienza a Ponerte en Forma!</h2>
+                <p>«…Levantarse del sofá, dejar los refrescos azucarados, la bollería industrial,… y ponerse el chándal, colocarse los auriculares MP3 y salir a correr…»
+
+Parece un guion fácil, pero en muchos casos hay que tener verdadera fuerza de voluntad para lograrlo.
+
+Este post va dirigido a quienes aun no están por la labor de mantener una vida deportiva, es decir, una vida saludable.
+
+También para aquellos que han sido intermitentes con dicho estilo de vida, para que una vez por todas den el paso definitivo y establezcan este vínculo con los buenos hábitos.</p>
+            </div>
+        </div>
+
+        <div class="blog-post">
+            <img src="/Imagenes/deporte.jpg" alt="Imagen del blog 2">
+            <div class="content">
+                <h2>Consejos para Mejorar tu Entrenamiento</h2>
+                <p>Si mediante el programa de entrenamiento que llevas hace tiempo, no observas ninguna variación, te encuentras «algo» estancado, tan sólo añade las recomendaciones que te digo, sin modificar nada más. Ponlo en marcha y observa la evolución!</p>
+            </div>
+        </div>
+
+        <div class="blog-post">
+            <img src="/Imagenes/suplementos.webp" alt="Imagen del blog 3">
+            <div class="content">
+                <h2>Top Suplementos para el Fitness</h2>
+                <p>Todos los que estamos leyendo esto sabemos que los suplementos deportivos sirven para suplir una carencia en la alimentación, nunca para sustituir ningún alimento. Una correcta alimentación con una buena suplementación te ayudará a conseguir tus metas deportivas. Por ello te presentamos los mejores suplementos para el Fitness.
+
+Un suplemento por sí mismo no tienen ningún efecto milagroso, ni mucho menos, y de hecho si la alimentación no es lo más correcta no te va a servir de nada que tomes cualquier suplemento que exista en el mercado.</p>
+            </div>
+        </div>
+
+        <div class="blog-post">
+            <img src="/Imagenes/plan.webp" style="width: 278px;height: 181px;" alt="Imagen del blog 4">
+            <div class="content">
+                <h2>Planificación Deportiva: Optimiza el Rendimiento</h2>
+                <p>La gran mayoría de las personas que están leyendo esto habrán establecido una relación perfectamente lógica y su elección esté probablemente relacionada con las palabras salud o estética.
+
+Perfecto, no hay nada más importante que la salud y reconozcámoslo. A todos nos gusta mirarnos al espejo y vernos en forma.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

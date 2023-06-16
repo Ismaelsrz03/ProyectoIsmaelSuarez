@@ -120,7 +120,7 @@
 
 				<div class="card-body">
 					<h5 class="card-title">Objetivos: <span th:text="${alumno.objetivos}"></span></h5>
-					<p class="card-text">Descripción: <spanth:text="${alumno.descripcion}"></span></p>
+					<p class="card-text">Descripción: <span th:text="${alumno.descripcion}"></span></p>
 					<a th:attr="data-target='#modal-delete'+${alumno.id}" data-toggle="modal"
 						data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
 						<a th:href="@{/entrenadorAlumno/{id}(id=${alumno.id})}" class="btn btn-primary btn-sm text-white pointer">Ver</a>

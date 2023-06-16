@@ -22,15 +22,13 @@ public class LoginController {
 	@Autowired
 	private UsuarioServiceImpl usuarioService;
 	
-	private boolean tablasCreadas = false;
 	
 	@GetMapping(value= {"","/"})
 	String homelogin(Model model) {
 		
-		if(tablasCreadas==false && usuarioService.listarUsuarios().isEmpty()) {
+		if(usuarioService.listarUsuarios().isEmpty()) {
 			MainController m = new MainController();
 			m.crearTablas();
-			tablasCreadas = true;
 		}
 		
 		return "login";

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="librerias::librerias">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog de Entrenamientos</title>
+    
+</head>
+<body>
+	<header>
+<div th:insert="menu::menu"></div>
+</header>
+    <div class="container">
+        <h1>Blogs</h1>
+
+        <section class="d-flex flex-column justify-content-around">
+            <div class="row m-3">
+                <div class="col-lg-5 col-sm-5 col-xs-12 d-xs-flex d-sm-flex align-items-center">
+                    <img class="img-fluid d-block mx-auto" src="/Imagenes/ServiciosAlumnos.png" alt="">
+                </div>
+                <div class="col-lg-7 col-sm-7 col-xs-12 p-5 mx-auto">
+                    <h2>Busca tus propios alumnos</h2>
+                    <p>Puedes buscar alumnos y tener una lista con su nombre y apellidos, descripción y objetivos.</p>
+                    <ul>
+                        <li>Puedes añadir, editar, borrar y ver sus ejercicios y rutinas. </li>
+                        <li>Puedes ver su perfil para saber como entrenar a tu alumno</li>
+                        <li>Puedes ver los progresos de tu alumno y mandarle notas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row m-3 mt-5">
+                <div class="col-lg-7 col-sm-7 col-xs-12 p-5 mx-auto order-2 order-lg-1 order-sm-1">
+                    <h2>Crea y guarda tus ejercicios</h2>
+                    <p>Tienes la posibilidad de crear, editar, borrar, ver y guardar tus propios ejercicios.</p>
+                        <p>Además, puedes elegir que ejercicios quieres enviar a tus alumnos.</p>
+                            <p>Todos los ejercicios que tienes guardados tienen la posibilidad de ser añadidos a una rutina.</p>
+                </div>
+                <div class="col-lg-5 col-sm-5 col-xs-12 d-xs-flex d-sm-flex align-items-center order-1 order-lg-2 order-sm-2">
+                    <img class="img-fluid d-block mx-auto" src="/Imagenes/servicioEjercicios.png" alt="">
+                </div>
+            </div>
+            <div class="row m-3 mt-5">
+                <div class="col-lg-5 col-sm-5 col-xs-12 d-xs-flex d-sm-flex align-items-center">
+                    <img class="img-fluid d-block mx-auto" src="/Imagenes/serviciosRutinas.png" alt="">
+                </div>
+                <div class="col-lg-7 col-sm-7 col-xs-12 p-5 mx-auto">
+                    <h2>Crea y guarda tus rutinas</h2>
+                    <p>Tienes la posibilidad de crear, editar, borrar, ver y guardar tus propias rutinas/p>
+                        <p>Además, puedes elegir que rutinas quieres enviar a tus alumnos.</p>
+                            <p>Todos los ejercicios que tienes guardados tienen la posibilidad de ser añadidos a una rutina. Dentro de la rutina también puedes seleccionar que ejercicios quieres añadir.</p>
+                </div>
+            </div>
+            <div class="row m-3 mt-5">
+                <div class="col-lg-7 col-sm-7 col-xs-12 p-5 mx-auto order-2 order-lg-1 order-sm-1">
+                    <h2>Progresos del alumno</h2>
+                    <p>Puedes crear progresos con los ejercicios realizados y apuntar tus avances</p>
+                        <p>Tus progresos pueden ser vistos por tu entrenador.</p>
+                            <p>Además, tu entrenador te puede enviar notas para mejorar el seguimiento del entrenamiento.</p>
+                </div>
+                <div class="col-lg-5 col-sm-5 col-xs-12 d-xs-flex d-sm-flex align-items-center order-1 order-lg-2 order-sm-2">
+                    <img class="img-fluid d-block mx-auto" src="/Imagenes/serviciosProgresos.png" alt="">
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

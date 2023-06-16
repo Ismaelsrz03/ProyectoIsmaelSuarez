@@ -69,13 +69,14 @@ public Ejercicio() {
 	rutinas = new HashSet<Rutina>();
 	}
 	
-	public Ejercicio(String n, int s, int r, String des, String img, String mime) {
+	public Ejercicio(String n, int s, int r, String des, String img, String mime, String vid) {
 		nombre = n;
 		series = s;
 		reps = r;
 		descripcion = des;
 		imagen = img;
 		mimeType = mime;
+		video = vid;
 		entrenadores = new HashSet<Entrenador>();
 		alumnos = new HashSet<Alumno>();
 		rutinas = new HashSet<Rutina>();

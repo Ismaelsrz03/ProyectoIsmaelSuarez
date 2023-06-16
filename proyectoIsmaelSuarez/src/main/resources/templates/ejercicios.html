@@ -167,7 +167,7 @@
 	 
 	 <div class="form-group mt-1">
 	 <label for="texto">Nombre</label>
-	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" th:attr="placeholder=${ejercicio.nombre}"/>
+	 <input type="text" th:field="*{nombre}" class="form-control" id="nombreInput" th:attr="placeholder=${ejercicio.nombre}"/>
 	 
 	 </div>
 	 
@@ -186,9 +186,9 @@
 	 
 	 <div class="form-group mt-1">
 	 <label for="texto">Series</label>
-	 <input type="number" th:field="*{series}" class="form-control" placeholder"1"/>
+	 <input type="number" th:field="*{series}" class="form-control" id="seriesInput" placeholder"1"/>
 	 <label for="texto">Repeticiones</label>
-	  <input type="number" th:field="*{reps}" class="form-control" placeholder"1"/> 
+	  <input type="number" th:field="*{reps}" class="form-control" id="repeticionesInput" placeholder"1"/> 
 	 </div>
 	 
 	 </div>
@@ -280,7 +280,7 @@
 	 
 	 <div class="form-group mt-1">
 	 <label for="texto">Nombre</label>
-	 <input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre"/>
+	 <input type="text" th:field="*{nombre}" class="form-control" id="nombreInput" placeholder="Insertar nombre"/>
 	 
 	 </div>
 	 
@@ -299,9 +299,9 @@
 	 
 	 <div class="form-group mt-1">
 	 <label for="texto">Series</label>
-	 <input type="number" th:field="*{series}" class="form-control" placeholder"1"/>
+	 <input type="number" th:field="*{series}" class="form-control" id="seriesInput" placeholder"1"/>
 	 <label for="texto">Repeticiones</label>
-	  <input type="number" th:field="*{reps}" class="form-control" placeholder"1"/> 
+	  <input type="number" th:field="*{reps}" class="form-control" id="repeticionesInput" placeholder"1"/> 
 	 </div>
 	 
 	 </div>
