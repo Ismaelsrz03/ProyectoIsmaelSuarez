@@ -108,6 +108,7 @@ public class CuentaController {
 				e.printStackTrace();
 			}
 		}
+		usuarioaeditar.setCorreo(usuarioEditado.getCorreo());
 		
 		usuarioService.insertarUsuario(usuarioaeditar);
 		

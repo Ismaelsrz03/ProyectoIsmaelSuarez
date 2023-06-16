@@ -173,9 +173,10 @@
       </div>
        <div class="col-lg-6 col-md-6 col-sm-12 order-1 order-md-2">
 		   <div class="image-container mb-3" style="height: 300px;">
-        <img th:if="${ejerMostrar.imagen == null}" src="/Imagenes/defecto.png" class="mb-3" alt="Imagen" style="width: 100%; height: 100%;">
-        <img th:if="${ejerMostrar.imagen != null}" th:src="@{'data:'+${ejerMostrar.getMimeType()}+';base64,'+${ejerMostrar.getImagen()}}" class="mb-3" alt="Imagen" style="width: 100%; height: 100%;">
-		   </div>      
+         <iframe th:if="${ejerMostrar.video!=''}" style="width: 100%;height: 100%;" th:src="${ejerMostrar.video}" title="video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <img th:if="${ejerMostrar.imagen == null and ejerMostrar.video == ''}" src="/Imagenes/defecto.png" class="mb-3" alt="Imagen" style="width: 100%; height: 100%;">
+        <img th:if="${ejerMostrar.imagen != null and ejerMostrar.video==''}" th:src="@{'data:'+${ejerMostrar.getMimeType()}+';base64,'+${ejerMostrar.getImagen()}}" class="mb-3" alt="Imagen" style="width: 100%; height: 100%;">
+		   </div>    
       </div>
     </div>
     <div th:if="${isAlumnoRutinaUrl}" th:object="${rutinaMostrar}">
@@ -226,8 +227,9 @@
       </div>
        <div class="col-lg-6 col-md-6 col-sm-12 order-1 order-md-2">
 		   <div class="image-container mb-3" style="height: 300px;">
-        <img th:if="${ejerMostrar.imagen == null}" src="/Imagenes/defecto.png" class="mb-3" alt="Imagen" style="width: 100%; height: 100%;">
-        <img th:if="${ejerMostrar.imagen != null}" th:src="@{'data:'+${ejerMostrar.getMimeType()}+';base64,'+${ejerMostrar.getImagen()}}" class="mb-3" alt="Imagen" style="width: 100%; height: 100%;">
+         <iframe th:if="${ejerMostrar.video!=''}" style="width: 100%;height: 100%;" th:src="${ejerMostrar.video}" title="video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <img th:if="${ejerMostrar.imagen == null and ejerMostrar.video == ''}" src="/Imagenes/defecto.png" class="mb-3" alt="Imagen" style="width: 100%; height: 100%;">
+        <img th:if="${ejerMostrar.imagen != null and ejerMostrar.video==''}" th:src="@{'data:'+${ejerMostrar.getMimeType()}+';base64,'+${ejerMostrar.getImagen()}}" class="mb-3" alt="Imagen" style="width: 100%; height: 100%;">
 		   </div>      
       </div>
     </div>

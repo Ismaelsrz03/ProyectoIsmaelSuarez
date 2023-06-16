@@ -50,6 +50,9 @@ public class Ejercicio {
 	@Column(name="descripcion", length = 2000)
 	private String descripcion;
 	
+	@Column(name="linkYt")
+	private String video;
+	
 	@ManyToMany(mappedBy = "ejercicios", fetch = FetchType.EAGER)
 	private Set<Entrenador> entrenadores;
 	
@@ -160,6 +163,14 @@ public Ejercicio() {
 
 	public void setRutinas(Set<Rutina> rutinas) {
 		this.rutinas = rutinas;
+	}
+
+	public String getVideo() {
+		return video;
+	}
+
+	public void setVideo(String video) {
+		this.video = video;
 	}
 	
 	

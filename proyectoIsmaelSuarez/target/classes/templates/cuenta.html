@@ -105,6 +105,16 @@
 	 
 	 </div>
 	 
+	 <div class="form-row">
+	 
+	 <div class="form-group mt-1">
+	 <label for="texto">Correo</label>
+	 <input type="email" th:field="*{correo}" class="form-control" id="exampleInputEmail1"/>
+	 
+	 </div>
+	 
+	 </div>
+	 
 	 </div>
 	 <div class="modal-footer">
 	 <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
@@ -175,6 +185,7 @@
 </section>
         </div>
 </div>
+<div class="alerta" th:if="${fallo}">[[${fallo}]]</div>
 </div>
  <script>
 	$(document).ready(function () {

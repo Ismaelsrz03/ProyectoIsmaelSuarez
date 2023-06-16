@@ -4,12 +4,9 @@
 </head>
 <body>
 
-<main  style="background-image: url(/Imagenes/405.png); background-repeat: no-repeat; background-position: center;background-size: cover;height: 100vh;">
-<div class="d-flex justify-content-center align-items-end" style="height: 80%; width: 100%;">
+<main style="background-image: url(/Imagenes/405.png); background-repeat: no-repeat; background-position: center;background-size: cover;height: 100vh;">
+<div class="d-flex justify-content-center align-items-end" style="height:78%; width: 100%;">
 <div class="text-center text-white d-flex flex-column align-items-start justify-content-between" style="height: 165px;margin-left: 5%;">
-<div style="width: 20%;">
-	<a href="/" class="btn btn-dark" style="width: 100%;">Volver</a>
-</div>
 <div>
 	<h1 style="font-family: Comic Sans MS;">SOLICITUD NO PERMITIDA</h1>
 </div>
@@ -18,20 +15,10 @@
 </div>
 </main>
 <script>
-	const windowWidth = window.innerWidth;
-
-const windowHeight = window.innerHeight;
-
-const body = document.querySelector("body");
- 
- body.addEventListener("click",()=>{
-	 
-console.log("Ancho de la ventana:", windowWidth);
-
-console.log("Alto de la ventana:", windowHeight);
- })
-
-// Imprime los valores en la consola
-
+	let body = document.querySelectorAll("body")[0];
+	body.addEventListener("click",()=>{
+		window.location.href="/";
+	})
+	
 </script>
 </body>

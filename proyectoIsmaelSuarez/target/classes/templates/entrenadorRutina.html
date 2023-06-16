@@ -280,7 +280,7 @@
 	<p class="error-text"> Selecciona las rutinas y los alumnos a los que envías las rutinas:</p>
 	
 	
-	<form action="#" th:action="@{/entrenadorRutina/enviarRutina/}" th:object="${rutinaNuevo}" method="post">
+	<form action="#" th:action="@{/entrenadorRutina/enviarRutina/}" th:object="${rutinaNuevo}" method="post" onsubmit="return enviarRutinas()">
   <div class="form-row">
       <div class="form-group">
         <label for="alumnos">Seleccionar alumnos:</label>
@@ -301,7 +301,7 @@
 	 </div>
   <div class="modal-footer">
     <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-    <input type="submit" value="Crear Rutina" class="btn btn-primary float-right"/>
+    <input type="submit" value="Enviar rutinas" class="btn btn-primary float-right"/>
   </div>
 </form>
 	
@@ -327,5 +327,15 @@
                 $('#sidebar').toggleClass('active');
             });
         });
+          function enviarRutinas() {
+        var selectAlumnos = document.getElementById("alumnos");
+        var selectRutinas = document.getElementById("rutinas");
+        var alerta = document.querySelector(".alerta");
+        
+        if (selectAlumnos.selectedIndex === -1 || selectRutinas.selectedIndex === -1) {
+            alert("Debes seleccionar al menos un alumno y una rutina.");
+            return false; // Evita que se envíe el formulario
+        }
+    }
 </script>
 </body>

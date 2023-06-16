@@ -18,20 +18,10 @@
 </div>
 </main>
 <script>
-	const windowWidth = window.innerWidth;
-
-const windowHeight = window.innerHeight;
-
-const body = document.querySelector("body");
- 
- body.addEventListener("click",()=>{
-	 
-console.log("Ancho de la ventana:", windowWidth);
-
-console.log("Alto de la ventana:", windowHeight);
- })
-
-// Imprime los valores en la consola
-
+	let body = document.querySelectorAll("body")[0];
+	body.addEventListener("click",()=>{
+		window.location.href="/";
+	})
+	
 </script>
 </body>

@@ -197,6 +197,15 @@ public class EntrenadorRutinaController {
                      copiaEjercicio.setReps(ejercicio.getSeries());
                      copiaEjercicio.setImagen(ejercicio.getImagen());
                      copiaEjercicio.setMimeType(ejercicio.getMimeType());
+                     
+                     String enlace = ejercicio.getVideo();
+             		if (enlace.contains("youtube.com/watch?v=")) {
+             		    int indice = enlace.lastIndexOf("=");
+             		    String nuevoEnlace = "https://www.youtube.com/embed/" + enlace.substring(indice + 1);
+             		    copiaEjercicio.setVideo(nuevoEnlace);
+             		} else {
+             		    copiaEjercicio.setVideo(enlace);
+             		}
                      // Copiar otros atributos relevantes del ejercicioç
                      ejercicioService.insertarEjercicio(copiaEjercicio);
                      // Agregar el ejercicio a la copia de la rutina

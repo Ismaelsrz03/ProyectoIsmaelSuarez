@@ -135,6 +135,15 @@ public class EntrenadorEjercicioController {
 	    e.setReps(ejercicioEditado.getReps());
 	    e.setSeries(ejercicioEditado.getSeries());
 	    e.setDescripcion(ejercicioEditado.getDescripcion());
+	    
+	    String enlace = ejercicioEditado.getVideo();
+		if (enlace.contains("youtube.com/watch?v=")) {
+		    int indice = enlace.lastIndexOf("=");
+		    String nuevoEnlace = "https://www.youtube.com/embed/" + enlace.substring(indice + 1);
+		    e.setVideo(nuevoEnlace);
+		} else {
+		    e.setVideo(enlace);
+		}
 
 	    if (!file.isEmpty()) {
 	        try {
@@ -172,6 +181,16 @@ public class EntrenadorEjercicioController {
 				e.printStackTrace();
 			}
 		}
+		
+		String enlace = ejercicioNew.getVideo();
+		if (enlace.contains("youtube.com/watch?v=")) {
+		    int indice = enlace.lastIndexOf("=");
+		    String nuevoEnlace = "https://www.youtube.com/embed/" + enlace.substring(indice + 1);
+		    ejercicioNew.setVideo(nuevoEnlace);
+		} else {
+		    ejercicioNew.setVideo(enlace);
+		}
+
 	    
 	    ejercicioNew.setEntrenadores(Collections.singleton(entrenadorUsuario));
 	    
@@ -202,7 +221,14 @@ public class EntrenadorEjercicioController {
                 copiaEjercicio.setImagen(ejercicio.getImagen());
                 copiaEjercicio.setMimeType(ejercicio.getMimeType());
 	            // Copiar otros atributos relevantes del ejercicio
-
+                String enlace = ejercicio.getVideo();
+        		if (enlace.contains("youtube.com/watch?v=")) {
+        		    int indice = enlace.lastIndexOf("=");
+        		    String nuevoEnlace = "https://www.youtube.com/embed/" + enlace.substring(indice + 1);
+        		    copiaEjercicio.setVideo(nuevoEnlace);
+        		} else {
+        		    copiaEjercicio.setVideo(enlace);
+        		}
 	            // Guardar el ejercicio en la base de datos y obtener su ID
 	            ejercicioService.insertarEjercicio(copiaEjercicio);
 

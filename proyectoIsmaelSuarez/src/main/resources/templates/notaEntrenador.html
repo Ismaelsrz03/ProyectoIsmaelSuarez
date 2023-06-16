@@ -225,7 +225,7 @@
 	<p class="error-text">Selecciona las notas y los alumnos a los que quieres enviar notas</p>
 	
 	
-	<form action="#" th:action="@{/notaEntrenador/enviarNota}" th:object="${notaNuevo}" method="post" enctype="multipart/form-data">
+	<form action="#" th:action="@{/notaEntrenador/enviarNota}" th:object="${notaNuevo}" method="post" enctype="multipart/form-data" onsubmit="return enviarNotas()">
   <div class="form-row">
       <div class="form-group">
         <label for="alumnos">Seleccionar alumnos:</label>
@@ -247,7 +247,7 @@
 
   <div class="modal-footer">
     <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-    <input type="submit" value="Enviar Ejercicios" class="btn btn-primary float-right"/>
+    <input type="submit" value="Enviar notas" class="btn btn-primary float-right"/>
   </div>
 </form>
 	
@@ -313,7 +313,16 @@
 </main>
 <div class="alerta" th:if="${fallo}">[[${fallo}]]</div>
 <script>
-
+  function enviarNotas() {
+        var selectAlumnos = document.getElementById("alumnos");
+        var selectNotas = document.getElementById("notas");
+        var alerta = document.querySelector(".alerta");
+        
+        if (selectAlumnos.selectedIndex === -1 || selectNotas.selectedIndex === -1) {
+            alert("Debes seleccionar al menos un alumno y una nota.");
+            return false; // Evita que se envíe el formulario
+        }
+    }
 </script>
 </script>
 </body>
